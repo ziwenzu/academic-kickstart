@@ -4,38 +4,39 @@ title: Nelson Bighetti
 
 # Username (this should match the folder name)
 authors:
-- admin
+- ziwen
 
 # Is this the primary user of the site?
 superuser: true
 
 # Role/position
-role: Professor of Artificial Intelligence
+role: Political Science Ph.D. student
 
 # Organizations/Affiliations
 organizations:
-- name: Stanford University
+- name: University of California, San Diego
   url: ""
 
 # Short bio (displayed in user profile at end of posts)
 bio: My research interests include distributed robotics, mobile computing and programmable matter.
 
 interests:
-- Artificial Intelligence
-- Computational Linguistics
-- Information Retrieval
+- Authoritarian Politics
+- International Political Economy
+- Statistical Methedology
+- Violence and Conflicts
 
 education:
   courses:
   - course: PhD in Artificial Intelligence
-    institution: Stanford University
-    year: 2012
-  - course: MEng in Artificial Intelligence
-    institution: Massachusetts Institute of Technology
-    year: 2009
-  - course: BSc in Artificial Intelligence
-    institution: Massachusetts Institute of Technology
-    year: 2008
+    institution: University of California, San Diego
+    year: exp. 2025 
+  - course: M.A. in Political Science
+    institution: Duke Technology
+    year: 2020
+  - course: B.A. in Public Policy
+    institution: Sun Yat-Sen University
+    year: 2018
 
 # Social/Academic Networking
 # For available icons, see: https://sourcethemes.com/academic/docs/page-builder/#icons
