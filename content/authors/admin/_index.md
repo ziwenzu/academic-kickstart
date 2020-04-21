@@ -10,11 +10,11 @@ authors:
 superuser: true
 
 # Role/position
-role: Political Science Ph.D. student
+role: Ph.D. student in Political Science 
 
 # Organizations/Affiliations
 organizations:
-- name: University of California, San Diego
+- name: University of California San Diego
   url: ""
 
 # Short bio (displayed in user profile at end of posts)
@@ -71,6 +71,5 @@ user_groups:
 - Visitors
 ---
 
-Ziwen Zu is a Ph.D. student of political science at the UCSD. His research encompasses a range of topics including political institutions,  international political economy, violence and conflicts as well as statistical methodology. His research regionally focuses on China and global south.
+Ziwen Zu is a Ph.D. student in political science at University of California, San Diego (UCSD). His research encompasses a range of topics including political institutions, international political economy, violence and conflicts as well as statistical methodology. His research regionally focuses on China and global south. He is trained as a comparativist and applied methodologist.
 
-He spent childhood in China, holding a B.A. in public policy from Sun [Yat-Sen University](https://en.wikipedia.org/wiki/Sun_Yat-sen_University). After finishing undergraduate study, he went to Duke University where he earned an [M.A. in Political Science](https://polisci.duke.edu/graduate/ma) under the supervision of [Melanie Manion](https://sites.duke.edu/melaniemanion/)
