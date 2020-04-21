@@ -1,6 +1,6 @@
 ---
 # Display name
-title: Ziwen Zu
+title: Ziwen Zu (祖梓文)
 
 # Username (this should match the folder name)
 authors:
@@ -22,13 +22,13 @@ bio: My research interests include distributed robotics, mobile computing and pr
 
 interests:
 - Authoritarian Politics
-- International Political Economy
 - Statistical Methedology
 - Violence and Conflicts
+- International Political Economy
 
 education:
   courses:
-  - course: PhD in Artificial Intelligence
+  - course: PhD in Political Science
     institution: University of California, San Diego
     year: exp. 2025 
   - course: M.A. in Political Science
@@ -71,6 +71,6 @@ user_groups:
 - Visitors
 ---
 
-Nelson Bighetti is a professor of artificial intelligence at the Stanford AI Lab. His research interests include distributed robotics, mobile computing and programmable matter. He leads the Robotic Neurobiology group, which develops self-reconfiguring robots, systems of self-organizing robots, and mobile sensor networks.
+Ziwen Zu is a professor of artificial intelligence at the Stanford AI Lab. His research interests include distributed robotics, mobile computing and programmable matter. He leads the Robotic Neurobiology group, which develops self-reconfiguring robots, systems of self-organizing robots, and mobile sensor networks.
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate.
