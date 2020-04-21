@@ -61,7 +61,7 @@ social:
 - icon: cv
   icon_pack: ai
   link: files/cv.pdf
-- icon: Linkedin
+- icon: linkedin
   icon_pack: fab
   link: https://www.linkedin.com/in/ziwen-zu-59a964104/
 
