@@ -61,6 +61,9 @@ social:
 - icon: cv
   icon_pack: ai
   link: files/cv.pdf
+- icon: Linkedin
+  icon_pack: fab
+  link: https://www.linkedin.com/in/ziwen-zu-59a964104/
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
 email: ""
