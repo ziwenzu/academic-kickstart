@@ -71,6 +71,6 @@ user_groups:
 - Visitors
 ---
 
-Ziwen Zu is a professor of artificial intelligence at the Stanford AI Lab. His research interests include distributed robotics, mobile computing and programmable matter. He leads the Robotic Neurobiology group, which develops self-reconfiguring robots, systems of self-organizing robots, and mobile sensor networks.
+Ziwen Zu is a Ph.D. student of political science at the UCSD. His research encompasses a range of topics including political institutions,  international political economy, violence and conflicts as well as statistical methodology. His research regionally focuses on China and global south.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate.
+He spent childhood in China, holding a B.A. in public policy from Sun [Yat-Sen University](https://en.wikipedia.org/wiki/Sun_Yat-sen_University). After finishing undergraduate study, he went to Duke University where he earned an [M.A. in Political Science](https://polisci.duke.edu/graduate/ma) under the supervision of [Melanie Manion](https://sites.duke.edu/melaniemanion/)
