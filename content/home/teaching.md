@@ -5,12 +5,12 @@ headless = true  # This file represents a page section.
 active = true  # Activate this widget? true/false
 weight = 65  # Order that this section will appear.
 
-title = "Projects"
+title = "Teaching"
 subtitle = ""
 
 [content]
   # Page type to display. E.g. project.
-  page_type = "project"
+  page_type = "post"
   
   # Filter toolbar (optional).
   # Add or remove as many filters (`[[content.filter_button]]` instances) as you like.
@@ -74,4 +74,7 @@ subtitle = ""
  # CSS class.
  css_class = ""
 +++
+-Sun Yat-Sen University
+ Mentor, Linear Algebra, 2015 Fall
+
 
