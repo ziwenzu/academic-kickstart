@@ -10,7 +10,7 @@
 
 [[main]]
   name = "Research"
-  url = "/research"
+  url = "/publications"
   weight = 20
 [[main]]
   name = "CV"
