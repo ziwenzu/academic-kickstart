@@ -5,7 +5,7 @@ headless = true  # This file represents a page section.
 active = false  # Activate this widget? true/false
 weight = 65  # Order that this section will appear.
 
-title = "Teaching"
+title = ""
 subtitle = ""
 
 [content]
@@ -74,6 +74,6 @@ subtitle = ""
  # CSS class.
  css_class = ""
 +++
-Sun Yat-Sen University: Mentor, `Linear Algebra`, `English Camp`, 2015 Fall, 2016 Spring
+Sun Yat-Sen University: Mentor, Linear Algebra, English Camp, 2015 Fall, 2016 Spring
 
 
