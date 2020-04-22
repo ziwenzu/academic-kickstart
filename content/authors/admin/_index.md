@@ -32,7 +32,7 @@ education:
     institution: University of California, San Diego
     year: exp. 2025 
   - course: M.A. in Political Science
-    institution: Duke Technology
+    institution: Duke University
     year: 2020
   - course: B.A. in Public Policy
     institution: Sun Yat-Sen University
