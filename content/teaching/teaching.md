@@ -2,7 +2,7 @@
 # Experience widget.
 widget = "experience"  # See https://sourcethemes.com/academic/docs/page-builder/
 headless = true  # This file represents a page section.
-active = true  # Activate this widget? true/false
+active = false  # Activate this widget? true/false
 weight = 40  # Order that this section will appear.
 
 title = ""
@@ -42,3 +42,5 @@ date_format = "Jan 2006"
   description = """Taught electronic engineering and researched semiconductor physics."""
 
 +++
+Sun Yat-Sen University: Math Camp (Mentor, 2015 Fall); English Camp (Mentor, 2016 Spring)
+
