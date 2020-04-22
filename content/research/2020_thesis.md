@@ -14,5 +14,3 @@ url_pdf = "abstract/abstract_thesis.pdf"
 url_slides = "slides/defense.pdf"
 url_video = ""
 +++
-* [test](www.google.com)
-* second paper
