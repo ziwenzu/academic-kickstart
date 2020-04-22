@@ -17,9 +17,9 @@ url_dataset = ""
 url_slides = "slides/defense.pdf"
 url_video = ""
 
-#[[url_custom]]
-#name = "View Journal Article"
-#url = "http://link.springer.com/article/10.3758/BF03196739"
+[[url_custom]]
+name = "View Journal Article"
+url = "http://link.springer.com/article/10.3758/BF03196739"
 
 # Optional featured image (relative to `static/img/` folder).
 [header]
