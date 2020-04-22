@@ -15,7 +15,7 @@ url_dataset = ""
 #url_project = ""
 url_slides = "slides/defense.pdf"
 url_video = ""
-url_abstract = "
+url_abstract = "abstract/abstract_thesis.pdf"
 [[url_custom]]
 name = "View Journal Article"
 url = "http://link.springer.com/article/10.3758/BF03196739"
