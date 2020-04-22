@@ -3,5 +3,5 @@ header:
   caption: ""
   image: ""
 title: ""
-view: 4
+view: 1
 ---
