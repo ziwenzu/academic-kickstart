@@ -1,10 +1,10 @@
 +++
-absrtact ="d"
+absrtact =""
 authors = ["Ziwen Zu"]
 date = "2020-04-01"
 image_preview = ""
 math = true
-publication_types = ["1"]
+publication_types = ["3"]
 #publication = "In *Psychonomic Bulletin & Review*"
 #publication_short = "PB&R"
 selected = false
