@@ -3,5 +3,5 @@ header:
   caption: ""
   image: ""
 title: Research
-view: 1
+view: 4
 ---
