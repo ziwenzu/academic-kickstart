@@ -18,13 +18,13 @@ publication_types: ["3"]
 publication: ""
 publication_short: ""
 
-abstract: ""
+abstract: "This paper studies how elite purges affect local officials' repression of mass protests in authoritarian regimes."
 
 # Summary. An optional shortened abstract.
-summary: ""
-tags:
+summary: "This paper studies how elite purges affect local officials' repression of mass protests in authoritarian regimes."
+#tags:
 - Source Themes
-featured: false
+#featured: false
 
 links:
 ##- name: Custom Link
