@@ -1,9 +1,13 @@
 ---
-title: "The Importance of Usability in Government Websites. Best Practices of Usability"
+title: "E-Government/E-Governance: Concepts and Best Practices"
+subtitle: "The Importance of Usability in Government Websites. Best Practices of Usability"
 authors:
 - Ziwen Zu
+- Yueping Zheng
+- Ming Ma
+- Zhenzhen Zheng
 date: "2018-09-01T00:00:00Z"
-ISBN: 0999235958
+SBN-10: "0999235958"
 
 # Schedule page publish date (NOT publication's date).
 #publishDate: "2017-01-01T00:00:00Z"
