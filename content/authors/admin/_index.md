@@ -58,9 +58,9 @@ social:
   link: https://github.com/ziwenzu
 # Link to a PDF of your resume/CV from the About widget.
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.
-- icon: cv
-  icon_pack: ai
-  link: files/cv.pdf
+#- icon: cv
+  #icon_pack: ai
+  #link: files/cv.pdf
 - icon: linkedin
   icon_pack: fab
   link: https://www.linkedin.com/in/ziwen-zu-59a964104/
@@ -70,9 +70,9 @@ email: ""
 
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.
-user_groups:
-- Researchers
-- Visitors
+#user_groups:
+#- Researchers
+#- Visitors
 ---
 Ziwen Zu is a Ph.D. student in political science at University of California, San Diego (UCSD). His research encompasses a range of topics including political institutions, international political economy, violence and conflicts as well as statistical methodology. His research regionally focuses on China and global south. He is trained as a comparativist and applied methodologist.
 
