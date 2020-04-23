@@ -19,11 +19,11 @@ header:
 
 # Selected Working Papers
 
-1. Logic of Selective Repression: How do Elite Purges Affect State Violence in Authoritarian Regimes? [slides](https://www.dropbox.com/s/xj2bpi490p0zdpz/slides.pdf?dl=0)
+### Logic of Selective Repression: How do Elite Purges Affect State Violence in Authoritarian Regimes? [slides](https://www.dropbox.com/s/xj2bpi490p0zdpz/slides.pdf?dl=0)
    * **Abstract**: This paper studies how elite purges affect local officials' repression of mass protests in authoritarian regimes. I propose a selective repression mechanism: local officials, fearing purge, strengthen repression of more threatening protests while tolerating less threatening ones so as to comply with the autocrat's preference. Perception of purge threat affects this choice. Using data on Chinese labor protests and two-way fixed effect models that exploit temporal variation in purges across 327 Chinese cities, from 2011 to 2018, I find purges increase the likelihood of local officials' repression of labor protests with more participants and those demanding social rights. Patron-connected officials exercise intensified selective repression due to stronger perception of purge threat.
 
 
-2. When Earthquake Shocks Leviathan: How does Disaster Inﬂuence Authoritarian Rule?
+### When Earthquake Shocks Leviathan: How does Disaster Inﬂuence Authoritarian Rule?
    * **Abstract**: This research paper employs difference-differences strategy clarifying the causal relations between a severe earthquake in China and its government sizes. The finding sheds light on how authoritairan rule boosts after natural disasters.
 
 
