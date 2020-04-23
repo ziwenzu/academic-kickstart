@@ -1,5 +1,6 @@
 ---
 title: "When Earthquake Shocks Leviathan: How does Disaster Inﬂuence Authoritarian Rule?"
+authors:
 - Ziwen Zu
 date: "2018-04-07T00:00:00Z"
 doi: ""
