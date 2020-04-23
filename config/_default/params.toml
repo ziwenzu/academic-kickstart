@@ -226,25 +226,25 @@ plugins_js  = []
 ############################
 ## Search
 ############################
-[search]
+#[search]
   # Search provider:
   #   0: No search engine
   #   1: Academic (built-in)
   #   2: Algolia (https://www.algolia.com)
-  engine = 0
+  #engine = 0
 
   # Configuration of Algolia search engine.
   # Paste the values from your Algolia dashboard.
-  [search.algolia]
-    app_id = ""
-    api_key = ""
-    index_name = ""
-    show_logo = false
+  #[search.algolia]
+    #app_id = ""
+    #api_key = ""
+    #index_name = ""
+    #show_logo = false
 
 ############################
 ## Maps
 ############################
-[map]
+#[map]
   # To show your address on a map in the Contact widget, enter your latitude and longitude (above)
   # and choose a map provider below.
   #
@@ -266,9 +266,9 @@ plugins_js  = []
 ############################
 ## Marketing
 ############################
-[marketing]
-  google_analytics = ""
-  google_tag_manager = ""
+#[marketing]
+  #google_analytics = ""
+  #google_tag_manager = ""
 
 ############################
 ## Content Management System
