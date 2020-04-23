@@ -74,5 +74,7 @@ email: ""
 #- Researchers
 #- Visitors
 ---
-Ziwen Zu is a Ph.D. student in political science at University of California, San Diego (UCSD). His research encompasses a range of topics including political institutions, international political economy, violence and conflicts as well as statistical methodology. His research regionally focuses on China and global south. He is trained as a comparativist and applied methodologist.
+<div style="text-align: justify">
+ Ziwen Zu is a Ph.D. student in political science at University of California, San Diego (UCSD). His research encompasses a range of topics including political institutions, international political economy, violence and conflicts as well as statistical methodology. His research regionally focuses on China and global south. He is trained as a comparativist and applied methodologist.
+</div>
 

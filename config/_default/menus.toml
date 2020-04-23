@@ -13,7 +13,11 @@
   name = "CV"
   url = "files/cv.pdf"
   weight = 20
-#[[main]]
-  #name = "Research"
-  #url = "/research"
-  #weight = 30
+[[main]]
+  name = "Research"
+  url = "/research"
+  weight = 30
+[[main]]
+  name = "Teaching"
+  url = "/teaching"
+  weight = 40
