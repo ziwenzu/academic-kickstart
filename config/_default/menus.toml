@@ -11,5 +11,5 @@
   weight = 10
 [[main]]
   name = "Research"
-  url = "#publication"
+  url = "/publication"
   weight = 20
