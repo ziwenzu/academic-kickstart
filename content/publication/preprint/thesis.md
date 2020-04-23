@@ -18,7 +18,7 @@ publication_types: ["3"]
 publication: ""
 publication_short: ""
 
-abstract: "This paper studies how elite purges affect local officials' repression of mass protests in authoritarian regimes."
+abstract: "This paper studies how elite purges affect local officials' repression of mass protests in authoritarian regimes. I propose a selective repression mechanism: local officials, fearing purge, strengthen repression of more threatening protests while tolerating less threatening ones so as to comply with the autocrat's preference. Perception of purge threat affects this choice. Using data on Chinese labor protests and two-way fixed effect models that exploit temporal variation in purges across 327 Chinese cities, from 2011 to 2018, I find purges increase the likelihood of local officials' repression of labor protests with more participants and those demanding social rights. Patron-connected officials exercise intensified selective repression due to stronger perception of purge threat."
 
 # Summary. An optional shortened abstract.
 summary: "This paper studies how elite purges affect local officials' repression of mass protests in authoritarian regimes."
