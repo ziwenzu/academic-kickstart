@@ -15,5 +15,5 @@
   weight = 20
 #[[main]]
   #name = "Research"
-  #url = "/publication"
+  #url = "/research"
   #weight = 30
