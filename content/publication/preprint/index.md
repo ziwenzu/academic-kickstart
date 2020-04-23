@@ -23,7 +23,7 @@ abstract: "This paper studies how elite purges affect local officials' repressio
 # Summary. An optional shortened abstract.
 summary: "This paper studies how elite purges affect local officials' repression of mass protests in authoritarian regimes."
 #tags:
-- Source Themes
+#- Source Themes
 #featured: false
 
 links:
