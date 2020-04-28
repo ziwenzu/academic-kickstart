@@ -21,7 +21,7 @@
   name = "Teaching"
   url = "/teaching"
   weight = 40
-#[[main]]
-  #name = "Photos"
-  #url = "/gallery"
-  #weight = 50
+[[main]]
+  name = "Photography"
+  url = "/gallery"
+  weight = 50
