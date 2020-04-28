@@ -8,4 +8,4 @@ header:
   image: ""
 ---
 
-{{< gallery album="<gallery>" >}}
+![image](https://octodex.github.com/images/yaktocat.png "image title")
