@@ -1,5 +1,5 @@
 ---
-title: "Some Photos taken by me"
+title: ""
 
 view: 1
 
@@ -7,24 +7,15 @@ header:
   caption: ""
   image: ""
 ---
-<center>
-    <img style="border-radius: 0.3125em;
-    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
-    src="https://octodex.github.com/images/yaktocat.png">
-    <br>
-    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
-    display: inline-block;
-    color: #999;
-    padding: 2px;">this is a pic</div>
-</center> 
+<div style="text-align: justify">
+If am interested in visualizing social science data and issues. This gallery displays some examples in my research and others.
+ ![图片名称](http://upload-images.jianshu.io/upload_images/11857-31d8162766cd39c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+ 
+ 
+ 
+ 
+ 
+ 
+ </div>
 
-<center>
-    <img style="border-radius: 0.3125em;
-    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
-    src="https://octodex.github.com/images/yaktocat.png">
-    <br>
-    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
-    display: inline-block;
-    color: #999;
-    padding: 2px;">this is a pic2</div>
-</center> 
+
