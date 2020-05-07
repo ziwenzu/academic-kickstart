@@ -3,7 +3,7 @@
 
 
 title = ""
-subtitle = "Photos taken in travels"
+subtitle = "People don't take trips, trips take people"
 +++
 
 {{< gallery >}}
