@@ -2,7 +2,8 @@
 title: 'Lessons From COVID-19'
 #subtitle: 'Create a beautifully simple website in under 10 minutes :rocket:'
 #summary: Create a beautifully simple website in under 10 minutes.
-authors: "Ziwen"
+authors:
+- admin
 #tags:
 #- Academic
 #categories:
