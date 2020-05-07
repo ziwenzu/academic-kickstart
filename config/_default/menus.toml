@@ -25,3 +25,7 @@
   name = "Photography"
   url = "/gallery"
   weight = 50
+[[main]]
+  name = "Writing"
+  url = "/post"
+  weight = 60
