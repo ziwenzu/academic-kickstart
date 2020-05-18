@@ -1,5 +1,5 @@
 ---
-title: 'Lessons From COVID-19'
+title: 'Book review'
 #subtitle: 'Create a beautifully simple website in under 10 minutes :rocket:'
 #summary: Create a beautifully simple website in under 10 minutes.
 authors:
@@ -60,14 +60,16 @@ Stromseth, J., Malesky, E., Gueorguiev, D. (2017). *China's Governance Puzzle: E
 
  **References**
 
- 1. Chen, Jidong and Yiqing Xu. "Why Do Authoritarian Regimes Allow Citizens to Voice Opinions Publicly?" In: *The Journal of Politics* 79.3 (2017), pp. 792–803. Gerring, John. Case study research: Principles and practices. Cambridge university press, 2006.
-
- 2. Humphreys, Macartan and Alan M Jacobs. "Mixing methods: A Bayesian approach". In: *American Political Science Review* 109.4 (2015), pp. 653–673.
-
- 3. McCubbins, Mathew D and Thomas Schwartz. "Congressional oversight overlooked: Police patrols versus ﬁre alarms". In: *American Journal of Political Science* (1984), pp. 165–179.
-
- 4. Nathan, Andrew J. "Authoritarian resilience". In: *Journal of Democracy* 14.1 (2003). 
+ 1. Chen, Jidong and Yiqing Xu. "Why Do Authoritarian Regimes Allow Citizens to Voice Opinions Publicly?" In: *The Journal of Politics* 79.3 (2017), pp. 792–803. 
  
- 5. Svolik, Milan W. *The politics of authoritarian rule.* Cambridge University Press, 2012.
+ 2. Gerring, John. *Case study research: Principles and practices.* Cambridge university press, 2006.
+
+ 3. Humphreys, Macartan and Alan M Jacobs. "Mixing methods: A Bayesian approach". In: *American Political Science Review* 109.4 (2015), pp. 653–673.
+
+ 4. McCubbins, Mathew D and Thomas Schwartz. "Congressional oversight overlooked: Police patrols versus ﬁre alarms". In: *American Journal of Political Science* (1984), pp. 165–179.
+
+ 5. Nathan, Andrew J. "Authoritarian resilience". In: *Journal of Democracy* 14.1 (2003). 
+ 
+ 6. Svolik, Milan W. *The politics of authoritarian rule.* Cambridge University Press, 2012.
 
  </div>
