@@ -1,5 +1,5 @@
 ---
-title: 'Book review'
+title: 'Book review: China Governance Puzzle'
 #subtitle: 'Create a beautifully simple website in under 10 minutes :rocket:'
 #summary: Create a beautifully simple website in under 10 minutes.
 authors:
