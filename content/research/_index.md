@@ -16,7 +16,8 @@ header:
 
  ### Publications
 
- **Book Chapter**: YP. Zheng & Ziwen. Zu. et.al, (2018). ***The Importance of Usability in Government Websites***. in [*Best Practices of Usability. E-Government/E-Governance: Concepts and Best Practices*.](https://www.amazon.com/Government-Information-Technology-Management-Practices/dp/0999235958) Marc Holzer, et. al(Eds.), Publisher: Melvin and Leigh (Harry Briggs, Editor)
+* Zheng Y. & Zu Z. et.al, (2018). "The Importance of Usability in Government Websites." in [*Best Practices of Usability. E-Government/E-Governance: Concepts and Best Practices*.](https://www.amazon.com/Government-Information-Technology-Management-Practices/dp/0999235958) Marc Holzer, et. al(Eds.), Publisher: Melvin and Leigh (Harry Briggs, Editor)
+* Imai, K. (2018). *Quantitative social science: An introduction*.(Xu Y. and Zu Z., Trans.) .Shanghai University of Finance &Economics Press. 2020
 
  ### Selected Working Papers
 
