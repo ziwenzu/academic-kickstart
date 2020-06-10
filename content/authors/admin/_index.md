@@ -30,12 +30,12 @@ education:
   courses:
   - course: PhD in Political Science
     institution: University of California, San Diego
-    year: exp. 2025 
+    year: expected 2025 
   - course: M.A. in Political Science
     institution: Duke University
     year: 2020
-  - course: B.A. in Public Policy
-    institution: Sun Yat-Sen University
+  - course: B.A. in Public Adminsitration
+    institution: Sun Yat-Sen University (with distinction)
     year: 2018
 
 # Social/Academic Networking
@@ -75,6 +75,6 @@ email: ""
 #- Visitors
 ---
 <div style="text-align: justify">
- Ziwen Zu is a Ph.D. student in political science at University of California, San Diego (UCSD). His research encompasses a range of topics including political institutions, international political economy, violence and conflicts as well as statistical methodology. His research regionally focuses on China and global south. He is trained as a comparativist and applied methodologist.
+ Ziwen Zu is a Ph.D. student in political science at University of California, San Diego (UCSD). His research encompasses a range of topics including political institutions, international political economy, violence and conflicts as well as statistical methodology. His research regionally focuses on China and global south. He is a comparativist and applied methodologist by traning.
  </div>
 
