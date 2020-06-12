@@ -28,13 +28,13 @@ header:
 
  ##### When Earthquake Shocks Leviathan: How does Disaster Inﬂuence Authoritarian Rule?
    
-   * **Abstract**: This research paper employs difference-differences strategy clarifying the causal relations between a severe earthquake in China and its government sizes. The finding sheds light on how authoritairan rule boosts after natural disasters.
+   * **Abstract**: This paper employs difference-differences strategy identifying the causal relations between a severe earthquake in China and its government sizes. The finding sheds light on how authoritairan rule boosts after natural disasters.
 
  ##### Media, Bargaining and Repression in Chinese Student Protests.
    
-   * **Abstract**: This paper sets up a bargaining model on how mass media affects dynamics of student movements in China based on empirical cases: Beijing 1989 Protest, 2012 Hong Kong Central Occupation Movement and 2014 Taipei Sunﬂower Movement. Different from current literature focusing on asymmetrical information involving in the bargaining between authoritarian regimes and social protesters, this paper emphasizes that mass media constrain the extent to which autocrats strategically manipulate information during mass protests.
+   * **Abstract**: This paper sets up a bargaining model on how mass media affect dynamics of student movements in China based on empirical cases: Beijing 1989 Protest, 2012 Hong Kong Central Occupation Movement and 2014 Taipei Sunﬂower Movement. Different from current literature focusing on asymmetrical information involving in the bargaining between authoritarian regimes and social protesters, this paper emphasizes that mass media constrain the extent to which autocrats strategically manipulate information during mass protests.
 
  ### Work in Progress
 
-  * Instrumnental Variable Sensitivity Analysis 
+  * Instrumental Variable Sensitivity Analysis 
 </div>
