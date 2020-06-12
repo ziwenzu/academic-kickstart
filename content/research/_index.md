@@ -36,5 +36,5 @@ header:
 
  ### Work in Progress
 
-  * Instrumnental Variable Sensitivity AAnlysis 
+  * Instrumnental Variable Sensitivity Analysis 
 </div>
