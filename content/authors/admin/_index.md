@@ -47,15 +47,23 @@ social:
   icon_pack: fas
   link: "mailto:zzu@ucsd.edu"  # For a direct email link, use "mailto:test@example.org".
 - icon: twitter
+
   icon_pack: fab
   link: https://twitter.com/zu_gary
 
 - icon: weibo
   icon_pack: fab
   link: https://www.weibo.com/5406865234/profile?rightmod=1&wvr=6&mod=personinfo
+
 - icon: github
   icon_pack: fab
   link: https://github.com/ziwenzu
+
+- icon: google-scholar
+  icon_pack: ai
+  link: https://scholar.google.com/citations?hl=en&user=XpVWmF8AAAAJ&view_op=list_works&authuser=1&gmla=AJsN-F4cO7_Uh_uSbJOdxg8rGi19IbpDwT2fY132rQsK-fD18IkdTuurwuvf50zTu-ThuG-iM5ZXO4aoIUc-iNeeiqIYm-Nh2AYL7M2Do-6NQJcKxLOJmx8&gmla=AJsN-F75leTPwt60VoR52WMTiAYr-qm-1Rdtq42yw9QAKf1JfKVA4IonNkn3x_wt0HVD6_lz8fvXiJa-WIAulm5E3aBkkEMgQgHR0IlqLea_Pi8m0xBrB5g&sciund=5995933698653481285&scilu=&scisig=AMD79ooAAAAAXuUDzBptHUte_JUI4sWuWTyhFE5DnpPr&gmla=AJsN-F7-eNdj2goYt7b5W4lkjLz5aTAgwaC92I34xfxFbiffYj5pXcm9stn4tQLF749frRh1ABCXHxtMyw6-CSQGS2Ke2DwVGWw7MVJCiTzEkPIhso-4q0Q&sciund=10107041626739721805
+
+
 # Link to a PDF of your resume/CV from the About widget.
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.
 #- icon: cv
