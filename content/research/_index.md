@@ -35,5 +35,8 @@ header:
 
  ### Work in Progress
 
-  * Instrumental variable sensitivity analysis 
-</div>
+  * Instrumental variable sensitivity analysis (with Yiqing Xu et. al)
+
+  * Origin of rule of law in China (with Junyan Jiang)
+
+  </div>
