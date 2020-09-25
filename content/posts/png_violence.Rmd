@@ -1,0 +1,368 @@
+---
+title: "Electoral Violence in Papua New Guinea "
+author: "Tom Brailey"
+date: "2020-05-22"
+categories: ["R"]
+tags: ["R", "elections", "papuea new guinea"]
+---
+
+For the past few months, I have been working as a research assistant for Professors [Gareth Nellis](https://garethnellis.github.io/index.html) and [Jasper Cooper](http://jasper-cooper.com/). The project focuses on Papua New Guinea's shift from first-past-the-post to the alternative vote in 2007. One outcome measure we are interested in is electoral-related violence, and whether incidents of violence increased or decreased following the implementation of the alternative vote. 
+
+Data on violence in PNG is sparse, and so I was tasked with creating a dataset of all election-related violent incidents around the 2002 and 2007 election periods. To do this, I used PNG's Post-Courier newspaper to track down any reports of election-related violence and property destruction, making note of the province, district, and village in which the violence occurred, as well as the perpetrator and the victim of the violence.
+
+```{r, include=FALSE}
+### Preliminaries
+knitr::opts_chunk$set(collapse = TRUE)
+
+rm(list=ls())
+
+library(ggplot2)
+library(ggmap)
+library(gganimate)
+
+`%>%` <-
+  magrittr::`%>%`
+```
+
+```{r, include=FALSE}
+### Load data 
+
+# PNG violence dataset
+png_violence <- 
+  googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1Qoxvbg6n6CKHh1RaiyxPuRNKJNE6m88ErXR171cDSb0/edit#gid=2012200782") %>% 
+  
+  tidyr::separate("Using google maps to search the place name of the incident, please enter the latitude and longitude of the place in which the incident occurred (if applicable).", 
+                  c("lat", "lon"), ",") %>% 
+  
+  dplyr::rename(date_incident = "When did the incident occur?",
+                date_apprx = "Date of incident approximated?",
+                date_info = "Optional: Please enter any caveats or notes about the incident date.", 
+                election_mentioned = "Is an election explicitly mentioned in the report?",
+                timestamp = "Timestamp", 
+                incident_type = "Type of incident",
+                context = "Please briefly justify the classification of the incident according to the definition given above.",
+                province = "In which province did the incident occur?",
+                district = "In which district did the incident occur?", 
+                village = "In which village or villages did the incident occur?",
+                district_info = "OPTIONAL: Enter any caveats or comments about the electoral district.",
+                notes = "Additional Notes",
+                perp = "Please briefly name the perpetrator of the incident (or describe why this is not applicable).",
+                target = "Please briefly name the target of the incident (or describe why this is not applicable).",
+                meta_date_today = "Please enter today's date (month-day-year).",
+                meta_date_article = "Please enter the date the article was published (month-day-year).", 
+                meta_headline_article = "Please enter the headline of the article.", 
+                meta_link_article = "Please enter the link at which the article can be accessed.",
+                spell_id = "Spell ID") %>% 
+  
+  dplyr::mutate(lat = as.numeric(lat), 
+                lon = as.numeric(lon),
+                date_incident = as.Date(date_incident, format = "%m/%d/%Y"),
+                
+                year_incident = gsub("-..-..", "", date_incident), 
+                
+                date_id = dplyr::group_indices_(., .dots="date_incident")) %>% 
+  
+  dplyr::arrange(date_incident) 
+
+# PNG shapefiles
+png_0 <- 
+  sf::st_read("../../../../../Documents/R/PNG/data/gadm36_PNG_0.shp")
+
+png_1 <- 
+  sf::st_read("../../../../../Documents/R/PNG/data/gadm36_PNG_1.shp")
+
+png_2 <- 
+  sf::st_read("../../../../../Documents/R/PNG/data/gadm36_PNG_2.shp") %>% 
+  
+  dplyr::select(GID_0, NAME_2, geometry)
+```
+
+### Summary statistics
+
+After loading and cleaning the dataset, I run some basic summary statistics. First up, missingness plots! 
+
+```{r, warning=FALSE, message=FALSE}
+
+# Missingness
+DataExplorer::plot_missing(png_violence)
+
+```
+
+```{r, warning=FALSE, message=FALSE}
+
+Amelia::missmap(png_violence)
+
+```
+
+Next, I make a bunch of tabulations that look at the relationship between violence, time, and location. The first plot shows the count of violent incidents across each of the three elections in the dataset. 
+
+```{r, warning=FALSE, message=FALSE, results="asis"}
+
+# Number of violent incidents by day (plot)
+violence_day <-  
+  png_violence %>% 
+  dplyr::group_by(year_incident, .drop = FALSE) %>%
+  dplyr::count(date_incident) %>% 
+  dplyr::ungroup()
+
+ggplot(violence_day, aes(x = date_incident, y = n)) + 
+  geom_point() + 
+  labs(x = "Date of incident", 
+       y = "Number of incidents per day",
+       title = "Violent incidents by day") +
+  theme_minimal()
+  
+```
+
+Here is that graph in tabular format: 
+
+```{r, warning=FALSE, message=FALSE, results="asis"}
+
+# Number of violent incidents by day (table)
+  violence_day %>%
+  dplyr::select(-year_incident) %>% 
+  dplyr::filter(n > 1) %>% 
+  dplyr::arrange(desc(n)) %>% 
+  knitr::kable(format = "html", 
+          booktabs = T,
+          col.names = kableExtra::linebreak(c("Date", "Violent Incidents"), align = "c"),
+          caption = "",
+          linesep = "") %>%
+  kableExtra::column_spec(1:2, width = "10em")
+
+```
+
+Now we aggregate those counts by year:
+
+```{r, warning=FALSE, message=FALSE, results="asis"}
+
+# Number of recorded incidents by year
+  png_violence %>% 
+  dplyr::count(year_incident) %>% 
+  knitr::kable(format = "html", 
+          booktabs = T,
+          col.names = kableExtra::linebreak(c("Year", "Violent Incidents"), align = "c"),
+          caption = "",
+          linesep = "") %>%
+  kableExtra::column_spec(1:2, width = "10em")
+
+```
+
+Here, we ignore time, and look at which provinces were the most violent across all three elections: 
+
+```{r, warning=FALSE, message=FALSE, results="asis"}
+
+# Conflict by province (all elections)
+png_violence %>%
+  dplyr::ungroup() %>%
+  dplyr::group_by(province) %>% 
+  dplyr::count(province) %>% 
+  dplyr::arrange(desc(n)) %>% 
+  knitr::kable(format = "html", 
+          booktabs = T,
+          col.names = kableExtra::linebreak(c("Province", "Violent Incidents"), align = "c"),
+          caption = "",
+          linesep = "") %>%
+  kableExtra::column_spec(1:2, width = "10em")
+
+```
+
+Now, lets add in the year component: 
+
+```{r, warning=FALSE, message=FALSE, results="asis"}
+
+# Conflict by province (by year)
+png_violence %>%
+  dplyr::ungroup() %>%
+  dplyr::group_by(province, year_incident) %>% 
+  dplyr::count(province) %>% 
+  dplyr::arrange(desc(n)) %>%
+  knitr::kable(format = "html", 
+          booktabs = T,
+          col.names = kableExtra::linebreak(c("Province", "Election Year", "Violent Incidents"), align = "c"),
+          caption = "",
+          linesep = "") %>%
+  kableExtra::column_spec(1:2, width = "10em")
+
+```
+
+Now we get a little more fine-grain. Across 2002, 2007, and 2012, which districts saw the most violence? 
+
+```{r, warning=FALSE, message=FALSE, results="asis"}
+
+# Conflict by district (all elections)
+png_violence %>%
+  dplyr::ungroup() %>%
+  dplyr::group_by(district) %>% 
+  dplyr::count(district) %>% 
+  dplyr::arrange(desc(n)) %>%
+  dplyr::ungroup() %>%
+  dplyr::mutate(district = tidyr::replace_na(district, "Unspecified districts")) %>% 
+  knitr::kable(format = "html", 
+          booktabs = T,
+          col.names = kableExtra::linebreak(c("District", "Violent Incidents"), align = "c"),
+          caption = "",
+          linesep = "") %>%
+  kableExtra::column_spec(1:2, width = "15em")
+
+```
+
+And now lets add in the year component: 
+
+```{r, warning=FALSE, message=FALSE, results="asis"}
+
+# Conflict by district (by year)
+png_violence %>%
+  dplyr::ungroup() %>%
+  dplyr::group_by(district, year_incident) %>% 
+  dplyr::count(district) %>% 
+  dplyr::arrange(desc(n)) %>%
+  dplyr::ungroup() %>%
+  dplyr::mutate(district = tidyr::replace_na(district, "Unspecified districts")) %>% 
+  knitr::kable(format = "html", 
+          booktabs = T,
+          col.names = kableExtra::linebreak(c("District", "Election Year", "Violent Incidents"), align = "c"),
+          caption = "",
+          linesep = "") %>%
+  kableExtra::column_spec(1:2, width = "15em")
+
+```
+
+Given that across all three elections, the election periods are roughly similar, we can facet our plot by year and compare how violent incidents relate to the onset of the actual election in 2002, 2007, and 2012. 
+
+```{r, warning=FALSE, message=FALSE, results="asis"}
+
+# Conflict timeline with election periods
+
+# Create dataset of election periods
+elec_period <- data.frame(year_incident = as.character(c("2002", "2007", "2012")),
+                           xmin = as.factor((c("06-15", "06-30", "06-23"))), 
+                           xmax = as.factor((c("06-29", "07-14", "07-13"))))
+
+# Reformat data
+violence <- 
+  violence_day %>% 
+  dplyr::mutate(date_incident = as.numeric(date_incident), 
+                date_text = as.Date(date_incident, origin = "1970-01-01"), 
+                month_day = as.factor(format(date_text, "%m-%d")))
+
+# Set x-axis labels
+lvls <- levels(violence$month_day)
+
+# Plot
+ggplot(data = violence, mapping = aes(x = month_day, y = n, group = year_incident, fill = year_incident)) +
+  geom_rect(data = elec_period[1,], inherit.aes = F, aes(ymin = -Inf, ymax = Inf, xmin = xmin, xmax = xmax), fill = "grey", alpha = .7) +
+  geom_rect(data = elec_period[2,], inherit.aes = F, aes(ymin = -Inf, ymax = Inf, xmin = xmin, xmax = xmax), fill = "grey", alpha = .7) +
+  geom_rect(data = elec_period[3,], inherit.aes = F, aes(ymin = -Inf, ymax = Inf, xmin = xmin, xmax = xmax), fill = "grey", alpha = .7) +
+  geom_bar(stat = "identity") + 
+  facet_wrap( ~ year_incident, nrow = 3) +
+  theme_bw() +
+  xlab("Date of Incident") +
+  ylab("Number of Violent Incidents") +
+  labs(title = "Instances of electoral violence in PNG", 
+       caption = "Note: grey rectangles represent the election period.") + 
+  scale_x_discrete(breaks = lvls[seq(1,length(lvls),by=2)]) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 6), 
+        legend.title = element_blank(), 
+        legend.position = "none",
+        title = element_text(size = 18),
+        axis.title = element_text(size = 14),
+        axis.text = element_text(size = 12),
+        plot.caption = element_text(size = 12))
+
+```
+
+Lastly, this map tracks conflict across each election period. The red dots correspond to the date in the top left-hand corner of the plot, and the grey points indicate prior conflict locations. 
+
+### Mapping conflict
+```{r, warning=FALSE, message=FALSE}
+
+# Conflict location over time
+map_prep <- 
+  png_violence %>% 
+  dplyr::mutate(date_incident = as.character(date_incident))
+
+map <- 
+  ggplot(png_2) + 
+  geom_sf(fill = "white") +
+  geom_point(map_prep, mapping = aes(x = lon, y = lat), color = "red") +
+  ggtitle("{closest_state}") +
+  transition_states(states = date_incident) +
+  ease_aes('linear') +
+  shadow_mark(color = "grey20", alpha = .5) + 
+  labs(x = "Longitude", 
+       y = "Latitude", 
+       caption = "Election-related violence across the 2002, 2007, and 2012 election periods") + 
+  theme_minimal()  
+
+animate(map, fps = 5, nframes = 300)
+
+# Note: in order to visualize the entire dataset, 
+# you need to set nframes in the animate() function 
+# to be twice the number of observations you are plotting. 
+# In this case, map_prep has about 145 unique days to 
+# plot, so I have set nframes to be 300. Given that the 
+# default setting for nframes is 100 (so 50 distinct 
+# observations), this plot takes a long time to render. 
+
+```
+
+Below is the code to facet the animated map by year. Running all of this code crashes the website, but I left it here for those who are interested.
+
+```{r, warning=FALSE, message=FALSE, results="asis"}
+
+#map_2002 <- 
+#  map_prep %>% 
+#  dplyr::filter(year_incident == 2002)
+
+#map1 <- 
+ # ggplot(png_2) + 
+  #geom_sf() +
+#  geom_point(map_prep, mapping = aes(x = lon, y = lat), color = "red") +
+#  ggtitle("{closest_state}") +
+#  transition_states(states = date_incident) +
+#  ease_aes('linear') +
+#  shadow_mark(color = "black", alpha = .5) + 
+#  theme_minimal()
+  
+#gif1 <- animate(map1, fps = 5, nframes = 118)
+ 
+#map_2007 <- 
+#  map_prep %>% 
+#  dplyr::filter(year_incident == 2007)
+
+#map2 <- 
+#  ggplot(png_2) + 
+#  geom_sf() +
+#  geom_point(map_2007, mapping = aes(x = lon, y = lat), color = "red") +
+#  ggtitle("{closest_state}") +
+#  transition_states(states = date_incident) +
+#  ease_aes('linear') +
+#  shadow_mark(color = "black", alpha = .5) + 
+#  theme_minimal() 
+
+#gif2 <-animate(map2, fps = 5, nframes = 120)
+
+#map_2012 <- 
+#  map_prep %>% 
+#  dplyr::filter(year_incident == 2012)
+
+#map3 <- 
+#  ggplot(png_2) + 
+#  geom_sf() +
+#  geom_point(map_2012, mapping = aes(x = lon, y = lat), color = "red") +
+#  ggtitle("{closest_state}") +
+#  transition_states(states = date_incident) +
+#  ease_aes('linear') +
+#  shadow_mark(color = "black", alpha = .5) + 
+#  theme_minimal()
+
+#gif3 <-animate(map3, fps = 5, nframes = 48)
+
+#gif1
+
+#gif2
+
+#gif3
+
+```

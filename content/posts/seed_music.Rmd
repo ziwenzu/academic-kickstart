@@ -1,0 +1,118 @@
+---
+title: '''Seed Music'''
+author: "Tom Brailey"
+date: '2020-05-01'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(magrittr)
+library(ggplot2)
+library(png)
+```
+
+# Birds / Surfers
+
+Earlier this month, one of my favorite guitarists, [Plini](https://www.plini.co/), made an Instagram post describing how a photograph of surfers out on the seas resembled notes on a staff, inspiring him to create a short piece of music. You can view the post and listen to an excerpt of his song "Surfers" [here](https://www.instagram.com/p/B5o6QnJFJGv/). Plini followed the same melody-generating process using an image of a flock of birds which is equally awesome. 
+
+I thought this form of melody generation was pretty neat so I decided to give it a go. But instead of using images, I thought it would be fun to make a function that generates random "notes" on a staff in ggplot2. My plan was to create the function, and whatever output it gave me, I would strive to write a full song from it. I present to you my fun quarantine project, "Seed Music"!
+
+# theme_music()
+
+The first step was to randomly generate point data that, when visualized, would resemble notes on a staff. This meant a lot of trial-and-error with the limits of x and y values---a note, for example, thirty octaves up from middle-C would be difficult to implement on my trusty Telecaster... 
+
+I also decided to randomly assign NA values into the data to make sure the staff was not overpopulated with notes. 
+
+I settled for the function below:
+```{r}
+generate_data <- function(){
+  
+  x <- data.frame(x = sample(0:50, 20, rep = FALSE),
+             y = sample(0:12, 5, rep = FALSE))
+  
+  some_na <- sample(0:15, 1, rep = FALSE)
+  
+  x$x[sample(seq(x$x), some_na)] <- NA
+  
+  
+  return(x)
+  
+}
+```
+
+Next, I wanted the function to spit out a random mode so that I would be forced to think creatively with the notes I was given:
+```{r}
+generate_mode <- function(){
+ 
+   keys <- c("A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#")
+   modes <- c("Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Aeolian", "Locrian")
+   
+   x <- paste(sample(keys, 1), sample(modes, 1), sep = " ")
+  
+   return(x)
+   
+}
+```
+
+Lastly, I take the two previous functions and throw them into ggplot2. I set hlines at the 2, 4, 6, 8, and 10 values on the y-axis to create the appearance of a staff, and vlines help me to estimate how close together the notes are. This method gives me *some* flexibilty when determining the rhythm and time-signature of the melody. 
+```{r}
+plot_music <- function(){
+  
+  x <- generate_data()
+  
+  key <- generate_mode()
+  
+  plot <- ggplot(x, aes(x = x, y = y)) + 
+    geom_point(size = 6) +
+    geom_hline(yintercept = c(2, 4, 6, 8, 10), size = 2) +
+    geom_vline(xintercept = c(x$x)) +
+    theme(title = element_text(size = 16)) +
+    labs(subtitle = key) +
+    theme_void() 
+  
+  ggsave(plot, filename = paste0(here::here(), "/content/posts/", key, ".png"))
+  
+  return(plot)
+ 
+}
+```
+
+And here is an example of what I would be given to work with (note that every time I update my website this image will change): 
+```{r, out.width="50%", echo=F}
+x <- generate_data()
+  
+  key <- generate_mode()
+  
+  plot <- ggplot(x, aes(x = x, y = y)) + 
+    geom_point(size = 6) +
+    geom_hline(yintercept = c(2, 4, 6, 8, 10), size = 2) +
+    geom_vline(xintercept = c(x$x)) +
+    theme(title = element_text(size = 16)) +
+    labs(subtitle = key) +
+    theme_void() 
+  
+  plot
+```
+
+# So how does it sound? 
+
+I expected that whatever I ended up writing would be somewhat avante-garde. I wasn't wrong. Here is an example of how I turned some random data into a really weird 13/8 mathy riff. 
+
+This was the first plot that came out of my function. An ungodly splattering of notes which I had to coerce into G# Mixolydian (the most popular mode, right?). By the way, as a sort-of-afterthought, I wanted the title to the plot to be a series of random letters to serve as a word-cloud to further encourage my creativity. This part certainly needs some work given that "gyzjsgsfpz awnkbzyvho" doesn't really make me feel anything. Still though, perhaps one day it will spit out something so inspiring that I go on to write a hit-single. We shall see... 
+
+![](/posts/seed_music_files/gyzjsgsfpz awnkbzyvho.png)
+
+I then transposed these dots onto a staff, deciding that 13/8 would be a fun meter for this melody. These notes in C major sound truly awful, so I'm glad ggplot2 made me transpose this melody into something else. 
+
+![](/posts/seed_music_files/basic_melody .png)
+
+Here's where I exert some "creative control" shall we say. Somewhere between that initial transcription and the final melody, some notes were moved around and whatnot, but I really did do my best to stay true to whatever the function gave me. This is what I turned the basic melody into: 
+
+![](/posts/seed_music_files/full_melody.png)
+
+And here is what it sounds like (with a little hi-hat in the background). 
+
+![](/posts/seed_music_files/Seed 1.wav)
+
+As you can tell, I can't really call a twelve-second excerpt a song. But these four bars give some insight into the flavor of this tune. In any case, I am pretty chuffed that I actually managed to get something workable out of this idea. Seed Music is a project that I will be continuing for the foreseeable future, and I will try to post reguarly my ideas and creations. More to follow! 
