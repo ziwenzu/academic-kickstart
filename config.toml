@@ -104,7 +104,7 @@ pygmentscodefencesguesssyntax = true
             [[languages.en.menu.main]]
             name = "Blog"
             weight = 4
-            url = "post/"
+            url = "posts/"
 
             [[languages.en.menu.main]]
             name = "Contact Me"
