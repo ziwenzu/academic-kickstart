@@ -78,19 +78,6 @@ pygmentscodefencesguesssyntax = true
     icon = "fab fa-linkedin"
     weight = 3
     url = "https://www.linkedin.com/in/ziwen-zu-59a964104/"
-[[params.social]]
-    name = "Weibo"
-    icon = "fab weibo"
-    weight = 4
-    url = "https://www.weibo.com/5406865234/profile?rightmod=1&wvr=6&mod=personinfo"
-[[params.social]]
-    name = "Google Scholar"
-    icon = "ai google-scholar"
-    weight = 5
-    url = "https://scholar.google.com/citations?hl=en&user=XpVWmF8AAAAJ&view_op=list_works&authuser=1&gmla=AJsN-F4cO7_Uh_uSbJOdxg8rGi19IbpDwT2fY132rQsK-fD18IkdTuurwuvf50zTu-ThuG-iM5ZXO4aoIUc-iNeeiqIYm-Nh2AYL7M2Do-6NQJcKxLOJmx8&gmla=AJsN-F75leTPwt60VoR52WMTiAYr-qm-1Rdtq42yw9QAKf1JfKVA4IonNkn3x_wt0HVD6_lz8fvXiJa-WIAulm5E3aBkkEMgQgHR0IlqLea_Pi8m0xBrB5g&sciund=5995933698653481285&scilu=&scisig=AMD79ooAAAAAXuUDzBptHUte_JUI4sWuWTyhFE5DnpPr&gmla=AJsN-F7-eNdj2goYt7b5W4lkjLz5aTAgwaC92I34xfxFbiffYj5pXcm9stn4tQLF749frRh1ABCXHxtMyw6-CSQGS2Ke2DwVGWw7MVJCiTzEkPIhso-4q0Q&sciund=10107041626739721805
-"
-    rel = "alternate"
-    type = "application/rss+xml"
 
 
 [languages]
