@@ -92,19 +92,19 @@ pygmentscodefencesguesssyntax = true
             url = "about/"
 
             [[languages.en.menu.main]]
-            name = "Blog"
+            name = "Research"
             weight = 2
-            url = "posts/"
+            url = "projects/"
 
             [[languages.en.menu.main]]
-            name = "Projects"
+            name = "Teaching"
             weight = 3
-            url = "projects/"
+            url = "teaching/"
             
             [[languages.en.menu.main]]
-            name = "Music"
+            name = "Blog"
             weight = 4
-            url = "music/"
+            url = "post/"
 
             [[languages.en.menu.main]]
             name = "Contact Me"
