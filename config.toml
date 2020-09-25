@@ -23,7 +23,7 @@ pygmentscodefencesguesssyntax = true
     info = "Ph.D. student in Political Science"
     avatarurl = "/images/avatar.jpg"
     #gravatar = "john.doe@example.com"
-    footercontent = "'Qualis ab incepto.'"
+    footercontent = "Qualis ab incepto."
 
     dateformat = "January 2, 2006"
 
@@ -111,36 +111,3 @@ pygmentscodefencesguesssyntax = true
             weight = 5
             url = "contact/"
 
-
-    [languages.pt-br]
-        languagename = "中文"
-        title = "祖梓文"
-
-        [languages.pt-br.params]
-            author = "祖梓文"
-            info = "Chercheur en Sciences Politiques"
-            description = "Site Web Personnel de Tom"
-            keywords = "associé de recherche, science politique, personnel"
-            footercontent = "'Les véritables leçons sont les institutions que nous détruisons en cours de route.'"
-
-        [languages.pt-br.menu]
-
-            [[languages.pt-br.menu.main]]
-            name = "À propos de Moi"
-            weight = 1
-            url = "about/"
-
-            [[languages.pt-br.menu.main]]
-            name = "Blog"
-            weight = 2
-            url = "posts/"
-
-            [[languages.pt-br.menu.main]]
-            name = "Projets"
-            weight = 3
-            url = "projects/"
-
-            [[languages.pt-br.menu.main]]
-            name = "Contactez Moi"
-            weight = 5
-            url = "contact/"
