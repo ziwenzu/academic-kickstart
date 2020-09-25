@@ -1,5 +1,5 @@
-baseurl = "https://tjbrailey.netlify.app"
-title = "thomasjbrailey"
+baseurl = "https://ziwenzu.com"
+title = "Ziwen(Gary) Zu"
 
 theme = "hugo-coder"
 
@@ -17,22 +17,22 @@ pygmentscodefencesguesssyntax = true
 #disqusShortname = "yourdiscussshortname"
 
 [params]
-    author = "Thomas J. Brailey"
-    description = "Tom Brailey's personal website"
-    keywords = "research associate,political science,personal"
-    info = "Political Researcher"
-    avatarurl = "/images/tom1.jpeg"
+    author = "Ziwen(Gary) Zu"
+    description = "Ziwen Zu's personal website"
+    keywords = "academic,political science,personal"
+    info = "Ph.D. student in Political Science"
+    avatarurl = "/images/avatar.jpg"
     #gravatar = "john.doe@example.com"
-    footercontent = "'The real lessons are the institutions we destroy along the way.'"
+    footercontent = "'Qualis ab incepto.'"
 
     dateformat = "January 2, 2006"
 
     hideCredits = false
     hideCopyright = false
-    since = 2019
+    since = 2020
 
     # Git Commit in Footer, uncomment the line below to enable it.
-    commit = "https://github.com/luizdepra/hugo-coder/tree/"
+    commit = "https://github.com/ziwenzu/hugo-coder/tree/"
 
     rtl = false
 
@@ -67,22 +67,28 @@ pygmentscodefencesguesssyntax = true
     name = "Github"
     icon = "fab fa-github"
     weight = 1
-    url = "https://github.com/tjbrailey/"
+    url = "https://github.com/ziwenzu"
 [[params.social]]
     name = "Twitter"
     icon = "fab fa-twitter"
-    weight = 3
-    url = "https://twitter.com/tjbrailey/"
+    weight = 2
+    url = "https://twitter.com/zu_gary"
 [[params.social]]
     name = "LinkedIn"
     icon = "fab fa-linkedin"
-    weight = 4
-    url = "https://www.linkedin.com/in/tjbrailey/"
+    weight = 3
+    url = "https://www.linkedin.com/in/ziwen-zu-59a964104/"
 [[params.social]]
-    name = "RSS"
-    icon = "fas fa-rss"
-    weight = 6
-    url = "https://rss.app/feeds/JPPbq02GMOROJtcy.xml"
+    name = "Weibo"
+    icon = "fab weibo"
+    weight = 4
+    url = "https://www.weibo.com/5406865234/profile?rightmod=1&wvr=6&mod=personinfo"
+[[params.social]]
+    name = "Google Scholar"
+    icon = "ai google-scholar"
+    weight = 5
+    url = "https://scholar.google.com/citations?hl=en&user=XpVWmF8AAAAJ&view_op=list_works&authuser=1&gmla=AJsN-F4cO7_Uh_uSbJOdxg8rGi19IbpDwT2fY132rQsK-fD18IkdTuurwuvf50zTu-ThuG-iM5ZXO4aoIUc-iNeeiqIYm-Nh2AYL7M2Do-6NQJcKxLOJmx8&gmla=AJsN-F75leTPwt60VoR52WMTiAYr-qm-1Rdtq42yw9QAKf1JfKVA4IonNkn3x_wt0HVD6_lz8fvXiJa-WIAulm5E3aBkkEMgQgHR0IlqLea_Pi8m0xBrB5g&sciund=5995933698653481285&scilu=&scisig=AMD79ooAAAAAXuUDzBptHUte_JUI4sWuWTyhFE5DnpPr&gmla=AJsN-F7-eNdj2goYt7b5W4lkjLz5aTAgwaC92I34xfxFbiffYj5pXcm9stn4tQLF749frRh1ABCXHxtMyw6-CSQGS2Ke2DwVGWw7MVJCiTzEkPIhso-4q0Q&sciund=10107041626739721805
+"
     rel = "alternate"
     type = "application/rss+xml"
 
@@ -120,11 +126,11 @@ pygmentscodefencesguesssyntax = true
 
 
     [languages.pt-br]
-        languagename = "Français"
-        title = "thomasjbrailey"
+        languagename = "中文"
+        title = "祖梓文"
 
         [languages.pt-br.params]
-            author = "Thomas J. Brailey"
+            author = "祖梓文"
             info = "Chercheur en Sciences Politiques"
             description = "Site Web Personnel de Tom"
             keywords = "associé de recherche, science politique, personnel"
