@@ -1,14 +1,13 @@
 ---
 slug: about
-title: About Me
+title: "About Me"
 ---
 
 Hello! 
 
-My name is Thomas and I am a pre-doctoral fellow with J-PAL's [Payments and Governance Research Program](https://sites.google.com/ucsd.edu/pgrp/home?authuser=0). I received a Bachelor of Science in political science and data analytics from UC San Diego in 2020. 
+<div style="text-align:justify">My name is Gary and I am a Ph.D. student in Political Science at University of California, San Diego. I received a Bachelor of Management in pubic administration from Sun Yat-Sen University in 2018. During 2018-2020, I conducted research and completed graduate coursework at Duke University, where I obtained a Master of Arts in political science. My academic interests encompass political institutions, political economy and statistical methods, with a particular focus on China and authoritarian regimes. </div>
 
-I have served as a research assistant for the Center for the Study of African Political Economy and as a lab assistant for the [Center for Peace and Security Studies](https://cpass.ucsd.edu/).
+During my spare time, I enjoy movies, literature, sci-fiction novels and learning history from archeology.
 
-I am interested in political institutions, elections, secession, and conflict in developing democracies, with a particular focus in sub-Saharan Africa. 
+My CV can be found [here](/zu.pdf).  You can follow my google scholar [here](https://scholar.google.com/citations?user=XpVWmF8AAAAJ&hl=en&oi=ao)
 
-My CV can be found [here](/tb.pdf).
