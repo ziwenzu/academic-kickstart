@@ -21,7 +21,7 @@ pygmentscodefencesguesssyntax = true
     description = "Ziwen Zu's personal website"
     keywords = "research,political science,personal"
     info = "Political Science Ph.D. student at UCSD"
-    avatarurl = "/images/tom1.jpeg"
+    avatarurl = "/images/avatar.jpeg"
     #gravatar = "john.doe@example.com"
     footercontent = "Let there be Light"
 
