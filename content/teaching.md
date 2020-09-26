@@ -1,5 +1,5 @@
 ---
-slug: Teaching
+slug: teaching
 title: Teaching
 ---
 
