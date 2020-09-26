@@ -3,7 +3,7 @@ title: "Ridiculously Niche Plots Episode I: Scaled and Faceted Radar Plots"
 author: "Tom Brailey"
 date: "2020-06-17"
 categories: ["R"]
-tags: ["R", "scale_fill_identity", "axis.text"]
+tags: ["test"]
 ---
 
 Hello and welcome to the first episode in a series I like to call "Ridiculously Niche Plots"! An intermittent series where I give a brief rundown of especially strange plots that I have spent hours trying to crack, in the hope that someone, somewhere, struggling to understand the ins and outs of gridExtra or who are hitting their head against a wall because ggplot2 is throwing out a horrifically labyrinthine error, might stumble on this article and have all of their questions answered. I have certainly spent many hours hoping for the same...
