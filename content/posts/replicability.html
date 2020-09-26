@@ -1,0 +1,69 @@
+---
+title: "A Brief Note on Replication in R"
+author: "Tom Brailey"
+date: "2020-07-15"
+categories: ["R"]
+tags: ["R", "replication"]
+---
+
+
+
+<p>Replication studies – repeating an existing study/experiment/analysis to see if the results hold up – in the social sciences are essential for the advancement of scientific understanding. <a href="https://www.vox.com/science-and-health/2018/8/27/17761466/psychology-replication-crisis-nature-social-science#:~:text=One%20of%20the%20cornerstone%20principles,we%20can&#39;t%20be%20sure.">See this Vox article for a primer</a>.</p>
+<p>On a smaller scale, labs often get their researchers to run what are known as “code audits”. If one researcher is working on an analysis, they hand it over to another researcher for them to run and see if the results are replicable. This process usually involves the sharing of Dropbox folders and Github repositories and code scripts. Perhaps I am being intensely persnickety about this, but I believe that if you are given an R script and have to change <em>anything</em> in order for it to run, then it is not replicable. Code audits should be quick and easy to run, giving the researchers more time to spend on actual debugging and streamlining.</p>
+<p>Here is an overview of a common set up for research projects:</p>
+<ul>
+<li><p>Main Dropbox (MOUs, PAPs, manuscripts, admin, raw data, interim data, final cleaned data, etc.)</p></li>
+<li><p>Github repository (set up using version control. Found in a separate folder in Dropbox)</p>
+<ul>
+<li>This is where all the cleaning and analysis code lives. Scripts should call from the main Dropbox’s raw data folder, run the cleaning and analysis, then save the final data in the cleaned data folder of the main Dropbox</li>
+</ul></li>
+</ul>
+<p>Additionally, I have established a few personal rules when creating a script that I know I will being handing off to someone else for an audit.</p>
+<div id="file-paths" class="section level4">
+<h4>File paths</h4>
+<p>I have seen lots of different ways to set file paths and directories, and most of the time, given that we all have different folder naming conventions, auditing codes requires editing these file paths. It’s not a huge deal but this is how we make mistakes and accidentally save datasets in weird places and never find them again (…definitely not speaking from experience…). When specifying your “root”, i.e. the main location where raw data and other core project files exist, I do the following:</p>
+<pre class="r"><code>root &lt;- paste0(&quot;/Users/&quot;, Sys.getenv(&quot;USERNAME&quot;), &quot;/Dropbox/&quot;)</code></pre>
+<p>Now this will set the root to be the computer’s user’s Dropbox folder, which, if everyone is using Dropbox, will replicate across users. From this root, you can set other specific file paths as necessary.</p>
+<p>Another thing to note, many projects are split between a main Dropbox folder and a Github repository that essentially talk to one another. When specifying paths for the Github repository, I use a specific package.</p>
+<pre class="r"><code>github &lt;- paste0(here::here())</code></pre>
+<p>This sets the working directory to be the location of the project you are working on, for example:</p>
+<p>“C:/Users/my_username/Dropbox/github/my_repo”</p>
+<p>Again this is just personal preference, I tend to have a script that is solely for specifying individual file paths. For example, I set file paths for input data, output data, summary statistics and graphs, tables for the manuscript, and so on. Doing this with the “here” package is super simple.</p>
+<pre class="r"><code>tbls_fr_manuscript &lt;- paste0(here::here(), &quot;/exhibits/for_manuscript&quot;)</code></pre>
+<p>Then, when you’ve made your lovely .tex table, you can save it with ease. And as long as you are sharing the entire project structure with the auditor, everything will replicate and run smoothly.</p>
+<pre class="r"><code>print(xtable(tbl_A, type = &quot;latex&quot;), file = paste0(tbls_fr_manuscript, &quot;/tbl_A.tex&quot;))</code></pre>
+</div>
+<div id="calling-packages" class="section level4">
+<h4>Calling packages</h4>
+<p>Another thing I’ve noticed that can cause problems for auditors is the installing and loading of packages at the start of the script. This presents a few issues. First, if you are installing and loading packages each time you re-run the code, it is time consuming and often requires you to reboot R. Second, and most importantly, it creates issues with dependency. If you load all necessary packages at once, and, say, two packages have a similarly-named command, then this can produce errors when running the code. This is because R might confuse one command as being from one package when it is actually from another. For example, base R and dplyr both have the command “select” and if you load dplyr at the start of the script and later call select, R might not recognize that it is from that package. This is becoming an increasingly common issue given the proliferation of packages in R. My solution, though a little verbose, does the trick. It is also useful for debugging. It is better to dive straight into the problem rather than spending time trying to figure out where the command comes from and what it does.</p>
+<p>Instead of installing and loading packages at the start of the script, you call them up in line. If an auditor needs to install a package on their machine, R will tell them what packages are used in the script and whether it needs to be installed or not. Note that the only packages I specifically call at the start of a script are magrittr (for the pipe function) and ggplot2 (just because it’s convenient).</p>
+<pre class="r"><code>my_data %&gt;% 
+  dplyr::mutate(new_var = old_var + 100,
+                string_var = stringr::str_replace(string_var, &quot;_000&quot;, &quot;&quot;)) %&gt;% 
+  tidyr::pivot_longer(-keep_var, names_to = &quot;name&quot;, values_to = &quot;value&quot;)</code></pre>
+<p>If you <em>really</em> don’t want to use library() in your scripts, you could do the following to call the pipe function:</p>
+<pre class="r"><code>`%&gt;%` &lt;- magrittr::`%&gt;%`</code></pre>
+<p>So yes, there is a little more writing required, but the payoff is clear, concise, and more easily debuggable code.</p>
+</div>
+<div id="rmlistls" class="section level4">
+<h4>rm(list=ls())</h4>
+<p>Lot’s of scripts I see start with this. While it might be nice to clear the workspace before running everything, it doesn’t really clear the workspace in a meaningful way, and auditors who are working on something else might accidentally lose their work if they start working on auditing your code (again, definitely not talking from experience…).</p>
+</div>
+<div id="comments" class="section level4">
+<h4>Comments</h4>
+<p>Lastly, and more generally, a good piece of reproducible code will have lots of comments. I enumerate a few key points below:</p>
+<ul>
+<li><p>For each chunk, i.e. each for loop, ggplot, function, etc., have a header comment outlining what exactly it does.</p></li>
+<li><p>Then, for each line of code, have an in-line comment that states what that code does. Are we taking the log of a variable? Are we replacing values that equal -99 with NA? While keeping this concise and short, it is also often useful to include a note on <em>why</em> you are doing that thing, too. An explanation of why can also come at the start of the chunk in order to avoid cluttering the code itself.</p></li>
+<li><p>Avoid comments that superfluous/humorous/otherwise unnecessary. If, when you read back through the code, you realize that a comment doesn’t add to the overall clarity of your code, then it is best to delete it.</p></li>
+<li><p>Avoid abbreviations. It’s better for the comments to be a bit longer and be very clear than shorter and hard to decipher.</p></li>
+<li><p>At the end of a chunk of code, if applicable, have a note on what should have been produced. For example, if you have a for loop that creates a bunch of new variables, state how many new variables should have been created, their class, their naming format, and their purpose. While one could reasonably ascertain what the code is doing, and figure out what the output would do, it is better to have it in writing to avoid any unnecessary confusion and time-wasting.</p></li>
+</ul>
+<p>I tend to use these commenting conventions for all pieces of code that I write, from analysis and cleaning scripts, to user-defined functions, and so on.</p>
+</div>
+<div id="other" class="section level4">
+<h4>Other</h4>
+<p>More specific to code auditing, it is really useful to have an audit document that basically contains all the meta information for the code that you are handing off to someone. For me, I find MS Excel/Googlesheets to be the best format for these audit documents. One sheet will contain an overview of how all the different scripts relate to each other – you can usually figure this out just by looking at the file structure in your Dropbox, but I like to have a single document that outlines where each script is located and its dependencies. A second sheet will contain a list of outputs/exhibits that you expect the auditor to replicate. The name of the exhibit as well as the script that contains the code to produce the output should be mentioned, and there should be space for the auditor to leave comments and suggestions, or flag errors if the exhibit is not produced as expected. A third sheet contains a list of to-dos. These will be a mix of errors flagged from the outputs sheet, as well as any general suggestions and issues.</p>
+<p>This is a good framework for collaborative code audits. Of course, depending on the complexity of the code that one is sending off for audit, it might be useful to include sheets that outline particularly complex or highly interdependent processes, say, certain variables are created and how they are then used to create other variables. If you think that your in-line comments can’t quite fully capture what is going on, or if the auditor isn’t super familiar with the context of your project, a more thorough summary might be in order.</p>
+<p>That’s everything I’ve got for now. I will probably add more to this article as I read more about reproducible research and code audits and whatnot. If anyone reads these blog posts and wants to add anything to this document, leave a comment in the <a href="https://github.com/tjbrailey/Website/issues">issues section</a> of my website’s Github.</p>
+</div>

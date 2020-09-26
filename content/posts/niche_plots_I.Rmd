@@ -1,0 +1,230 @@
+---
+title: "Ridiculously Niche Plots Episode I: Scaled and Faceted Radar Plots"
+author: "Tom Brailey"
+date: "2020-06-17"
+categories: ["R"]
+tags: ["R", "scale_fill_identity", "axis.text"]
+---
+
+Hello and welcome to the first episode in a series I like to call "Ridiculously Niche Plots"! An intermittent series where I give a brief rundown of especially strange plots that I have spent hours trying to crack, in the hope that someone, somewhere, struggling to understand the ins and outs of gridExtra or who are hitting their head against a wall because ggplot2 is throwing out a horrifically labyrinthine error, might stumble on this article and have all of their questions answered. I have certainly spent many hours hoping for the same...
+
+In today's episode, we will be looking at radar plots, specifically, radar plots faceted by country, more specifically, scaled faceted radar plots with axis labels that corresponds to its legend, which groups percentages of military equipment by the domain in which they operate, and where if that percentage is 0, the axis text is grayed-out. 
+
+To many of you I'm sure this sounds elementary, but, honestly, when I figured this out I felt a sense of achievement like no other. So, in the interest of reliving that euphoric moment, here we go! 
+
+Firstly, I do some top-secret data cleaning. 
+
+...
+
+beep boop
+
+...
+
+```{r include = FALSE}
+rm(list=ls())
+
+library(magrittr)
+library(ggplot2)
+library(grid)
+library(gridExtra)
+
+source(paste0(here::here(), "../../IISS/R/equip_domain.R"))
+
+### Load data
+tbl <-
+  readRDS(paste0(here::here(), "../../IISS/data/01e_addrows.rds")) %>%
+  dplyr::mutate(country = stringr::str_to_title(country)) %>% 
+  tidyr::separate(tek, c("equipment_type", "equipment_name"), "_") %>% 
+  dplyr::filter(!is.na(equipment_type))  %>%
+      dplyr::mutate(equipment_type = dplyr::case_when(equipment_type == "air-launched missiles" ~ "value 1",
+                                                      equipment_type == "air defence" ~ "value 2",
+                                                      equipment_type == "aircraft" ~ "value 3",
+                                                      equipment_type == "amphibious" ~ "value 4",
+                                                      equipment_type == "anti-tank/anti-infrastructure" ~ "value 5",
+                                                      equipment_type == "armoured fighting vehicles" ~ "value 6",
+                                                      equipment_type == "artillery" ~ "value 7",
+                                                      equipment_type == "ballistic missiles" ~ "value 8",
+                                                      equipment_type == "bombs" ~ "value 9",
+                                                      equipment_type == "engineering and maintenance vehicles" ~ "value 10",
+                                                      equipment_type == "helicopters" ~ "value 11",
+                                                      equipment_type == "logistics and support" ~ "value 12",
+                                                      equipment_type == "mine warfare" ~ "value 13",
+                                                      equipment_type == "patrol and coastal combatants" ~ "value 14",
+                                                      equipment_type == "principal surface combatants" ~ "value 15",
+                                                      equipment_type == "radars" ~ "value 16",
+                                                      equipment_type == "submarines" ~ "value 17",
+                                                      equipment_type == "surface-to-surface missile launchers" ~ "value 18",
+                                                      equipment_type == "unmanned aerial vehicles" ~ "value 19"),
+                    
+                    equip_domain = dplyr::case_when(equipment_type == "value 1" ~ "domain c",
+                                                      equipment_type == "value 2" ~ "domain c",
+                                                      equipment_type == "value 3" ~ "domain c",
+                                                      equipment_type == "value 4" ~ "domain b",
+                                                      equipment_type == "value 5" ~ "domain a",
+                                                      equipment_type == "value 6" ~ "domain a",
+                                                      equipment_type == "value 7" ~ "domain a",
+                                                      equipment_type == "value 8" ~ "domain c",
+                                                      equipment_type == "value 9" ~ "domain c",
+                                                      equipment_type == "value 10" ~ "domain a",
+                                                      equipment_type == "value 11" ~ "domain c",
+                                                      equipment_type == "value 12" ~ "domain b",
+                                                      equipment_type == "value 13" ~ "domain a",
+                                                      equipment_type == "value 14" ~ "domain b",
+                                                      equipment_type == "value 15" ~ "domain b",
+                                                      equipment_type == "value 16" ~ "domain d",
+                                                      equipment_type == "value 17" ~ "domain b",
+                                                      equipment_type == "value 18" ~ "domain a",
+                                                      equipment_type == "value 19" ~ "domain c"),
+                    country = dplyr::recode(country, France = "A",
+                                            Japan = "B")) %>%  
+  dplyr::select(-equipment_name) %>% 
+  dplyr::rename(var_name = equipment_type, 
+                domain = equip_domain)
+
+```
+
+Okay, so here's what our data looks like: 
+
+```{r}
+DT::datatable(tbl[1:20,])
+```
+Now we do a little bit of work to create functions and whatnot: 
+
+```{r}
+# This function gets all the legend information from a given ggplot object
+get_legend <-
+  function(myggplot){
+    tmp <- ggplot_gtable(ggplot_build(myggplot))
+    leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+    legend <- tmp$grobs[[leg]]
+    return(legend)
+    }
+
+# Select which subsets you want to loop through.
+my_sub <- c("A", "B")
+my_year <- 2014
+```
+
+So, in order to get all of the plots into the same scale without using facet_wrap or facet_grid, we create our own scale. We do this by finding the maximum perc value of the countries in the subset, and then creating a sequence from 0 to that number which will be used to coerce the other plots.
+
+```{r}
+tbl_sub <-
+  tbl %>%
+  dplyr::filter(year == my_year) %>%
+  dplyr::group_by(country, year, domain, var_name) %>%
+  dplyr::summarise(unit_count = sum(unit_count)) %>%
+  dplyr::group_by(year, var_name) %>%
+  dplyr::mutate(perc = sum(unit_count, na.rm = T),
+                perc = unit_count/perc,
+                perc = ifelse(is.na(perc) |
+                              is.nan(perc), 0, perc)) %>%
+  dplyr::filter(country %in% c(my_sub))
+
+max <- round(max(tbl_sub$perc), digits = 2)
+
+max_seq <- seq(0, max, length = 6)
+```
+
+Now, we loop through our country vector, and fill an empty list with our ggplot objects. 
+
+```{r}
+# Initiate empty list
+my_list <- list()
+
+# Loop
+for(i in my_sub){
+
+  # Wrangle
+  tbl_sub <-
+      tbl %>%
+      dplyr::filter(year == my_year) %>%
+      dplyr::mutate(country = as.factor(country),
+                    domain = as.factor(domain)) %>%       
+      dplyr::group_by(country, year, domain, var_name) %>%
+      dplyr::summarise(unit_count = sum(unit_count)) %>%
+      dplyr::group_by(year, var_name) %>%
+      dplyr::mutate(perc = sum(unit_count, na.rm = T),
+                    perc = unit_count/perc) %>%
+      dplyr::filter(country == i) %>%
+      dplyr::mutate(color = ifelse(domain == "domain c", "orange",
+                                   ifelse(domain == "domain d", "purple",
+                                      ifelse(domain == "domain a", "darkolivegreen4",
+                                          ifelse(domain == "domain b", "navy", NA
+                                                        )
+                                                 )
+                                          )
+                                   ),
+                    color = ifelse(unit_count == 0 |
+                                    is.na(unit_count), "grey", color),
+                    perc = ifelse(is.na(perc), 0, perc)
+                    ) %>%
+      dplyr::ungroup()
+
+  # Overwrite the coord_polar function (sometimes it behaves strangely)
+  cp <- coord_polar(theta = "x", clip = "off")
+  cp$is_free <- function() TRUE
+
+  # Make plot 
+  p <-
+    ggplot(dplyr::filter(tbl_sub, country == i), aes(x = forcats::as_factor(var_name), y = perc)) +
+           cp +
+           geom_bar(stat = "identity", aes(fill = color)) +
+           facet_grid(. ~ country, scales = "fixed") +
+           scale_y_continuous(breaks = c(max_seq), labels = scales::label_percent(), limits = c(0, max(max_seq))) +
+           scale_fill_identity(guide = "legend", name = "Domain", labels = c(darkolivegreen4 = "domain a", orange = "domain c", navy = "domain b" , purple = "domain d", grey = "not applicable")) +
+           labs(x = "",
+                y = "") +
+           theme_bw() +
+           theme(aspect.ratio = 1,
+                 panel.border = element_blank(),
+                 strip.text = element_text(size = 16),
+                 axis.title = element_text(size = 18),
+                 title = element_text(size = 20),
+                 axis.text.x = element_text(colour = tbl_sub$color, face = "bold"),
+                 legend.text = element_text(size = 14))
+
+  my_list[[i]] <- p
+  
+}
+```
+
+So now we have a list of ggplot objects that have all been scaled as if using the facet_grid(scales = "fixed") argument. All we have left to do is neatly plot them together along with a single lengend rather than a legend for each plot. 
+
+```{r}
+# Now we extract the legend information from one of the plots
+legend <- get_legend(my_list[[1]])
+
+# Remove all legend information from the plots
+for(i in 1:length(my_list)){
+  my_list[[i]] <- my_list[[i]] + theme(legend.position = "none")
+}
+```
+
+This last chunk lets us plot everything in the objects "my_list" and "legend".
+
+```{r, fig.width=16, fig.height=14}
+# Now put all the plots from the list into one big plot! 
+p <- 
+  grid.arrange(arrangeGrob(
+  grobs = my_list,
+  nrow = round(length(my_sub)/2, 0),
+  left = textGrob("Y axis",
+                    gp = gpar(fontsize = 20),
+                    rot = 90),
+  bottom = textGrob("X axis",
+                      gp = gpar(fontsize = 20),
+                      vjust = -3),
+  top = textGrob("Big plot",
+                   gp = gpar(fontsize = 28, vjust = 2))),
+  legend = legend,
+  widths = c(9,1,1),
+  clip = F)
+```
+
+This yields the above image! Wowee is that a niche plot! 
+
+It's quite cool though, and I'm pretty certain that this text-coloring thing will be really useful, and faceting plots using grid and gridExtra is also great when using loops on big country subsets. So hopefully little bits and pieces of this code will come in handy at some point in the future. 
+
+I posted an issue on stackoverflow while working on this plot and had some super helpful feedback, and in the interest of scientific transparency and credit-giving to the unbelievably altruistic members of the stack community, you can view the discussion [here](https://stackoverflow.com/questions/62413349/color-axis-text-based-on-variable-value-in-a-faceted-plot).
+
+That concludes episode I of Ridiculously Niche Plots! I hope you enjoyed, and brace yourselves for another convoluted-but-potentially-useful plot coming your way soon...
