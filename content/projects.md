@@ -1,6 +1,6 @@
 ---
 slug: projects
-title: ""
+title: "Research"
 ---
 
 # Publications

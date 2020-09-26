@@ -1,6 +1,6 @@
 ---
 slug: about
-title: ""
+title: "About Me"
 ---
 
 Hello! 
