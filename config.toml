@@ -20,7 +20,9 @@ pygmentscodefencesguesssyntax = true
     author = "Ziwen(Gary) Zu"
     description = "Ziwen Zu's personal website"
     keywords = "academic,political science,personal"
-    info = "Ph.D. student in Political Science"
+    info = ["Ph.D. student in Political Science"，
+           "University of California, San Diego"]
+
     avatarurl = "/images/avatar.jpg"
     #gravatar = "john.doe@example.com"
     footercontent = "Qualis ab incepto."
@@ -100,14 +102,9 @@ pygmentscodefencesguesssyntax = true
             name = "Teaching"
             weight = 3
             url = "teaching/"
-            
-            [[languages.en.menu.main]]
-            name = "Blog"
-            weight = 4
-            url = "posts/"
 
             [[languages.en.menu.main]]
             name = "Contact Me"
-            weight = 5
+            weight = 4
             url = "contact/"
 
