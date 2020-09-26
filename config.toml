@@ -1,0 +1,153 @@
+baseurl = "https://tjbrailey.netlify.app"
+title = "thomasjbrailey"
+
+theme = "hugo-coder"
+
+languagecode = "en"
+defaultcontentlanguage = "en"
+
+paginate = 20
+canonifyurls = true
+math = true
+
+pygmentsstyle = "b2"
+pygmentscodefences = true
+pygmentscodefencesguesssyntax = true
+
+#disqusShortname = "yourdiscussshortname"
+
+[params]
+    author = "Thomas J. Brailey"
+    description = "Tom Brailey's personal website"
+    keywords = "research associate,political science,personal"
+    info = "Political Researcher"
+    avatarurl = "/images/tom1.jpeg"
+    #gravatar = "john.doe@example.com"
+    footercontent = "'The real lessons are the institutions we destroy along the way.'"
+
+    dateformat = "January 2, 2006"
+
+    hideCredits = false
+    hideCopyright = false
+    since = 2019
+
+    # Git Commit in Footer, uncomment the line below to enable it.
+    commit = "https://github.com/luizdepra/hugo-coder/tree/"
+
+    rtl = false
+
+    # Specify light/dark colorscheme
+    # Supported values:
+    # "auto" (use preference set by browser)
+    # "dark" (dark background, light foreground)
+    # "light" (light background, dark foreground) (default)
+    colorscheme = "auto"
+
+    # Series see also post count
+    maxSeeAlsoItems = 5
+
+    # Custom CSS
+    custom_css = []
+
+    # Custom JS
+    custom_js = []
+
+# If you want to use fathom(https://usefathom.com) for analytics, add this section
+[params.fathomAnalytics]
+    siteID = "ABCDE"
+    # Default value is cdn.usefathom.com, overwrite this if you are self-hosting
+    serverURL = "analytics.example.com"
+
+[taxonomies]
+  category = "categories"
+  series = "series"
+  tag = "tags"
+
+[[params.social]]
+    name = "Github"
+    icon = "fab fa-github"
+    weight = 1
+    url = "https://github.com/tjbrailey/"
+[[params.social]]
+    name = "Twitter"
+    icon = "fab fa-twitter"
+    weight = 3
+    url = "https://twitter.com/tjbrailey/"
+[[params.social]]
+    name = "LinkedIn"
+    icon = "fab fa-linkedin"
+    weight = 4
+    url = "https://www.linkedin.com/in/tjbrailey/"
+[[params.social]]
+    name = "RSS"
+    icon = "fas fa-rss"
+    weight = 6
+    url = "https://rss.app/feeds/JPPbq02GMOROJtcy.xml"
+    rel = "alternate"
+    type = "application/rss+xml"
+
+
+[languages]
+    [languages.en]
+        languagename = "English"
+
+        [languages.en.menu]
+
+            [[languages.en.menu.main]]
+            name = "About"
+            weight = 1
+            url = "about/"
+
+            [[languages.en.menu.main]]
+            name = "Blog"
+            weight = 2
+            url = "posts/"
+
+            [[languages.en.menu.main]]
+            name = "Projects"
+            weight = 3
+            url = "projects/"
+            
+            [[languages.en.menu.main]]
+            name = "Music"
+            weight = 4
+            url = "music/"
+
+            [[languages.en.menu.main]]
+            name = "Contact Me"
+            weight = 5
+            url = "contact/"
+
+
+    [languages.pt-br]
+        languagename = "Français"
+        title = "thomasjbrailey"
+
+        [languages.pt-br.params]
+            author = "Thomas J. Brailey"
+            info = "Chercheur en Sciences Politiques"
+            description = "Site Web Personnel de Tom"
+            keywords = "associé de recherche, science politique, personnel"
+            footercontent = "'Les véritables leçons sont les institutions que nous détruisons en cours de route.'"
+
+        [languages.pt-br.menu]
+
+            [[languages.pt-br.menu.main]]
+            name = "À propos de Moi"
+            weight = 1
+            url = "about/"
+
+            [[languages.pt-br.menu.main]]
+            name = "Blog"
+            weight = 2
+            url = "posts/"
+
+            [[languages.pt-br.menu.main]]
+            name = "Projets"
+            weight = 3
+            url = "projects/"
+
+            [[languages.pt-br.menu.main]]
+            name = "Contactez Moi"
+            weight = 5
+            url = "contact/"
