@@ -18,17 +18,17 @@ disqusShortname = "yourdiscussshortname"
 [params]
     author = "Ziwen Zu"
     description = "Ziwen Zu's personal website"
-    keywords = "blog,developer,personal"
-    info = "Full Stack DevOps and Magician"
+    keywords = "political science,developer,personal"
+    info = "Ph.D. student in Political Science at UCSD"
     avatarurl = "images/avatar.jpeg"
     #gravatar = "john.doe@example.com"
-    footercontent = "Let there be Light"
+    #footercontent = "Let there be Light"
 
     dateformat = "January 2, 2006"
 
-    hideFooter = false
-    hideCredits = false
-    hideCopyright = false
+    hideFooter = true
+    hideCredits = true
+    hideCopyright = true
     since = 2019
 
     # Git Commit in Footer, uncomment the line below to enable it.
@@ -104,6 +104,12 @@ disqusShortname = "yourdiscussshortname"
             name = "Contact"
             weight = 4
             url = "contact/"
+
+
+            [[languages.en.menu.main]]
+            name = "Writing"
+            weight = 5
+            url = "posts/"
             
             
 
