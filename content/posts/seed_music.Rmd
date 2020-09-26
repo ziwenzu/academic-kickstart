@@ -101,18 +101,6 @@ I expected that whatever I ended up writing would be somewhat avante-garde. I wa
 
 This was the first plot that came out of my function. An ungodly splattering of notes which I had to coerce into G# Mixolydian (the most popular mode, right?). By the way, as a sort-of-afterthought, I wanted the title to the plot to be a series of random letters to serve as a word-cloud to further encourage my creativity. This part certainly needs some work given that "gyzjsgsfpz awnkbzyvho" doesn't really make me feel anything. Still though, perhaps one day it will spit out something so inspiring that I go on to write a hit-single. We shall see... 
 
-![](/posts/seed_music_files/gyzjsgsfpz awnkbzyvho.png)
-
-I then transposed these dots onto a staff, deciding that 13/8 would be a fun meter for this melody. These notes in C major sound truly awful, so I'm glad ggplot2 made me transpose this melody into something else. 
-
-![](/posts/seed_music_files/basic_melody .png)
 
 Here's where I exert some "creative control" shall we say. Somewhere between that initial transcription and the final melody, some notes were moved around and whatnot, but I really did do my best to stay true to whatever the function gave me. This is what I turned the basic melody into: 
 
-![](/posts/seed_music_files/full_melody.png)
-
-And here is what it sounds like (with a little hi-hat in the background). 
-
-![](/posts/seed_music_files/Seed 1.wav)
-
-As you can tell, I can't really call a twelve-second excerpt a song. But these four bars give some insight into the flavor of this tune. In any case, I am pretty chuffed that I actually managed to get something workable out of this idea. Seed Music is a project that I will be continuing for the foreseeable future, and I will try to post reguarly my ideas and creations. More to follow! 
