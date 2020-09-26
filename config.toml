@@ -16,9 +16,9 @@ pygmentscodefencesguesssyntax = true
 #disqusShortname = "yourdiscussshortname"
 
 [params]
-    author = "Ziwen Zu"
-    description = "Ziwen Zu's personal website"
-    keywords = "political science,developer,personal"
+    author = "Ziwen(Gary) Zu"
+    # description = "Ziwen Zu's personal website"
+    # keywords = "political science,developer,personal"
     info = "Ph.D. student in Political Science at UCSD"
     avatarurl = "images/avatar.jpeg"
     #gravatar = "john.doe@example.com"
