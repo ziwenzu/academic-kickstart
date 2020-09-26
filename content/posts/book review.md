@@ -1,6 +1,6 @@
 +++
 date = "2020-05-17"
-title = "Book Review on *China Governance Puzzle*"
+title = "Book Review on China Governance Puzzle"
 slug = "" 
 tags = []
 categories = [Writing]
