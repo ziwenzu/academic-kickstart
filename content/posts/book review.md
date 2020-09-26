@@ -10,11 +10,19 @@ Stromseth, J., Malesky, E., Gueorguiev, D. (2017). [*China's Governance Puzzle: 
 
 
 
+
+
+
+
 <div style="text-align: justify"> Stromseth et.al's China's Governance Puzzle focuses on a central question in China's political developments: what motivate an authoritarian regime to initiative democratic reforms and how such reforms impact both leaderships and citizens? To answer this question, China's Governance Puzzle examined two aspects of governance in particular: transparency in the provision of information on government activities, processes, and regulations; and public participation in the formation of government policies (p.3). different from conventional debates on whether ”democratic” reforms in China is "window dressing" or preamble of democratization, this book departed from the simple dichotomy by exploring the possibility that reforms have led simultaneously to improved governance and more effective one-party rule (p.4). This book provided both substantial qualitative analysis from ﬁeld interviews, government archives, case comparisons as well as robust quantitative evidence to argue that the impact of participation and transparency reforms on important governance outcomes such as reduced corruption and improved legal compliance and policy effectiveness. </div>
 
 
 
+
+
 <div style="text-align: justify">Practically, this book reﬂected on the importance of China puzzle because it appears to offer evidence that unprecedented economic growth and modernization can coexist with budged authoritarian rule and shrinking human rights. Academically, this book situates in the intersection between Andrew Nathan's argument that "authoritarian reforms are instrumental to persuade citizens the regime is lawful and should be obeyed” which they call "authoritarian resilience" and McCubbins and Schwartz's ﬁre-alarm theory that reforms in fact deter corruption and improve compliance by engaging citizens in monitoring and decision-making.  Furthermore, this book innovatively relates deliberative democracy literature to the compelling beneﬁts from mass public participations in authoritarian China, as decisions made in public are better informed and more legitimate than those made in private, echoing with a strand of latest research such as Milan Svolik's famous book on how autocrats deliberate power-sharing and political control and Chen and Xu's work on why authoritarian leaders allow citizens to voice publicly.</div>
+
+
 
 
 
@@ -34,7 +42,13 @@ Stromseth, J., Malesky, E., Gueorguiev, D. (2017). [*China's Governance Puzzle: 
 
 
 
+
+
 <div style="text-align: justify">In Chapter 3 and 4, the authors continued the analysis of whether the seemingly self-interested reforms would be a huge accomplishment for the CCP and improve the lives of Chinese citizens. Statistical evidence indicated that transparency initiatives introduced as part of China’s Open Information(OGI) program have led to reductions in macro-corruption among subnational ofﬁcials (p.96). Given the nature of heterogeneity within Chinese subnational regions, a potential alternative is that in more developed regions, corruption reduction and transparency reforms are implemented simultaneously instead of a causal effect. Therefore, the authors then adopted case study approach to compare two typical models: Guangdong and Chongqing, to examine the causal relationship between transparency and reduction of corruption. Their ﬁndings noticed that Guangzhou’s early adoption of OGI policies and it has achieved success at limiting abuses of authority. In sharp contrast, the state-led, aggressive approach of Chongqing's transparency reform ultimately foundered due to its inability to properly police the guardians (p.151). Regarding this book's methodological rigor, these two Chapters provide an example of mixed method analysis. Especially, Chapter 5 followed Gerring's "typical selection" approach to illustrate that Guangdong and Chongqing are two typical cases close to the regression line of all provinces, namely the two provinces are representative. Also, the authors introduced Humphreys and Jacobs's "high-leverage cases", identifying the clues or steps in the causal process of the theory is particularly important. In other words, if the "transparency-corruption” mechanism works anywhere, it must work in Guangdong. If it fails anywhere, it should fail in Chongqing.</div>
+
+
+
+
 
 
 
@@ -52,8 +66,16 @@ Stromseth, J., Malesky, E., Gueorguiev, D. (2017). [*China's Governance Puzzle: 
 
 
 
+
+
+
+
 <div style="text-align: justify">Chapter 6 took the next step by exploring the empirical relationship between open policymaking and policy effectiveness in China. Empirical evidence supported that civil engagements in policy making signiﬁcantly lowered mass dissents linking to deliberative democracy literature. However, the result has been a sharp division between those who see participation as a new model of consultative authoritarianism and those who dismiss it as democratic "window dressing" (p.244). The next, to validate this claim, in Chapter 7 the authors provided another case comparison to address threats to causal inference. By comparing three provinces, each with varying capacity and resources for dealing with policy challenges, the authors clariﬁed conditions under which Chinese policymakers rely on public consultation as well as the conditions under which consultation contributes to more effective policy choices. The authors contributed that, the role of public opinions rely on how much political resources (i.e., ﬁscal expenditure, political ranks) the province has. Chapter 8 concluded and summarized the future roads of Chinese political reforms.
   
+
+
+
+
 
 
 
@@ -65,7 +87,15 @@ Stromseth, J., Malesky, E., Gueorguiev, D. (2017). [*China's Governance Puzzle: 
 
 
 
+
+
+
+
 <div style="text-align: justify">Overall, this book contributed to the knowledge in the following aspects. First, the authors emphasized Chinese governance reforms must be understood on their own terms and in the context of the Chinese policymaking process. Different form the conventional dichotomous analysis of reform outcomes, the authors enlightened that Chinese reforms were only partially successful, indicating the complex in understanding the rationale behind government-led quasi-democratic reforms. The reforms to some extent achieved better policy compliance and legitimacy while some failed. Third, both quantitative and qualitative evidence proved the heterogeneity within domestic governance ranging from policy-making to speciﬁc reform actions—as the authors argued, there is no single China model. Finally, this book provided several policy suggestions for future governance reforms such as institutionalizing public participation as an approach to democratization. </div>
+
+
+
+
 
 
 
