@@ -3,6 +3,7 @@ title: "Lessons From COVID-19"
 author: "Ziwen(Gary) Zu"
 date: "2020-05-07"
 categories: ["Writing"]
+tags: ["R", "scale_fill_identity", "axis.text"]
 ---
 
 ```{r setup, include=FALSE}
