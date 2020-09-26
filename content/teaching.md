@@ -1,6 +1,6 @@
 ---
 slug: teaching
-title: Teaching
+title: 
 ---
 
 # Sun Yat-Sen University
