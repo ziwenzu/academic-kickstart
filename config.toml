@@ -1,5 +1,5 @@
 baseurl = "https://tjbrailey.netlify.app"
-title = ""
+title = "Ziwen Zu"
 
 theme = "hugo-coder"
 
@@ -18,18 +18,18 @@ pygmentscodefencesguesssyntax = true
 
 [params]
     author = "Ziwen(Gary) Zu"
-    description = "Ziwen(Gary) Zu's personal website"
+    description = "Ziwen Zu's personal website"
     keywords = "research,political science,personal"
-    info = "Ph.D. student in Political Science at UCSD"
-    avatarurl = "/images/avatar.jpeg"
+    info = "Political Science Ph.D. student at UCSD"
+    avatarurl = "/images/tom1.jpeg"
     #gravatar = "john.doe@example.com"
-    #footercontent = "'The real lessons are the institutions we destroy along the way.'"
+    footercontent = "Let there be Light"
 
     dateformat = "January 2, 2006"
 
     hideCredits = false
     hideCopyright = false
-    since = 2020
+    since = 2019
 
     # Git Commit in Footer, uncomment the line below to enable it.
     commit = "https://github.com/luizdepra/hugo-coder/tree/"
@@ -78,7 +78,6 @@ pygmentscodefencesguesssyntax = true
     icon = "fab fa-linkedin"
     weight = 3
     url = "https://www.linkedin.com/in/ziwen-zu-59a964104/"
-
 
 
 [languages]
