@@ -3,7 +3,7 @@ date = "2020-05-07"
 title = "Lessons from COVID"
 slug = "" 
 tags = []
-categories = []
+categories = [Writing]
 series = []
 
 +++
@@ -16,7 +16,13 @@ series = []
 
 <div style="text-align: justify"> A recent article in Atlantic by Stanford political science professor Francis Fukuyama reflected on the ongoing failure that western democracies are facing in handling the COVID-19 crisis in contrast to the seeming success that authoritarian regimes have achieved so far. Prof. Fukuyama pointed two determents to governments' success in such an unexpected turmoil: the trust of governments and strong state capacity. The latter factor explains why authoritarian regimes such as China could respond expeditiously and contain disease widespread effectively despite the lack of democratic institutions.</div>
 
-<div style="text-align: justify"> y contrast, Prof. Fukuyama claimed that the U.S. dysfunctional performance is due to the lack of trust of both executive branches from top-level leaders and governments from citizens. Indeed, he is partially correct about current U.S. politics, where partisan divide and distrust have damaged governance quality, but his emphasis on trust overlaps some cores embedded in state capacity. In this sense, trust is only vital, contingent on volatile state capacity. For example, authoritarian regimes like China suffer a lack of distrust from citizens, but they rely on strong state capacity to executive policies effectively at the cost of legitimacy. </div>
+
+
+
+
+<div style="text-align: justify"> By contrast, Prof. Fukuyama claimed that the U.S. dysfunctional performance is due to the lack of trust of both executive branches from top-level leaders and governments from citizens. Indeed, he is partially correct about current U.S. politics, where partisan divide and distrust have damaged governance quality, but his emphasis on trust overlaps some cores embedded in state capacity. In this sense, trust is only vital, contingent on volatile state capacity. For example, authoritarian regimes like China suffer a lack of distrust from citizens, but they rely on strong state capacity to executive policies effectively at the cost of legitimacy. </div>
+
+
 
 
 
