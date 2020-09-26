@@ -1,5 +1,5 @@
 baseurl = "https://tjbrailey.netlify.app"
-title = "thomasjbrailey"
+title = "Ziwen(Gary) Zu"
 
 theme = "hugo-coder"
 
@@ -79,42 +79,9 @@ pygmentscodefencesguesssyntax = true
     weight = 4
     url = "https://www.linkedin.com/in/tjbrailey/"
 [[params.social]]
-    icon = "google-scholar"
-    icon_pack = "ai"
-    weight = 5
+    icon = "ai google-scholar"
     link = "https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ"
 
-
-[languages]
-    [languages.en]
-        languagename = "English"
-
-        [languages.en.menu]
-
-            [[languages.en.menu.main]]
-            name = "About"
-            weight = 1
-            url = "about/"
-
-            [[languages.en.menu.main]]
-            name = "Blog"
-            weight = 2
-            url = "posts/"
-
-            [[languages.en.menu.main]]
-            name = "Projects"
-            weight = 3
-            url = "projects/"
-            
-            [[languages.en.menu.main]]
-            name = "Music"
-            weight = 4
-            url = "music/"
-
-            [[languages.en.menu.main]]
-            name = "Contact Me"
-            weight = 5
-            url = "contact/"
 
 
     
