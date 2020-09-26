@@ -1,5 +1,5 @@
 baseurl = "https://tjbrailey.netlify.app"
-title = "Ziwen(Gary) Zu"
+title = ""
 
 theme = "hugo-coder"
 
@@ -67,21 +67,50 @@ pygmentscodefencesguesssyntax = true
     name = "Github"
     icon = "fab fa-github"
     weight = 1
-    url = "https://github.com/tjbrailey/"
+    url = "https://github.com/ziwenzu"
 [[params.social]]
     name = "Twitter"
     icon = "fab fa-twitter"
-    weight = 3
-    url = "https://twitter.com/tjbrailey/"
+    weight = 2
+    url = "https://twitter.com/zu_gary"
 [[params.social]]
     name = "LinkedIn"
     icon = "fab fa-linkedin"
-    weight = 4
-    url = "https://www.linkedin.com/in/tjbrailey/"
-[[params.social]]
-    icon = "ai google-scholar"
-    link = "https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ"
+    weight = 3
+    url = "https://www.linkedin.com/in/ziwen-zu-59a964104/"
 
+
+
+[languages]
+    [languages.en]
+        languagename = "English"
+
+        [languages.en.menu]
+
+            [[languages.en.menu.main]]
+            name = "About"
+            weight = 1
+            url = "about/"
+
+            [[languages.en.menu.main]]
+            name = "Blog"
+            weight = 2
+            url = "posts/"
+
+            [[languages.en.menu.main]]
+            name = "Projects"
+            weight = 3
+            url = "projects/"
+            
+            [[languages.en.menu.main]]
+            name = "Music"
+            weight = 4
+            url = "music/"
+
+            [[languages.en.menu.main]]
+            name = "Contact Me"
+            weight = 5
+            url = "contact/"
 
 
     
