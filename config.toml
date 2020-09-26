@@ -79,12 +79,10 @@ pygmentscodefencesguesssyntax = true
     weight = 4
     url = "https://www.linkedin.com/in/tjbrailey/"
 [[params.social]]
-    name = "RSS"
-    icon = "fas fa-rss"
-    weight = 6
-    url = "https://rss.app/feeds/JPPbq02GMOROJtcy.xml"
-    rel = "alternate"
-    type = "application/rss+xml"
+    icon = "google-scholar"
+    icon_pack = "ai"
+    weight = 5
+    link = "https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ"
 
 
 [languages]
