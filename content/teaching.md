@@ -16,3 +16,8 @@ header:
 
 Mentor for **Math Camp** and **English Camp** (2015 Fall, 2016 Spring)
 
+
+
+# UCSD
+
+Teaching Assistant for POLI146A US & Latin America: Pol&Econ Relations
