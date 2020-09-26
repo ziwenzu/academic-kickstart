@@ -10,7 +10,23 @@ title = "Lessons from COVID"
 
 
 
+
+
+
+
+
+
+
+
 <div style="text-align: justify"> A recent article in Atlantic by Stanford political science professor Francis Fukuyama reflected on the ongoing failure that western democracies are facing in handling the COVID-19 crisis in contrast to the seeming success that authoritarian regimes have achieved so far. Prof. Fukuyama pointed two determents to governments' success in such an unexpected turmoil: the trust of governments and strong state capacity. The latter factor explains why authoritarian regimes such as China could respond expeditiously and contain disease widespread effectively despite the lack of democratic institutions.</div>
+
+
+
+
+
+
+
+
 
 
 
@@ -22,7 +38,23 @@ title = "Lessons from COVID"
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div style="text-align: justify">Prof. Fukuyama ignored the importance of information transition between the federal government and states in accounting for the U.S. failure. Information transition differs from the trust, requiring well-designed institutions, bipartisan cultures, and frequent communications between local and central leaders. At the very beginning of the COVID-19 crisis, President Trump tried to narrate the disease widespread as a "blue states' problem" and refused to extend help to several states later on. Trump's responses embodied not only the flaws in current U.S. political institutions but also his consideration for reelections, which biased the policymaking and would cause substantial humanitarian disasters. </div>
+
+
+
+
+
+
 
 
 
