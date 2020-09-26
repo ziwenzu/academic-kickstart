@@ -28,7 +28,7 @@ pygmentscodefencesguesssyntax = false
 
     hideFooter = false
     hideCredits = true
-    hideCopyright = true
+    hideCopyright = false
     since = 2019
 
     # Git Commit in Footer, uncomment the line below to enable it.
