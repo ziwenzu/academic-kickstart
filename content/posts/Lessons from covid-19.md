@@ -1,4 +1,4 @@
----
++++
 draft = true
 date = {{ .Date }}
 title = ""
@@ -8,8 +8,8 @@ tags = []
 categories = []
 externalLink = ""
 series = []
----
-<div style="text-align: justify">
+
++++
 
  A recent article in *[Atlantic](https://www.theatlantic.com/ideas/archive/2020/03/thing-determines-how-well-countries-respond-coronavirus/609025/)* by Stanford political science professor Francis Fukuyama reflected on the ongoing failure that western democracies are facing in handling the COVID-19 crisis in contrast to the seeming success that authoritarian regimes have achieved so far. Prof. Fukuyama pointed two determents to governments' success in such an unexpected turmoil: the trust of governments and strong state capacity. The latter factor explains why authoritarian regimes such as China could respond expeditiously and contain disease widespread effectively despite the lack of democratic institutions.  
 
@@ -21,4 +21,3 @@ series = []
 
 
  The U.S. has witnessed several successful presidents leading the country out of unexpected crises. But Trump is not the next Abraham Lincoln, nor Franklin Roosevelt. Hopefully, amid the dark days, the only silver lining we could bear in mind is learning a lesson from this crisis---as a democracy, the U.S. shall never depend on a wise supreme leader but adaptive institutions to go through future challenges.
- </div>
