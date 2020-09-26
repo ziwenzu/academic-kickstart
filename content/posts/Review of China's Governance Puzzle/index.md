@@ -1,13 +1,36 @@
 ---
-title: "Review of China Governance Puzzle"
-author: "Ziwen(Gary) Zu"
-date: "2020-05-17"
-categories: ["Writing"]
----
+title: 'Book review: China Governance Puzzle'
+#subtitle: 'Create a beautifully simple website in under 10 minutes :rocket:'
+#summary: Create a beautifully simple website in under 10 minutes.
+authors:
+- admin
+#tags:
+#- Academic
+#categories:
+#- Demo
+date: "2019-07-19T00:00:00Z"
+#lastmod: "2019-04-17T00:00:00Z"
+featured: false
+draft: false
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(collapse = TRUE)
-```
+# Featured image
+# To use, add an image named `featured.jpg/png` to your page's folder.
+# Placement options: 1 = Full column width, 2 = Out-set, 3 = Screen-width
+# Focal point options: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight
+#image:
+ # placement: 2
+  #caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/CpkOjOcXdUY)'
+  #focal_point: ""
+  #preview_only: false
+
+# Projects (optional).
+#   Associate this post with one or more of your projects.
+#   Simply enter your project's folder or file name without extension.
+#   E.g. `projects = ["internal-project"]` references `content/project/deep-learning/index.md`.
+#   Otherwise, set `projects = []`.
+#projects: []
+---
+<div style="text-align: justify">
 
 Stromseth, J., Malesky, E., Gueorguiev, D. (2017). *China's Governance Puzzle: Enabling Transparency and Participation in a Single-Party State*. Cambridge: Cambridge University Press. doi:10.1017/9781316388501
 
@@ -37,14 +60,16 @@ Stromseth, J., Malesky, E., Gueorguiev, D. (2017). *China's Governance Puzzle: E
 
  **References**
 
-  1. Chen, Jidong and Yiqing Xu. "Why Do Authoritarian Regimes Allow Citizens to Voice Opinions Publicly?" In: *The Journal of Politics* 79.3 (2017), pp. 792–803. 
+ 1. Chen, Jidong and Yiqing Xu. "Why Do Authoritarian Regimes Allow Citizens to Voice Opinions Publicly?" In: *The Journal of Politics* 79.3 (2017), pp. 792–803. 
+ 
+ 2. Gerring, John. *Case study research: Principles and practices.* Cambridge university press, 2006.
 
-  2. Gerring, John. *Case study research: Principles and practices.* Cambridge university press, 2006.
+ 3. Humphreys, Macartan and Alan M Jacobs. "Mixing methods: A Bayesian approach". In: *American Political Science Review* 109.4 (2015), pp. 653–673.
 
-  3. Humphreys, Macartan and Alan M Jacobs. "Mixing methods: A Bayesian approach". In: *American Political Science Review* 109.4 (2015), pp. 653–673.
+ 4. McCubbins, Mathew D and Thomas Schwartz. "Congressional oversight overlooked: Police patrols versus ﬁre alarms". In: *American Journal of Political Science* (1984), pp. 165–179.
 
-  4. McCubbins, Mathew D and Thomas Schwartz. "Congressional oversight overlooked: Police patrols versus ﬁre alarms". In: *American Journal of Political Science* (1984), pp. 165–179.
+ 5. Nathan, Andrew J. "Authoritarian resilience". In: *Journal of Democracy* 14.1 (2003). 
+ 
+ 6. Svolik, Milan W. *The politics of authoritarian rule.* Cambridge University Press, 2012.
 
-  5. Nathan, Andrew J. "Authoritarian resilience". In: *Journal of Democracy* 14.1 (2003). 
-
-  6. Svolik, Milan W. *The politics of authoritarian rule.* Cambridge University Press, 2012.
+ </div>
