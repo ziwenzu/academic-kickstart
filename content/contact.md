@@ -1,6 +1,6 @@
 ---
 slug: contact
-title: ""
+title: "Contact Me"
 ---
 
 Thank you for reaching out! Whether it be to talk about politics, music, or just to say "hi", it would be great to get to know you!

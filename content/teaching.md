@@ -1,15 +1,13 @@
 ---
 slug: teaching
-title: 
+title: "Teaching"
 ---
 
-# Sun Yat-Sen University
+## Sun Yat-Sen University
 
 Mentor for Math Camp and English Camp (2015 Fall, 2016 Spring)
 
-
-
-# UCSD
+## UCSD
 
 TA to POLI 146A US & Latin America :Pol&Econ Relations (2020 Fall)
 
