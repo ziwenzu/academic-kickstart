@@ -4,7 +4,7 @@ title = "Book Review on China Governance Puzzle"
 
 +++
 
-Stromseth, J., Malesky, E., Gueorguiev, D. (2017). [*China's Governance Puzzle: Enabling Transparency and Participation in a Single-Party State*](https://www.cambridge.org/core/books/chinas-governance-puzzle/6DA23AD2ED89FA43DD6F301573DCDD4A). Cambridge: Cambridge University Press. doi:10.1017/9781316388501
+Stromseth, J., Malesky, E., Gueorguiev, D. (2017). [*China's Governance Puzzle: Enabling Transparency and Participation in a Single-Party State*](https://www.cambridge.org/core/books/chinas-governance-puzzle/6DA23AD2ED89FA43DD6F301573DCDD4A). Cambridge: Cambridge University Press. 
 
 
 
