@@ -1,0 +1,45 @@
+---
+title: Regression and other stories
+subtitle:
+author:
+  name: Gary Zu
+  affiliation: UCSD
+# date: "`r format(Sys.time(), '%d %B %Y')`" ## Or "Lecture no."
+output: 
+  html_document:
+    theme: flatly
+    highlight: haddock
+    # code_folding: show
+    toc: yes
+    toc_depth: 4
+    toc_float: yes
+    keep_md: false
+    keep_tex: false ## Change to true if want keep intermediate .tex file
+    css: preamble.css ## For multi-col environments
+  pdf_document:
+    latex_engine: xelatex
+    toc: true
+    dev: cairo_pdf
+    # fig_width: 7 ## Optional: Set default PDF figure width
+    # fig_height: 6 ## Optional: Set default PDF figure height
+    includes:
+      in_header: preamble.tex ## For multi-col environments
+    pandoc_args:
+        --template=mytemplate.tex ## For affiliation field. See: https://bit.ly/2T191uZ
+always_allow_html: true
+urlcolor: blue
+mainfont: Cochineal
+sansfont: Fira Sans
+monofont: Fira Code ## Although, see: https://tex.stackexchange.com/q/294362
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE, dpi=300)
+```
+
+<style>
+body {
+text-align: justify}
+</style>
+
+Figure 3 includes the residual plot and QQ-plot. The residual plot have no obvious pattern: the expect value of residuals is close to 0 and the variances are approximately equal. The QQ-plot shows the standardized residuals are close to the theoretical quantiles. Thus, **the residuals are normally distributed and homoscedastic, and the assumption of the liner model is satisfied**. The VIF values for each variable in the best model is small, indicating **there are no obvious multicolinearity**.
