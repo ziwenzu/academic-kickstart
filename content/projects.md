@@ -26,9 +26,5 @@ title: "Research"
 
   <div style="text-align:justify">Abstract: This paper sets up a bargaining model on how mass media affect dynamics of student movements in China based on empirical cases: Beijing 1989 Protest, 2012 Hong Kong Central Occupation Movement and 2014 Taipei Sunﬂower Movement. Different from current literature focusing on asymmetrical information involving in the bargaining between authoritarian regimes and social protesters, this paper emphasizes that mass media constrain the extent to which autocrats strategically manipulate information during mass protests.</div>
 
-## Work in Progress
 
-  * Instrumental variables in Political Science: Pitfalls and Solutions (with Yiqing Xu, Mackenzie Lockhart, Apoorva Lal)
-
-  * Origin of rule of law in China (with Junyan Jiang)
 
