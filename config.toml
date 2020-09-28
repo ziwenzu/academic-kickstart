@@ -105,15 +105,9 @@ pygmentscodefencesguesssyntax = false
             weight = 4
             url = "contact/"
 
-
-            [[languages.en.menu.main]]
-            name = "Writing"
-            weight = 5
-            url = "posts/"
-            
             [[languages.en.menu.main]]
             name = "Resources"
-            weight = 6
+            weight = 5
             url = "Resources/"
             
 
