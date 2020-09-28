@@ -111,6 +111,10 @@ pygmentscodefencesguesssyntax = false
             weight = 5
             url = "posts/"
             
+            [[languages.en.menu.main]]
+            name = "Resources"
+            weight = 6
+            url = "Resources/"
             
 
 
