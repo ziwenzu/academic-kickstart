@@ -1,32 +1,7 @@
 ---
 title: Introduction to Econometrics with R & Morden Drive
-subtitle: SciencePo
-author:
-  name: Ziwen
-  affiliation: UCSD | Dept.of Political Science
-# date: "`r format(Sys.time(), '%d %B %Y')`" ## Or "Lecture no."
-output: 
-  html_document:
-    theme: flatly
-    highlight: haddock
-    # code_folding: show
-    toc: yes
-    toc_depth: 4
-    toc_float: yes
-    keep_md: false
-    keep_tex: false ## Change to true if want keep intermediate .tex file
-    css: preamble.css ## For multi-col environments
-  pdf_document:
-    latex_engine: xelatex
-    toc: true
-    dev: cairo_pdf
-    # fig_width: 7 ## Optional: Set default PDF figure width
-    # fig_height: 6 ## Optional: Set default PDF figure height
-    includes:
-      in_header: preamble.tex ## For multi-col environments
-    pandoc_args:
-        --template=mytemplate.tex ## For affiliation field. See: https://bit.ly/2T191uZ
-always_allow_html: true
+author: Ziwen
+date: "2021-03-09" ## Or "Lecture no."
 urlcolor: blue
 mainfont: cochineal
 sansfont: Fira Sans
@@ -55,8 +30,7 @@ source: [link](https://scpoecon.github.io/ScPoEconometrics/)
 A vector is a one-dimensional array. A matrix is a two-dimensional array. In R you can create arrays of arbitrary dimensionality N. Here is how:
 
 ```{r array}
-library(ScPoApps)
-packageVersion("ScPoApps")
+library()
 d = 1:16
 d3 = array(data = d,dim = c(4,2,2)) # d3 是四行两列，然后有两页
 d4 = array(data = d,dim = c(4,2,2,3))  # will recycle 1:16 
@@ -88,12 +62,13 @@ Unlike a matrix, which can be thought of as a vector rearranged into rows and co
 A `data.frame` is similar to a typical Spreadsheet. There are rows, and there are columns. A row is typically thought of as an observation, and each column is a certain variable, characteristic or feature of that observation.
 
 ```{r dataframe}
+
 example_data = data.frame(x = c(1, 3, 5, 7, 9, 1, 3, 5, 7, 9),
                           y = c(rep("Hello", 9), "Goodbye"),
                           z = rep(c(TRUE, FALSE), 5))
 
 # 安装包所在的位置的数据
-path = system.file(package="ScPoEconometrics","datasets","example-data.csv") 
+ #read csv 是常用的读取data frame 用的
 #To look at data in a data.frame, we have two useful commands: head() and str().
 #head() 帮助看数据的变量和结构
 
@@ -202,14 +177,12 @@ ggplot(data = mpg, aes(x=displ,y=hwy)) +   # ggplot() makes base plot
 library(readr)  # you need `install.packages("readr")` once!
 path = system.file(package="ScPoEconometrics","datasets","example-data.csv")
 
+
 #subset
 mpg[mpg$hwy>35,c("manufacturer","model","year")]
 # another way
 subset(mpg, subset = hwy > 35, select = c("manufacturer", "model", "year"))
 # another way
-library(dplyr)
-mpg%>%filter(hwy>35)%>%
-  select(manufacturer, model, year)
 ```
 
 Deal with non-tidy data tibble is non-tidy data
@@ -225,19 +198,12 @@ library(readxl)  # load the library
 # * change the argument `path` to where you downloaded it
 # you may want to change your working directory with `setwd("your/directory")
 # or in RStudio by clicking Session > Set Working Directory
-
+library(ScPoApps)
+packageVersion("ScPoApps")
 # total population in raw format
-
-tot_pop_raw = read_excel(
-                path = system.file(package="ScPoEconometrics",
-                                    "datasets","demo_gind.xls"), 
-                sheet="Data", # which sheet
-                range="A9:K68")  # which excel cell range to read
-names(tot_pop_raw)[1] <- "Country"   # lets rename the first column
-tot_pop_raw
 ```
 
-It’s important to know how the data is organized in the spreadsheet. Open the file with Excel to see:
+It's important to know how the data is organized in the spreadsheet. Open the file with Excel to see:
 
 - There is a heading which we don't need.
 - There are 5 rows with info that we don't need.
@@ -245,21 +211,7 @@ It’s important to know how the data is organized in the spreadsheet. Open the 
 - Each table has one row for each country, and one column for each year.
 - As such, this data is **not tidy**.
 
-```{r tidyr}
-library(tidyr)   # for the gather function
-#specify which columns are to be gathered: in our case, all years 
-#(note that paste(2008:2017) produces a vector like ["2008", "2009", "2010",...])
 
-#say what those columns should be gathered into, i.e. 
-#what is the key for those values: we’ll call it year.
-
-#Finally, what is the name of the new resulting column, 
-#containing the value from each cell: let’s call it counts.
-tot_pop = gather(tot_pop_raw, paste(2008:2017),key="year", value = "counts")
-tot_pop
-#That’s better! However, counts is still chr! Let’s convert it to a number:
-tot_pop$counts = as.integer(tot_pop$counts) 
-```
 
 With `dplyr` you can do the following operations on `data.frame`s and `tibble`s:
 
@@ -278,47 +230,10 @@ All of those verbs can be used with `group_by()`, where we apply the respective 
 Let’s get a plot of the populations of France, the UK and Italy over time, in terms of millions of people. We will make use of the `piping` syntax of `dplyr` which we introduced just above.
 
 
-```{r dylyr}
-
-library(dplyr)  # for %>%, filter, mutate, ...
-# 1. take the data.frame `tot_pop`
-library(ggthemes)
-tot_pop %>%
-  # 2. pipe it into the filter function
-  # filter on Country being one of "France","United Kingdom" or "Italy"
-  filter(Country %in% c("France","United Kingdom","Italy")) %>%
-  # 3. pipe the result into the mutate function
-  # create a new column called millions
-  mutate(millions = counts / 1e6) %>%
-  # 4. pipe the result into ggplot to make a plot
-  #subset all data into groups and give each group its own appearance and transformation
-  ggplot(mapping = aes(x=year,y=millions,color=Country,group=Country)) + 
-  geom_line(size=1)+theme_bw()
 
 
-```
 
 
-```{r summarize and arrange}
-top5=tot_pop%>%arrange(desc(counts))%>%
-  top_n(5)
-top5
-
-topbottom=tot_pop%>%
-  group_by(Country)%>%
-  filter(year>2012)%>%
-  summarise(mean_count=mean(counts))%>%
-  arrange(desc(mean_count))
-top5=topbottom%>%top_n(5)
-bottom5=topbottom%>%top_n(-5)
-```
-
-```{r missing}
-missing=tot_pop%>%
-  filter(is.na(counts))%>%
-  group_by(Country)%>%
-  summarise(n_missing=n(),years=paste(year,collapse = ","))
-```
 >其中paste函数式paste函数的缩减版本，少了一个参数sep。参数中的...表示的是想要拼接的对象，后面的参数表示拼接的方式。通常对于字符串拼接我们有三种需求：
 一堆单独的字符串拼接到一起；
 两个或者更多字符串对象根据元素对应关系拼接到一起；
@@ -345,73 +260,9 @@ paste(1:10)
 paste(1:10, collapse = '~')
 ```
 
-```{r}
-females_raw = read_excel(
-                path = system.file(package="ScPoEconometrics",
-                                    "datasets","demo_gind.xls"), 
-                sheet="Data", # which sheet
-                range="A141:K200",  # which excel cell range to read
-                na=":" )   # missing data indicator
-names(females_raw)[1] <- "Country"   # lets rename the first column
-
-males_raw = read_excel(
-                path = system.file(package="ScPoEconometrics",
-                                    "datasets","demo_gind.xls"), 
-                sheet="Data", # which sheet
-                range="A75:K134",  # which excel cell range to read
-                na=":" )   # missing data indicator
-names(males_raw)[1] <- "Country"   # lets rename the first column
-
-
-females = gather(females_raw, paste(2008:2017),key="year", value = "counts")
-males = gather(males_raw, paste(2008:2017),key="year", value = "counts")
-
-females$sex = "female"
-males$sex = "male"
-sexes = rbind(males,females)   # "row bind" 2 data.frames
-sexes
 
 
 
-sexes %>%
-  filter(Country %in% c("France","United Kingdom","Italy")) %>%
-  mutate(millions = counts / 1e6) %>%
-  ggplot(mapping = aes(x=as.Date(year,format="%Y"),  # convert to `Date`
-                       y=millions,colour=Country,group=Country)) + 
-      geom_line() +
-  scale_x_date(name = "year") + # rename x axis
-  facet_wrap(~sex)+theme_bw()   # make two panels, splitting by groups `sex`
-```
-
-```{r join}
-
-merge_GER <- tot_pop %>%
-  # 1. subset to countries of interest
-  filter(
-    Country %in% 
-      c("France",
-        "United Kingdom",
-        "Italy")
-    ) %>%
-  # 2. group data by year
-  group_by(year) %>%
-  # 3. add GER's count as new column *by year*
-  left_join(
-    # Germany only
-    filter(tot_pop,
-           Country %in% "Germany including former GDR"),
-    # join back in `by year`
-    by="year")
-merge_GER
-
-names(merge_GER)[1]<-"Country"
-merge_GER%>%
-  mutate(prop_GER=100*counts.x/counts.y)%>%
-  ggplot(aes(x=year,y=prop_GER,color=Country,group=Country))+
-  geom_line(size=1)+
-  scale_y_continuous("percent of German population")+
-  theme_bw()
-```
 
 # Regression
 Analysis of Variance (ANOVA) refers to a method to decompose variation in one variable as a function of several others. We can use this idea on our outcome $y$. Suppose we wanted to know the variance of $y$, keeping in mind that, by definition, $y_i =\hat y_i+e_i$ We would write $Var(y)=Var(\hat y+e)=Var(\hat y)+Var(e)+Cov(\hat y,e)=Var(\hat y)+Var(e)$
@@ -561,36 +412,7 @@ In this book so far, you’ve only seen data frames that were already in “tidy
 
 
 
-```{r}
-library(tidyverse)
-library(moderndive)
-library(skimr)
-library(ISLR)
-evals_ch6 <- evals %>%
-  select(ID, score, age, gender)
-evals_ch6 %>% select(score, age, gender) %>% skim() #skim 很好用
 
-
-ggplot(evals_ch6, aes(x = age, y = score, color = gender)) +
-  geom_point() +
-  labs(x = "Age", y = "Teaching Score", color = "Gender") +
-  geom_smooth(method = "loess", se = T)+theme_bw()
-
-
-ggplot(evals_ch6, aes(x = age, y = score, color = gender)) +
-  geom_point() +
-  labs(x = "Age", y = "Teaching Score", color = "Gender") +
-  geom_smooth(method = "lm", se = T)+theme_bw()+facet_wrap(~gender)
-
-# select 后面直接跟变量名
-library(ISLR)
-credit_ch6 <- Credit %>% as_tibble() %>% 
-  select(ID, debt = Balance, credit_limit = Limit, 
-         income = Income, credit_rating = Rating, age = Age)
-
-
-
-```
 
 
 

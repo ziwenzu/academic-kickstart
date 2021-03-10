@@ -1,0 +1,2309 @@
+---
+title: Introduction to Econometrics with R & Morden Drive
+author: Ziwen
+date: "2021-03-09" ## Or "Lecture no."
+urlcolor: blue
+mainfont: cochineal
+sansfont: Fira Sans
+monofont: Fira Code ## Although, see: https://tex.stackexchange.com/q/294362
+---
+
+<script src="Introduction to Econometrics with R_files/header-attrs/header-attrs.js"></script>
+
+
+<p>source: <a href="https://scpoecon.github.io/ScPoEconometrics/">link</a></p>
+<div id="data" class="section level1">
+<h1>Data</h1>
+<p><strong>data type</strong>: numeric integer, complex(复数), logical, character, categorical (factor)</p>
+<div id="data-structure" class="section level2">
+<h2>Data structure</h2>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Dimension</th>
+<th align="center">Homogeneous</th>
+<th align="center">Heterogeneous</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">vector</td>
+<td align="center">list</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">matrix</td>
+<td align="center">data frame</td>
+</tr>
+<tr class="odd">
+<td align="center">3+</td>
+<td align="center">array</td>
+<td align="center">inserted lists</td>
+</tr>
+</tbody>
+</table>
+<p>A vector is a one-dimensional array. A matrix is a two-dimensional array. In R you can create arrays of arbitrary dimensionality N. Here is how:</p>
+<pre class="r"><code>library()
+d = 1:16
+d3 = array(data = d,dim = c(4,2,2)) # d3 是四行两列，然后有两页
+d4 = array(data = d,dim = c(4,2,2,3))  # will recycle 1:16 
+d3</code></pre>
+<pre><code>## , , 1
+## 
+##      [,1] [,2]
+## [1,]    1    5
+## [2,]    2    6
+## [3,]    3    7
+## [4,]    4    8
+## 
+## , , 2
+## 
+##      [,1] [,2]
+## [1,]    9   13
+## [2,]   10   14
+## [3,]   11   15
+## [4,]   12   16</code></pre>
+<pre class="r"><code>#Similary, d4 would have two pages, and another 3 registers in a fourth dimension</code></pre>
+<p>A list is a one-dimensional heterogeneous data structure. So it is indexed like a vector with a single integer value (or with a name), but each element can contain an element of any type. Lists are similar to a python or julia Dict object. Many R structures and outputs are lists themselves. Lists are extremely useful and versatile objects, so make sure you understand their useage. The <code>[]</code> syntax returns a list, while the <code>[[]]</code> returns an element of a list.</p>
+<pre class="r"><code>ex_list = list(
+  a = c(1, 2, 3, 4),
+  b = TRUE,
+  c = &quot;Hello!&quot;,
+  d = function(arg = 42) {print(&quot;Hello World!&quot;)},
+  e = diag(5)
+)
+ex_list[1] #returns a list contain the first element.</code></pre>
+<pre><code>## $a
+## [1] 1 2 3 4</code></pre>
+<pre class="r"><code>ex_list[[1]] #returns the first element of the list, in this case, a vector</code></pre>
+<pre><code>## [1] 1 2 3 4</code></pre>
+</div>
+<div id="data-frame" class="section level2">
+<h2>Data frame</h2>
+<p>Unlike a matrix, which can be thought of as a vector rearranged into rows and columns, a data frame is not required to have the same data type for each element. A data frame is a list of vectors, and each vector has a name. So, each vector must contain the same data type, but the different vectors can store different data types. Note, however, that all vectors must have the <strong>same length</strong> (differently from a list)!</p>
+<p>A <code>data.frame</code> is similar to a typical Spreadsheet. There are rows, and there are columns. A row is typically thought of as an observation, and each column is a certain variable, characteristic or feature of that observation.</p>
+<pre class="r"><code>example_data = data.frame(x = c(1, 3, 5, 7, 9, 1, 3, 5, 7, 9),
+                          y = c(rep(&quot;Hello&quot;, 9), &quot;Goodbye&quot;),
+                          z = rep(c(TRUE, FALSE), 5))
+
+# 安装包所在的位置的数据
+ #read csv 是常用的读取data frame 用的
+#To look at data in a data.frame, we have two useful commands: head() and str().
+#head() 帮助看数据的变量和结构
+
+head(mtcars)</code></pre>
+<pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
+<p>The function <code>str()</code> will display the “structure” of the data frame. It will display the number of observations and variables, list the variables, give the type of each variable, and show some elements of each variable. This information can also be found in the "Environment’ window in RStudio.</p>
+<pre class="r"><code>str(mtcars)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    32 obs. of  11 variables:
+##  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
+##  $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...
+##  $ disp: num  160 160 108 258 360 ...
+##  $ hp  : num  110 110 93 110 175 105 245 62 95 123 ...
+##  $ drat: num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
+##  $ wt  : num  2.62 2.88 2.32 3.21 3.44 ...
+##  $ qsec: num  16.5 17 18.6 19.4 17 ...
+##  $ vs  : num  0 0 1 1 0 1 0 1 1 1 ...
+##  $ am  : num  1 1 1 0 0 0 0 0 0 0 ...
+##  $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
+##  $ carb: num  4 4 1 1 2 1 4 2 2 4 ...</code></pre>
+<pre class="r"><code>#To quickly obtain a vector of the variable names, we use the names() function.
+names(mtcars)</code></pre>
+<pre><code>##  [1] &quot;mpg&quot;  &quot;cyl&quot;  &quot;disp&quot; &quot;hp&quot;   &quot;drat&quot; &quot;wt&quot;   &quot;qsec&quot; &quot;vs&quot;   &quot;am&quot;   &quot;gear&quot;
+## [11] &quot;carb&quot;</code></pre>
+<pre class="r"><code>#Subsetting data frames can work much like subsetting matrices using square brackets, [ , ]
+mtcars[mtcars$mpg &gt; 20, c(&quot;cyl&quot;, &quot;disp&quot;, &quot;wt&quot;)] #多个条件并列</code></pre>
+<pre><code>##                cyl  disp    wt
+## Mazda RX4        6 160.0 2.620
+## Mazda RX4 Wag    6 160.0 2.875
+## Datsun 710       4 108.0 2.320
+## Hornet 4 Drive   6 258.0 3.215
+## Merc 240D        4 146.7 3.190
+## Merc 230         4 140.8 3.150
+## Fiat 128         4  78.7 2.200
+## Honda Civic      4  75.7 1.615
+## Toyota Corolla   4  71.1 1.835
+## Toyota Corona    4 120.1 2.465
+## Fiat X1-9        4  79.0 1.935
+## Porsche 914-2    4 120.3 2.140
+## Lotus Europa     4  95.1 1.513
+## Volvo 142E       4 121.0 2.780</code></pre>
+</div>
+</div>
+<div id="work-with-data" class="section level1">
+<h1>Work with data</h1>
+<div id="summary-statistics" class="section level2">
+<h2>Summary statistics</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Measure</th>
+<th><code>R</code></th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Variance</td>
+<td><code>var(mpg$cty)</code></td>
+<td>18.1130736</td>
+</tr>
+<tr class="even">
+<td>Standard Deviation</td>
+<td><code>sd(mpg$cty)</code></td>
+<td>4.2559457</td>
+</tr>
+<tr class="odd">
+<td>IQR</td>
+<td><code>IQR(mpg$cty)</code></td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>Minimum</td>
+<td><code>min(mpg$cty)</code></td>
+<td>9</td>
+</tr>
+<tr class="odd">
+<td>Maximum</td>
+<td><code>max(mpg$cty)</code></td>
+<td>35</td>
+</tr>
+<tr class="even">
+<td>Range</td>
+<td><code>range(mpg$cty)</code></td>
+<td>9, 35</td>
+</tr>
+<tr class="odd">
+<td>Mean</td>
+<td><code>mean(mpg$cty)</code></td>
+<td>16.8589744</td>
+</tr>
+<tr class="even">
+<td>Median</td>
+<td><code>median(mpg$cty)</code></td>
+<td>17</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>table(mpg$drv)</code></pre>
+<pre><code>## 
+##   4   f   r 
+## 103 106  25</code></pre>
+<pre class="r"><code># output the observation numbers of each species
+table(mpg$drv)/nrow(mpg)</code></pre>
+<pre><code>## 
+##         4         f         r 
+## 0.4401709 0.4529915 0.1068376</code></pre>
+<pre class="r"><code>#output the percent of each category; nrow is the sum of obs</code></pre>
+</div>
+<div id="plotting" class="section level2">
+<h2>Plotting</h2>
+<p>We will look at four methods of visualizing data by using the basic plot facilities built-in with R:</p>
+<ul>
+<li>Histograms</li>
+<li>Barplots</li>
+<li>Boxplots</li>
+<li>Scatterplots</li>
+</ul>
+<pre class="r"><code>layout(matrix(c(1,2,3,4),nr=2,byrow=T))
+hist(mpg$cty,
+     xlab   = &quot;Miles Per Gallon (City)&quot;,
+     main   = &quot;Histogram of MPG (City)&quot;, # main title
+     breaks = 12,   # how many breaks?
+     col    = &quot;blue&quot;,
+     border = &quot;black&quot;)
+
+barplot(table(mpg$drv),
+        xlab   = &quot;Drivetrain (f = FWD, r = RWD, 4 = 4WD)&quot;,
+        ylab   = &quot;Frequency&quot;,
+        main   = &quot;Drivetrains&quot;,
+        col    = &quot;blue&quot;,
+        border = &quot;black&quot;)
+#However, more often we will use boxplots to compare a numerical variable 
+#for different values of a categorical variable.
+boxplot(hwy ~ drv, data = mpg,
+     xlab   = &quot;Drivetrain (f = FWD, r = RWD, 4 = 4WD)&quot;,
+     ylab   = &quot;Miles Per Gallon (Highway)&quot;,
+     main   = &quot;MPG (Highway) vs Drivetrain&quot;,
+     pch    = 20,
+     cex    = .5,
+     col    = &quot;blue&quot;,
+     border = &quot;black&quot;) #y~x
+
+plot(hwy ~ displ, data = mpg,
+     xlab = &quot;Engine Displacement (in Liters)&quot;,
+     ylab = &quot;Miles Per Gallon (Highway)&quot;,
+     main = &quot;MPG (Highway) vs Engine Displacement&quot;,
+     pch  = 20, # 点的形状
+     cex  = .5, # 越小点和文字越小
+     col  = &quot;blue&quot;)</code></pre>
+<p><img src="/posts/Introduction%20to%20Econometrics%20with%20R_files/figure-html/plotting-1.png" width="2100" /></p>
+<pre class="r"><code># plot draws the scatter plots with y against x</code></pre>
+<p>see <a href="https://www.statmethods.net/advgraphs/parameters.html">link</a> for detals of plotting parameters.</p>
+<pre class="r"><code>ggplot(data = mpg, aes(x=displ,y=hwy)) +   # ggplot() makes base plot
+  geom_point(color=&quot;blue&quot;,size=2) +     # how to show x and y? #geom_boxplot
+  ylab(&quot;Miles Per Gallon (Highway)&quot;) +  # name of y axis
+  xlab(&quot;Engine Displacement (in Liters)&quot;) + # x axis
+  theme_bw() +    # change the background
+  geom_smooth(method = &quot;loess&quot;,se=TRUE)+
+  ggtitle(&quot;MPG (Highway) vs Engine Displacement&quot;)   # add a title</code></pre>
+<p><img src="/posts/Introduction%20to%20Econometrics%20with%20R_files/figure-html/ggplot-1.png" width="2100" /></p>
+</div>
+<div id="tidyverse" class="section level2">
+<h2>tidyverse</h2>
+<p><a href="https://www.dropbox.com/s/2tvzyy1sy1920y5/tidyverse%20cheat%20sheet.pdf?dl=0">cheat sheet</a></p>
+<pre class="r"><code>library(readr)  # you need `install.packages(&quot;readr&quot;)` once!
+path = system.file(package=&quot;ScPoEconometrics&quot;,&quot;datasets&quot;,&quot;example-data.csv&quot;)
+
+
+#subset
+mpg[mpg$hwy&gt;35,c(&quot;manufacturer&quot;,&quot;model&quot;,&quot;year&quot;)]</code></pre>
+<pre><code>## # A tibble: 6 x 3
+##   manufacturer model       year
+##   &lt;chr&gt;        &lt;chr&gt;      &lt;int&gt;
+## 1 honda        civic       2008
+## 2 honda        civic       2008
+## 3 toyota       corolla     2008
+## 4 volkswagen   jetta       1999
+## 5 volkswagen   new beetle  1999
+## 6 volkswagen   new beetle  1999</code></pre>
+<pre class="r"><code># another way
+subset(mpg, subset = hwy &gt; 35, select = c(&quot;manufacturer&quot;, &quot;model&quot;, &quot;year&quot;))</code></pre>
+<pre><code>## # A tibble: 6 x 3
+##   manufacturer model       year
+##   &lt;chr&gt;        &lt;chr&gt;      &lt;int&gt;
+## 1 honda        civic       2008
+## 2 honda        civic       2008
+## 3 toyota       corolla     2008
+## 4 volkswagen   jetta       1999
+## 5 volkswagen   new beetle  1999
+## 6 volkswagen   new beetle  1999</code></pre>
+<pre class="r"><code># another way</code></pre>
+<p>Deal with non-tidy data tibble is non-tidy data</p>
+<pre class="r"><code>library(readxl)  # load the library
+# Notice that if you installed the R package of this book,
+# you have the .xls data file already at 
+# `system.file(package=&quot;ScPoEconometrics&quot;,
+#                        &quot;datasets&quot;,&quot;demo_gind.xls&quot;)`
+# otherwise:
+# * download the file to your computer
+# * change the argument `path` to where you downloaded it
+# you may want to change your working directory with `setwd(&quot;your/directory&quot;)
+# or in RStudio by clicking Session &gt; Set Working Directory
+library(ScPoApps)
+packageVersion(&quot;ScPoApps&quot;)</code></pre>
+<pre><code>## [1] &#39;0.2&#39;</code></pre>
+<pre class="r"><code># total population in raw format</code></pre>
+<p>It’s important to know how the data is organized in the spreadsheet. Open the file with Excel to see:</p>
+<ul>
+<li>There is a heading which we don’t need.</li>
+<li>There are 5 rows with info that we don’t need.</li>
+<li>There is one table per variable (total population, males, females, etc)</li>
+<li>Each table has one row for each country, and one column for each year.</li>
+<li>As such, this data is <strong>not tidy</strong>.</li>
+</ul>
+<p>With <code>dplyr</code> you can do the following operations on <code>data.frame</code>s and <code>tibble</code>s:</p>
+<ul>
+<li>Choose observations based on a certain value (i.e. subset): <code>filter()</code></li>
+<li>Reorder rows: <code>arrange()</code></li>
+<li>Select variables by name: <code>select()</code></li>
+<li>Create new variables out of existing ones: <code>mutate()</code></li>
+<li>Summarise variables: <code>summarise()</code></li>
+</ul>
+<p>All of those verbs can be used with <code>group_by()</code>, where we apply the respective operation on a <em>group</em> of the dataframe/tibble. For example, on our <code>tot_pop</code> tibble we will now</p>
+<ul>
+<li>filter</li>
+<li>mutate</li>
+<li>and plot the resulting values</li>
+</ul>
+<p>Let’s get a plot of the populations of France, the UK and Italy over time, in terms of millions of people. We will make use of the <code>piping</code> syntax of <code>dplyr</code> which we introduced just above.</p>
+<blockquote>
+<p>其中paste函数式paste函数的缩减版本，少了一个参数sep。参数中的…表示的是想要拼接的对象，后面的参数表示拼接的方式。通常对于字符串拼接我们有三种需求：
+一堆单独的字符串拼接到一起；
+两个或者更多字符串对象根据元素对应关系拼接到一起；
+一个字符串连接在一起。当处理前两种需求的时候用到的参数是sep，即多个字符串之间的拼接；当处理第三种需求的时候用到的参数是collapse，即一个字符串拼接的时候用什么符号或者格式来连接；</p>
+</blockquote>
+<pre class="r"><code>paste(&#39;hello&#39;,&#39;world&#39;,&#39;!&#39;)  #一堆单独的字符串拼接到一起</code></pre>
+<pre><code>## [1] &quot;hello world !&quot;</code></pre>
+<pre class="r"><code>paste(c(&#39;A&#39;,&#39;B&#39;,&#39;C&#39;),c(1,2,3)) #两个或者更多字符串对象根据元素对应关系拼接到一起</code></pre>
+<pre><code>## [1] &quot;A 1&quot; &quot;B 2&quot; &quot;C 3&quot;</code></pre>
+<pre class="r"><code>paste(1:10) #一个字符串连接在一起</code></pre>
+<pre><code>##  [1] &quot;1&quot;  &quot;2&quot;  &quot;3&quot;  &quot;4&quot;  &quot;5&quot;  &quot;6&quot;  &quot;7&quot;  &quot;8&quot;  &quot;9&quot;  &quot;10&quot;</code></pre>
+<pre class="r"><code>paste(&#39;hello&#39;,&#39;world&#39;,&#39;!&#39;)  #一堆单独的字符串拼接到一起，如果想用‘_’连接起来</code></pre>
+<pre><code>## [1] &quot;hello world !&quot;</code></pre>
+<pre class="r"><code>paste(&#39;hello&#39;,&#39;world&#39;,&#39;!&#39;,sep = &#39;_&#39;)</code></pre>
+<pre><code>## [1] &quot;hello_world_!&quot;</code></pre>
+<pre class="r"><code>## [1] &quot;hello_world_!&quot;
+paste(c(&#39;A&#39;,&#39;B&#39;,&#39;C&#39;),c(1,2,3)) #两个或者更多字符串对象根据元素对应关系拼接到一起，如果想用‘-’连接起来</code></pre>
+<pre><code>## [1] &quot;A 1&quot; &quot;B 2&quot; &quot;C 3&quot;</code></pre>
+<pre class="r"><code>paste(c(&#39;A&#39;,&#39;B&#39;,&#39;C&#39;),c(1,2,3),sep = &#39;-&#39;)</code></pre>
+<pre><code>## [1] &quot;A-1&quot; &quot;B-2&quot; &quot;C-3&quot;</code></pre>
+<pre class="r"><code>## [1] &quot;A-1&quot; &quot;B-2&quot; &quot;C-3&quot;
+#此外需要注意的是如果传入的两个或多个对象的长度不一样，对应关系会发生变化，比如
+paste(c(&#39;A&#39;,&#39;B&#39;,&#39;C&#39;,&#39;D&#39;,&#39;E&#39;),c(1,2),sep = &#39;-&#39;)</code></pre>
+<pre><code>## [1] &quot;A-1&quot; &quot;B-2&quot; &quot;C-1&quot; &quot;D-2&quot; &quot;E-1&quot;</code></pre>
+<pre class="r"><code>## [1] &quot;A-1&quot; &quot;B-2&quot; &quot;C-1&quot; &quot;D-2&quot; &quot;E-1&quot;
+paste(1:10) </code></pre>
+<pre><code>##  [1] &quot;1&quot;  &quot;2&quot;  &quot;3&quot;  &quot;4&quot;  &quot;5&quot;  &quot;6&quot;  &quot;7&quot;  &quot;8&quot;  &quot;9&quot;  &quot;10&quot;</code></pre>
+<pre class="r"><code>#一个字符串连接在一起，这第三种需求与上面很大的不同在于上面两种需求传入的都是多个对象，
+#而第三种需求在函数的第一个参数位置上只传入一个对象，如果需要用‘~’连接
+paste(1:10, collapse = &#39;~&#39;)</code></pre>
+<pre><code>## [1] &quot;1~2~3~4~5~6~7~8~9~10&quot;</code></pre>
+</div>
+</div>
+<div id="regression" class="section level1">
+<h1>Regression</h1>
+<p>Analysis of Variance (ANOVA) refers to a method to decompose variation in one variable as a function of several others. We can use this idea on our outcome <span class="math inline">\(y\)</span>. Suppose we wanted to know the variance of <span class="math inline">\(y\)</span>, keeping in mind that, by definition, <span class="math inline">\(y_i =\hat y_i+e_i\)</span> We would write <span class="math inline">\(Var(y)=Var(\hat y+e)=Var(\hat y)+Var(e)+Cov(\hat y,e)=Var(\hat y)+Var(e)\)</span></p>
+<pre class="r"><code>data(&quot;wage1&quot;, package = &quot;wooldridge&quot;)   # load data
+
+# a function that returns a plot
+plotfun &lt;- function(wage1,log=FALSE,rug = TRUE){#指定两个变量log rug作为test expression
+    y = wage1$wage
+    if (log){#false
+        y = log(wage1$wage)
+    }
+    plot(y = y,
+       x = wage1$educ, 
+       col = &quot;red&quot;, pch = 21, bg = &quot;grey&quot;,     
+       cex=1.25, xaxt=&quot;n&quot;, frame = FALSE,      # set default x-axis to none
+       main = ifelse(log,&quot;log(Wages) vs. Education, 1976&quot;,&quot;Wages vs. Education, 1976&quot;),
+       xlab = &quot;years of education&quot;, 
+       ylab = ifelse(log,&quot;Log Hourly wages&quot;,&quot;Hourly wages&quot;))
+    axis(side = 1, at = c(0,6,12,18))         # add custom ticks to x axis
+    if (rug) rug(wage1$wage, side=2, col=&quot;red&quot;)        # add `rug` to y axis
+}
+
+par(mfcol = c(2,1))  # set up a plot with 2 panels
+# plot 1: standard scatter plot
+plotfun(wage1)
+
+# plot 2: add a panel with histogram+density
+hist(wage1$wage,prob = TRUE, col = &quot;grey&quot;, border = &quot;red&quot;, 
+     main = &quot;Histogram of wages and Density&quot;,xlab = &quot;hourly wage&quot;)
+lines(density(wage1$wage), col = &quot;black&quot;, lw = 2)</code></pre>
+<p><img src="/posts/Introduction%20to%20Econometrics%20with%20R_files/figure-html/wage-1.png" width="2100" /></p>
+<pre class="r"><code>hourly_wage &lt;- lm(formula = wage ~ educ, data = wage1)
+#update lm的名称
+log_hourly_wage = update(hourly_wage, log(wage) ~ ., data = wage1)
+par(mfrow=c(1,2))
+plotfun(wage1,rug=FALSE)
+abline(hourly_wage,col=&quot;black&quot;,lw=2)
+plotfun(wage1,log=TRUE,rug = FALSE) #因为前面定义了初始状态下log rug两个参数的T/F，可以在这从新给定
+abline(log_hourly_wage, col=&quot;black&quot;,lw=2)</code></pre>
+<p><img src="/posts/Introduction%20to%20Econometrics%20with%20R_files/figure-html/wage-2.png" width="2100" /></p>
+<pre class="r"><code>data(&quot;ceosal1&quot;, package = &quot;wooldridge&quot;)  
+par(mfrow = c(1,2))
+plot(salary ~ sales, data = ceosal1, main = &quot;Sales vs Salaries&quot;,xaxt = &quot;n&quot;,frame = FALSE)
+#xaxt means there is no x-axis/frame 画框
+axis(1, at = c(0,40000, 80000)) # add axis in x-side 3:upper 4:right
+rug(ceosal1$salary,side = 2)
+rug(ceosal1$sales,side = 1)
+plot(log(salary) ~ log(sales), data = ceosal1, main = &quot;Log(Sales) vs Log(Salaries)&quot;)
+rug(log(ceosal1$salary),side = 2)
+rug(log(ceosal1$sales),side = 1)</code></pre>
+<p><img src="/posts/Introduction%20to%20Econometrics%20with%20R_files/figure-html/unnamed-chunk-2-1.png" width="2100" /></p>
+</div>
+<div id="multivariate-regression" class="section level1">
+<h1>multivariate regression</h1>
+<pre class="r"><code>educ_only &lt;- lm(lwage ~ educ                 , data = wage1)
+educ_exper &lt;- lm(lwage ~ educ + exper        , data = wage1)
+log_wages &lt;- lm(lwage ~ educ + exper + tenure, data = wage1)
+stargazer::stargazer(educ_only, educ_exper, log_wages,type=&quot;html&quot;)</code></pre>
+<table style="text-align:center">
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3">
+lwage
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+<td>
+(3)
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+educ
+</td>
+<td>
+0.083<sup>***</sup>
+</td>
+<td>
+0.098<sup>***</sup>
+</td>
+<td>
+0.092<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.008)
+</td>
+<td>
+(0.008)
+</td>
+<td>
+(0.007)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+exper
+</td>
+<td>
+</td>
+<td>
+0.010<sup>***</sup>
+</td>
+<td>
+0.004<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.002)
+</td>
+<td>
+(0.002)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+tenure
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+0.022<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.003)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.584<sup>***</sup>
+</td>
+<td>
+0.217<sup>**</sup>
+</td>
+<td>
+0.284<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.097)
+</td>
+<td>
+(0.109)
+</td>
+<td>
+(0.104)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+526
+</td>
+<td>
+526
+</td>
+<td>
+526
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.186
+</td>
+<td>
+0.249
+</td>
+<td>
+0.316
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.184
+</td>
+<td>
+0.246
+</td>
+<td>
+0.312
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+0.480 (df = 524)
+</td>
+<td>
+0.461 (df = 523)
+</td>
+<td>
+0.441 (df = 522)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+119.582<sup>***</sup> (df = 1; 524)
+</td>
+<td>
+86.862<sup>***</sup> (df = 2; 523)
+</td>
+<td>
+80.391<sup>***</sup> (df = 3; 522)
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="3" style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+</div>
+<div id="catogorical-variables" class="section level1">
+<h1>catogorical variables</h1>
+<pre class="r"><code>data(&quot;wage1&quot;,package = &quot;wooldridge&quot;)
+library(patchwork)
+p1&lt;-wage1 %&gt;% ggplot(aes(x=educ,y=lwage,color=as.factor(female),group=(as.factor(female))))+
+  geom_point(size=1 ,shape=1)+geom_smooth(method=&quot;lm&quot;,se=T)
+p2&lt;-wage1 %&gt;% ggplot(mapping=aes(x=educ,y=lwage))+geom_point(size=1)+geom_smooth(method=&quot;lm&quot;,se=T)
+
+p1|p2</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
+## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/posts/Introduction%20to%20Econometrics%20with%20R_files/figure-html/dummy-1.png" width="2100" /></p>
+</div>
+<div id="modern-drive" class="section level1">
+<h1>Modern Drive</h1>
+<p><a href="https://moderndive.com/index.html">statistical inference via data science</a></p>
+<pre class="r"><code>library(&quot;dplyr&quot;)
+library(&quot;nycflights13&quot;)
+library(&quot;AER&quot;) # Applied Econometrics with R
+library(&quot;stargazer&quot;)
+
+daily &lt;- flights %&gt;%
+  filter(origin == &quot;EWR&quot;) %&gt;%
+  group_by(year, month, day) %&gt;%
+  summarise(delay = mean(dep_delay, na.rm = TRUE))
+
+daily_weather &lt;- weather %&gt;%
+  filter(origin == &quot;EWR&quot;) %&gt;%
+  group_by(year, month, day) %&gt;%
+  summarise(temp   = mean(temp, na.rm = TRUE),
+            wind   = mean(wind_speed, na.rm = TRUE),
+            precip = sum(precip, na.rm = TRUE))
+
+# Merge flights with weather data frames
+both &lt;- daily %&gt;%
+  inner_join(y = daily_weather, by = c(&quot;year&quot;, &quot;month&quot;, &quot;day&quot;)) %&gt;% 
+  data.frame()  # Temporary fix
+
+# Create an indicator for quarter 学习一下
+both$quarter &lt;- cut(both$month, breaks = c(0, 3, 6, 9, 12), 
+                                labels = c(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;))
+
+# Create a vector of class logical
+both$hot &lt;- as.logical(both$temp &gt; 85)
+
+head(both)</code></pre>
+<p>year month day delay temp wind precip quarter hot
+1 2013 1 1 17.483553 36.81909 13.233970 0 1 FALSE
+2 2013 1 2 25.322674 28.70000 10.884461 0 1 FALSE
+3 2013 1 3 8.450450 29.57750 8.582901 0 1 FALSE
+4 2013 1 4 12.103858 34.33250 14.001157 0 1 FALSE
+5 2013 1 5 5.696203 36.56000 9.398037 0 1 FALSE
+6 2013 1 6 12.383333 39.92000 9.110342 0 1 FALSE</p>
+<pre class="r"><code>stargazer(both, type = &quot;html&quot;) #对于dataframe </code></pre>
+<table style="text-align:center">
+<tr>
+<td colspan="8" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Statistic
+</td>
+<td>
+N
+</td>
+<td>
+Mean
+</td>
+<td>
+St. Dev.
+</td>
+<td>
+Min
+</td>
+<td>
+Pctl(25)
+</td>
+<td>
+Pctl(75)
+</td>
+<td>
+Max
+</td>
+</tr>
+<tr>
+<td colspan="8" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+year
+</td>
+<td>
+364
+</td>
+<td>
+2,013.000
+</td>
+<td>
+0.000
+</td>
+<td>
+2,013
+</td>
+<td>
+2,013
+</td>
+<td>
+2,013
+</td>
+<td>
+2,013
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+month
+</td>
+<td>
+364
+</td>
+<td>
+6.511
+</td>
+<td>
+3.445
+</td>
+<td>
+1
+</td>
+<td>
+4
+</td>
+<td>
+9.2
+</td>
+<td>
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+day
+</td>
+<td>
+364
+</td>
+<td>
+15.679
+</td>
+<td>
+8.784
+</td>
+<td>
+1
+</td>
+<td>
+8
+</td>
+<td>
+23
+</td>
+<td>
+31
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+delay
+</td>
+<td>
+364
+</td>
+<td>
+15.080
+</td>
+<td>
+13.883
+</td>
+<td>
+-1.349
+</td>
+<td>
+5.446
+</td>
+<td>
+20.007
+</td>
+<td>
+97.771
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+364
+</td>
+<td>
+55.531
+</td>
+<td>
+17.598
+</td>
+<td>
+15.455
+</td>
+<td>
+40.114
+</td>
+<td>
+71.647
+</td>
+<td>
+91.085
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+364
+</td>
+<td>
+9.464
+</td>
+<td>
+4.398
+</td>
+<td>
+2.637
+</td>
+<td>
+6.797
+</td>
+<td>
+11.508
+</td>
+<td>
+56.388
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+364
+</td>
+<td>
+0.121
+</td>
+<td>
+0.335
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0.03
+</td>
+<td>
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+hot
+</td>
+<td>
+364
+</td>
+<td>
+0.022
+</td>
+<td>
+0.147
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td colspan="8" style="border-bottom: 1px solid black">
+</td>
+</tr>
+</table>
+<p><code>inner_join()</code> function to join the two data frames, where the rows will be matched by the variable carrier, and then compare the resulting data frames:</p>
+<table>
+<colgroup>
+<col width="18%" />
+<col width="81%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Verb</th>
+<th align="left">Data wrangling operation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>filter()</code></td>
+<td align="left">Pick out a subset of rows</td>
+</tr>
+<tr class="even">
+<td align="left"><code>summarize()</code></td>
+<td align="left">Summarize many values to one using a summary statistic function like <code>mean()</code>, <code>median()</code>, etc.</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>group_by()</code></td>
+<td align="left">Add grouping structure to rows in data frame. Note this does not change values in data frame, rather only the meta-data</td>
+</tr>
+<tr class="even">
+<td align="left"><code>mutate()</code></td>
+<td align="left">Create new variables by mutating existing ones</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>arrange()</code></td>
+<td align="left">Arrange rows of a data variable in ascending (default) or <code>desc</code>ending order</td>
+</tr>
+<tr class="even">
+<td align="left"><code>inner_join()</code></td>
+<td align="left">Join/merge two data frames, matching rows by a key variable</td>
+</tr>
+</tbody>
+</table>
+<p>“Tidy” data is a standard way of mapping the meaning of a dataset to its structure. A dataset is messy or tidy depending on how rows, columns and tables are matched up with observations, variables and types. In tidy data:</p>
+<ul>
+<li>Each variable forms a column.</li>
+<li>Each observation forms a row.</li>
+<li>Each type of observational unit forms a table.</li>
+</ul>
+<p>In this book so far, you’ve only seen data frames that were already in “tidy” format. Furthermore, for the rest of this book, you’ll mostly only see data frames that are already in “tidy” format as well. This is not always the case however with all datasets in the world. If your original data frame is in wide (non-“tidy”) format and you would like to use the <code>ggplot2</code> or <code>dplyr</code> packages, you will first have to convert it to “tidy” format. To do so, we recommend using the <code>pivot_longer()</code> function in the <code>tidyr</code> package</p>
+</div>
+<div id="some-practices-and-regressions" class="section level1">
+<h1>Some Practices and Regressions</h1>
+<p><a href="https://bookdown.org/ccolonescu/RPoE4/intro.html">Principles of Economitrics with R</a></p>
+<div id="interval-estimation-and-hypotheses-testing" class="section level2">
+<h2>Interval estimation and hypotheses testing</h2>
+<p>An interval estimate of b2b2 based on the <code>t-ratio</code> is calculated in Equation 4, which we can consider as “an interval that includes the true parameter with a probability of <span class="math inline">\(100(1-\alpha)%\)</span>” In this context, <span class="math inline">\(\alpha\)</span> is called <code>significance level</code>, and the interval is called, for example, <code>a 95% confidence interval estimate for</code> <span class="math inline">\(\beta_2\)</span>. The critical value of the <code>t-ratio</code>, <span class="math inline">\(t_c\)</span>, depends on the chosen significance level and on the number of degrees of freedom. In <span class="math inline">\(R\)</span>, the function that returns critical values for the <span class="math inline">\(t\)</span> distribution is <span class="math inline">\(qt(1−\frac{\alpha}{2},df)\)</span>, where <span class="math inline">\(df\)</span> is the number of degrees of freedom.</p>
+<p><span class="math display">\[b_2+/-t_c\times se(b_2) (4)\]</span></p>
+<p><strong>A side note about using distributions in RR.</strong> There are four types of functions related to distributions, each type’s name beginning with one of the following four letters: <code>p</code> for the cummulative distribution function, <code>d</code> for density, <code>r</code> for a draw of a random number from the respective distribution, and <code>q</code> for quantile. This first letter is followed by a few letters suggesting what distribution we refer to, such as <code>norm</code>, <code>t</code>, <code>f</code>, and <code>chisq</code>. Now, if we put toghether the first letter and the distribution name, we get functions such as the following, where <code>x</code> and <code>q</code> stand for quantiles, <code>p</code> stands for probability, <code>df</code> is degree of freedom (of which FF has two), <code>n</code> is the desired number of draws, and <code>lower.tail</code> can be TRUE (default) if probabilities are <span class="math inline">\(P[X\leq x]\)</span> or FALSE if probabilities are <span class="math inline">\(P[X&gt;x]\)</span>:</p>
+<ul>
+<li>For the uniform distribution:
+<ul>
+<li>dunif(x, min = 0, max = 1)</li>
+<li>punif(q, min = 0, max = 1, lower.tail = TRUE)</li>
+<li>qunif(p, min = 0, max = 1, lower.tail = TRUE)</li>
+<li>runif(n, min = 0, max = 1)</li>
+</ul></li>
+<li>For the normal distribution:
+<ul>
+<li>dnorm(x, mean = 0, sd = 1)</li>
+<li>pnorm(q, mean = 0, sd = 1, lower.tail = TRUE)</li>
+<li>qnorm(p, mean = 0, sd = 1, lower.tail = TRUE)</li>
+<li>rnorm(n, mean = 0, sd = 1)</li>
+</ul></li>
+<li>For the <span class="math inline">\(t\)</span> distribution:
+<ul>
+<li>dt(x, df)</li>
+<li>pt(q, df, lower.tail = TRUE)</li>
+<li>qt(p, df, lower.tail = TRUE)</li>
+<li>rt(n, df)</li>
+</ul></li>
+<li>For the <span class="math inline">\(F\)</span> distribution:
+<ul>
+<li>df(x, df1, df2)</li>
+<li>pf(q, df1, df2, lower.tail = TRUE)</li>
+<li>qf(p, df1, df2, lower.tail = TRUE)</li>
+<li>rf(n, df1, df2)</li>
+</ul></li>
+<li>For the <span class="math inline">\(\chi^2\)</span> distribution:
+<ul>
+<li>dchisq(x, df)</li>
+<li>pchisq(q, df, lower.tail = TRUE)</li>
+<li>qchisq(p, df, lower.tail = TRUE)</li>
+<li>rchisq(n, df)</li>
+</ul>
+<span class="math display">\[\hat \sigma^2=\frac{\Sigma \hat e_i^2}{N-2}\]</span>
+<span class="math display">\[t=\frac{b_2-\beta_2}{se(b_2)}\]</span></li>
+</ul>
+<pre class="r"><code>library(xtable)
+library(PoEdata)
+library(knitr)
+
+data(&quot;food&quot;)
+alpha &lt;- 0.05 # chosen significance level
+mod1 &lt;- lm(food_exp~income, data=food)
+b2 &lt;- coef(mod1)[[2]]
+df &lt;- df.residual(mod1) # degrees of freedom
+smod1 &lt;- summary(mod1)
+seb2 &lt;- coef(smod1)[2,2] # se(b2)
+tc &lt;- qt(1-alpha/2, df) # quantile
+lowb &lt;- b2-tc*seb2  # lower bound
+upb &lt;- b2+tc*seb2   # upper bound
+
+
+ci&lt;-confint(mod1)
+print(ci)</code></pre>
+<pre><code>##                 2.5 %    97.5 %
+## (Intercept) -4.463279 171.29528
+## income       5.972052  14.44723</code></pre>
+<pre class="r"><code>lowb_b2 &lt;- ci[2, 1] # lower bound
+upb_b2 &lt;- ci[2, 2]  # upper bound.</code></pre>
+<pre class="r"><code>data(&quot;andy&quot;,package=&quot;PoEdata&quot;)
+mod1 &lt;- lm(sales~price+advert, data=andy)
+smod1 &lt;- data.frame(xtable(summary(mod1)))
+kable(smod1, 
+caption=&quot;The basic multiple regression model&quot;, 
+col.names=c(&quot;coefficient&quot;, &quot;Std. Error&quot;, &quot;t-value&quot;, &quot;p-value&quot;),
+align=&quot;c&quot;, digits=3)</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-5">Table 1: </span>The basic multiple regression model</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="center">coefficient</th>
+<th align="center">Std. Error</th>
+<th align="center">t-value</th>
+<th align="center">p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="center">118.914</td>
+<td align="center">6.352</td>
+<td align="center">18.722</td>
+<td align="center">0.000</td>
+</tr>
+<tr class="even">
+<td align="left">price</td>
+<td align="center">-7.908</td>
+<td align="center">1.096</td>
+<td align="center">-7.215</td>
+<td align="center">0.000</td>
+</tr>
+<tr class="odd">
+<td align="left">advert</td>
+<td align="center">1.863</td>
+<td align="center">0.683</td>
+<td align="center">2.726</td>
+<td align="center">0.008</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>library(effects)
+effprice &lt;- effect(&quot;price&quot;, mod1)
+plot(effprice)</code></pre>
+<p><img src="/posts/Introduction%20to%20Econometrics%20with%20R_files/figure-html/unnamed-chunk-5-1.png" width="2100" /></p>
+<pre class="r"><code>alleffandy &lt;- allEffects(mod1)
+plot(alleffandy)</code></pre>
+<p><img src="/posts/Introduction%20to%20Econometrics%20with%20R_files/figure-html/unnamed-chunk-5-2.png" width="2100" /></p>
+<pre class="r"><code>anova(mod1) #analysis of variance</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: sales
+##           Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+## price      1 1219.09 1219.09 51.0631 5.946e-10 ***
+## advert     1  177.45  177.45  7.4326  0.008038 ** 
+## Residuals 72 1718.94   23.87                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="iv" class="section level2">
+<h2>IV</h2>
+<p>A strong instrument, one that is highly correlated with the endogenous regressor it concerns, reduces the variance of the estimated coefficient.</p>
+<p>The results for the wage equation are as follows:</p>
+<ol style="list-style-type: decimal">
+<li>Weak instruments test: rejects the null, meaning that at least one instrument is strong</li>
+<li>(Wu-)Hausman test for endogeneity: barely rejects the null that the variable of concern is uncorrelated with the error term, indicating that educ is marginally endogenous</li>
+<li>Sargan overidentifying restrictions: does not reject the null, meaning that the extra instruments are valid (are uncorrelated with the error term).</li>
+</ol>
+<pre class="r"><code>rm(list=ls()) #Removes all items in Environment!
+library(AER) #for `ivreg()`
+library(lmtest) #for `coeftest()` and `bptest()`.
+library(broom) #for `glance(`) and `tidy()`
+library(PoEdata) #for PoE4 datasets
+library(car) #for `hccm()` robust standard errors
+library(sandwich)
+library(knitr) #for making neat tables with `kable()`
+library(stargazer) 
+data(&quot;mroz&quot;, package=&quot;PoEdata&quot;)
+mroz1 &lt;- mroz[mroz$lfp==1,] #restricts sample to lfp=1
+educ.ols &lt;- lm(educ~exper+I(exper^2)+mothereduc, data=mroz1)
+kable(tidy(educ.ols), digits=4, align=&#39;c&#39;,caption=
+  &quot;First stage in the 2SLS model for the &#39;wage&#39; equation&quot;)</code></pre>
+<table>
+<caption><span id="tab:IV">Table 2: </span>First stage in the 2SLS model for the ‘wage’ equation</caption>
+<thead>
+<tr class="header">
+<th align="center">term</th>
+<th align="center">estimate</th>
+<th align="center">std.error</th>
+<th align="center">statistic</th>
+<th align="center">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">(Intercept)</td>
+<td align="center">9.7751</td>
+<td align="center">0.4239</td>
+<td align="center">23.0605</td>
+<td align="center">0.0000</td>
+</tr>
+<tr class="even">
+<td align="center">exper</td>
+<td align="center">0.0489</td>
+<td align="center">0.0417</td>
+<td align="center">1.1726</td>
+<td align="center">0.2416</td>
+</tr>
+<tr class="odd">
+<td align="center">I(exper^2)</td>
+<td align="center">-0.0013</td>
+<td align="center">0.0012</td>
+<td align="center">-1.0290</td>
+<td align="center">0.3040</td>
+</tr>
+<tr class="even">
+<td align="center">mothereduc</td>
+<td align="center">0.2677</td>
+<td align="center">0.0311</td>
+<td align="center">8.5992</td>
+<td align="center">0.0000</td>
+</tr>
+</tbody>
+</table>
+<p>The p -value for <code>mothereduc</code> is very low (see Table 10.1), indicating a strong correlation between this instrument and the endogenous variable <code>educ</code> even after controling for other variables. The second stage in the two-stage procedure is to create the fitted values of <code>educ</code> from the first stage and plug them into the model of interest, to replace the original variable <code>educ</code>.</p>
+<pre class="r"><code>educHat &lt;- fitted(educ.ols)
+wage.2sls &lt;- lm(log(wage)~educHat+exper+I(exper^2), data=mroz1)
+kable(tidy(wage.2sls), digits=4, align=&#39;c&#39;,caption=
+  &quot;Second stage in the 2SLS model for the &#39;wage&#39; equation&quot;)</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-6">Table 3: </span>Second stage in the 2SLS model for the ‘wage’ equation</caption>
+<thead>
+<tr class="header">
+<th align="center">term</th>
+<th align="center">estimate</th>
+<th align="center">std.error</th>
+<th align="center">statistic</th>
+<th align="center">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">(Intercept)</td>
+<td align="center">0.1982</td>
+<td align="center">0.4933</td>
+<td align="center">0.4017</td>
+<td align="center">0.6881</td>
+</tr>
+<tr class="even">
+<td align="center">educHat</td>
+<td align="center">0.0493</td>
+<td align="center">0.0391</td>
+<td align="center">1.2613</td>
+<td align="center">0.2079</td>
+</tr>
+<tr class="odd">
+<td align="center">exper</td>
+<td align="center">0.0449</td>
+<td align="center">0.0142</td>
+<td align="center">3.1668</td>
+<td align="center">0.0017</td>
+</tr>
+<tr class="even">
+<td align="center">I(exper^2)</td>
+<td align="center">-0.0009</td>
+<td align="center">0.0004</td>
+<td align="center">-2.1749</td>
+<td align="center">0.0302</td>
+</tr>
+</tbody>
+</table>
+<p>The results of the explicit 2SLS procedure are shown in Table 10.2; keep n mind, however, that the standard errors calculated in this way are incorrect; the correct method is to use a dedicated software function to solve an instrumental variable model. In R , such a function is ivreg()</p>
+<pre class="r"><code>data(&quot;mroz&quot;, package=&quot;PoEdata&quot;)
+mroz1 &lt;- mroz[mroz$lfp==1,] #restricts sample to lfp=1.
+mroz1.ols &lt;- lm(log(wage)~educ+exper+I(exper^2), data=mroz1)
+mroz1.iv &lt;- ivreg(log(wage)~educ+exper+I(exper^2)|
+            exper+I(exper^2)+mothereduc, data=mroz1)
+mroz1.iv1 &lt;- ivreg(log(wage)~educ+exper+I(exper^2)|
+            exper+I(exper^2)+mothereduc+fathereduc,
+            data=mroz1)
+stargazer(mroz1.ols, wage.2sls, mroz1.iv, mroz1.iv1,
+  title=&quot;Wage equation: OLS, 2SLS, and IV models compared&quot;,
+  header=FALSE, 
+  type=&quot;html&quot;, # &quot;html&quot; or &quot;latex&quot; (in index.Rmd) 
+  keep.stat=&quot;n&quot;,  # what statistics to print
+  omit.table.layout=&quot;n&quot;,
+  star.cutoffs=NA,
+  digits=4, 
+#  single.row=TRUE,
+  intercept.bottom=FALSE, #moves the intercept coef to top
+  column.labels=c(&quot;OLS&quot;,&quot;2SLS&quot;, &quot;IV&quot;, 
+                  &quot;IV +fathereduc&quot;)) #supresses the stars)</code></pre>
+<table style="text-align:center">
+<caption>
+<strong>Wage equation: OLS, 2SLS, and IV models compared</strong>
+</caption>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="4">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="4">
+log(wage)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>OLS</em>
+</td>
+<td colspan="2">
+<em>instrumental</em>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em></em>
+</td>
+<td colspan="2">
+<em>variable</em>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+OLS
+</td>
+<td>
+2SLS
+</td>
+<td>
+IV
+</td>
+<td>
+IV +fathereduc
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+<td>
+(3)
+</td>
+<td>
+(4)
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+-0.5220
+</td>
+<td>
+0.1982
+</td>
+<td>
+0.1982
+</td>
+<td>
+0.0481
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.1986)
+</td>
+<td>
+(0.4933)
+</td>
+<td>
+(0.4729)
+</td>
+<td>
+(0.4003)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+educ
+</td>
+<td>
+0.1075
+</td>
+<td>
+</td>
+<td>
+0.0493
+</td>
+<td>
+0.0614
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.0141)
+</td>
+<td>
+</td>
+<td>
+(0.0374)
+</td>
+<td>
+(0.0314)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+educHat
+</td>
+<td>
+</td>
+<td>
+0.0493
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.0391)
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+exper
+</td>
+<td>
+0.0416
+</td>
+<td>
+0.0449
+</td>
+<td>
+0.0449
+</td>
+<td>
+0.0442
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.0132)
+</td>
+<td>
+(0.0142)
+</td>
+<td>
+(0.0136)
+</td>
+<td>
+(0.0134)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+I(exper2)
+</td>
+<td>
+-0.0008
+</td>
+<td>
+-0.0009
+</td>
+<td>
+-0.0009
+</td>
+<td>
+-0.0009
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.0004)
+</td>
+<td>
+(0.0004)
+</td>
+<td>
+(0.0004)
+</td>
+<td>
+(0.0004)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+428
+</td>
+<td>
+428
+</td>
+<td>
+428
+</td>
+<td>
+428
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="panel-data-model" class="section level1">
+<h1>Panel data model</h1>
+<p>step 1: set the data</p>
+<pre class="r"><code>library(xtable)
+data(&quot;nls_panel&quot;, package=&quot;PoEdata&quot;)
+nlspd &lt;- pdata.frame(nls_panel, index=c(&quot;id&quot;, &quot;year&quot;)) #set time and id
+smpl &lt;- nlspd[nlspd$id %in% c(1,2),c(1:6, 14:15)]
+tbl &lt;- xtable(smpl) 
+kable(tbl, digits=4, align=&quot;c&quot;,
+      caption=&quot;A data sample&quot;)</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-9">Table 4: </span>A data sample</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="center">id</th>
+<th align="center">year</th>
+<th align="center">lwage</th>
+<th align="center">hours</th>
+<th align="center">age</th>
+<th align="center">educ</th>
+<th align="center">union</th>
+<th align="center">exper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1-82</td>
+<td align="center">1</td>
+<td align="center">82</td>
+<td align="center">1.8083</td>
+<td align="center">38</td>
+<td align="center">30</td>
+<td align="center">12</td>
+<td align="center">1</td>
+<td align="center">7.6667</td>
+</tr>
+<tr class="even">
+<td align="left">1-83</td>
+<td align="center">1</td>
+<td align="center">83</td>
+<td align="center">1.8634</td>
+<td align="center">38</td>
+<td align="center">31</td>
+<td align="center">12</td>
+<td align="center">1</td>
+<td align="center">8.5833</td>
+</tr>
+<tr class="odd">
+<td align="left">1-85</td>
+<td align="center">1</td>
+<td align="center">85</td>
+<td align="center">1.7894</td>
+<td align="center">38</td>
+<td align="center">33</td>
+<td align="center">12</td>
+<td align="center">1</td>
+<td align="center">10.1795</td>
+</tr>
+<tr class="even">
+<td align="left">1-87</td>
+<td align="center">1</td>
+<td align="center">87</td>
+<td align="center">1.8465</td>
+<td align="center">40</td>
+<td align="center">35</td>
+<td align="center">12</td>
+<td align="center">1</td>
+<td align="center">12.1795</td>
+</tr>
+<tr class="odd">
+<td align="left">1-88</td>
+<td align="center">1</td>
+<td align="center">88</td>
+<td align="center">1.8564</td>
+<td align="center">40</td>
+<td align="center">37</td>
+<td align="center">12</td>
+<td align="center">1</td>
+<td align="center">13.6218</td>
+</tr>
+<tr class="even">
+<td align="left">2-82</td>
+<td align="center">2</td>
+<td align="center">82</td>
+<td align="center">1.2809</td>
+<td align="center">48</td>
+<td align="center">36</td>
+<td align="center">17</td>
+<td align="center">0</td>
+<td align="center">7.5769</td>
+</tr>
+<tr class="odd">
+<td align="left">2-83</td>
+<td align="center">2</td>
+<td align="center">83</td>
+<td align="center">1.5159</td>
+<td align="center">43</td>
+<td align="center">37</td>
+<td align="center">17</td>
+<td align="center">0</td>
+<td align="center">8.3846</td>
+</tr>
+<tr class="even">
+<td align="left">2-85</td>
+<td align="center">2</td>
+<td align="center">85</td>
+<td align="center">1.9302</td>
+<td align="center">35</td>
+<td align="center">39</td>
+<td align="center">17</td>
+<td align="center">0</td>
+<td align="center">10.3846</td>
+</tr>
+<tr class="odd">
+<td align="left">2-87</td>
+<td align="center">2</td>
+<td align="center">87</td>
+<td align="center">1.9190</td>
+<td align="center">42</td>
+<td align="center">41</td>
+<td align="center">17</td>
+<td align="center">1</td>
+<td align="center">12.0385</td>
+</tr>
+<tr class="even">
+<td align="left">2-88</td>
+<td align="center">2</td>
+<td align="center">88</td>
+<td align="center">2.2010</td>
+<td align="center">42</td>
+<td align="center">43</td>
+<td align="center">17</td>
+<td align="center">1</td>
+<td align="center">13.2115</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>pdim(nlspd) # examine the balance</code></pre>
+<pre><code>## Balanced Panel: n = 716, T = 5, N = 3580</code></pre>
+<p>A <strong>pooled</strong> model has the specification in Equation 1 , which does not allow for intercept or slope differences among individuals. Such a model can be estimated in <em>R</em> using the specification pooling in the <code>plm()</code> function, as the following code sequence illustrates.</p>
+<p>关于coefest() 里面的argument When <code>type = "const"</code> constant variances are assumed and and <code>covHC</code> gives the usual estimate of the covariance matrix of the coefficient estimates:
+All other methods do not assume constant variances and are suitable in case of heteroskedasticity. <code>"HC"</code> gives White’s estimator; for details see the references. <code>vcov=vcovHC</code> Heteroskedasticity-consistent estimation of the covariance matrix of the coefficient estimates in a linear regression model.</p>
+<pre class="r"><code>wage.pooled &lt;- plm(lwage~educ+exper+I(exper^2)+
+  tenure+I(tenure^2)+black+south+union, 
+  model=&quot;pooling&quot;, data=nlspd)
+kable(tidy(wage.pooled), digits=3, 
+           caption=&quot;Pooled model&quot;)</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-10">Table 5: </span>Pooled model</caption>
+<thead>
+<tr class="header">
+<th align="left">term</th>
+<th align="right">estimate</th>
+<th align="right">std.error</th>
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">0.477</td>
+<td align="right">0.056</td>
+<td align="right">8.487</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="even">
+<td align="left">educ</td>
+<td align="right">0.071</td>
+<td align="right">0.003</td>
+<td align="right">26.567</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="odd">
+<td align="left">exper</td>
+<td align="right">0.056</td>
+<td align="right">0.009</td>
+<td align="right">6.470</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="even">
+<td align="left">I(exper^2)</td>
+<td align="right">-0.001</td>
+<td align="right">0.000</td>
+<td align="right">-3.176</td>
+<td align="right">0.002</td>
+</tr>
+<tr class="odd">
+<td align="left">tenure</td>
+<td align="right">0.015</td>
+<td align="right">0.004</td>
+<td align="right">3.394</td>
+<td align="right">0.001</td>
+</tr>
+<tr class="even">
+<td align="left">I(tenure^2)</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">-1.886</td>
+<td align="right">0.059</td>
+</tr>
+<tr class="odd">
+<td align="left">black</td>
+<td align="right">-0.117</td>
+<td align="right">0.016</td>
+<td align="right">-7.426</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="even">
+<td align="left">south</td>
+<td align="right">-0.106</td>
+<td align="right">0.014</td>
+<td align="right">-7.465</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="odd">
+<td align="left">union</td>
+<td align="right">0.132</td>
+<td align="right">0.015</td>
+<td align="right">8.839</td>
+<td align="right">0.000</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>#vcov covariance matirx
+# type=&quot;HC0&quot;  White standard error
+tbl &lt;- tidy(coeftest(wage.pooled, vcov=vcovHC(wage.pooled,
+                    type=&quot;HC0&quot;,cluster=&quot;group&quot;)))
+kable(tbl, digits=5, caption=
+&quot;Pooled &#39;wage&#39; model with cluster robust standard errors&quot;)</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-10">Table 5: </span>Pooled ‘wage’ model with cluster robust standard errors</caption>
+<thead>
+<tr class="header">
+<th align="left">term</th>
+<th align="right">estimate</th>
+<th align="right">std.error</th>
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">0.47660</td>
+<td align="right">0.08441</td>
+<td align="right">5.64629</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="even">
+<td align="left">educ</td>
+<td align="right">0.07145</td>
+<td align="right">0.00549</td>
+<td align="right">13.01550</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="odd">
+<td align="left">exper</td>
+<td align="right">0.05569</td>
+<td align="right">0.01129</td>
+<td align="right">4.93242</td>
+<td align="right">0.00000</td>
+</tr>
+<tr class="even">
+<td align="left">I(exper^2)</td>
+<td align="right">-0.00115</td>
+<td align="right">0.00049</td>
+<td align="right">-2.33440</td>
+<td align="right">0.01963</td>
+</tr>
+<tr class="odd">
+<td align="left">tenure</td>
+<td align="right">0.01496</td>
+<td align="right">0.00711</td>
+<td align="right">2.10401</td>
+<td align="right">0.03545</td>
+</tr>
+<tr class="even">
+<td align="left">I(tenure^2)</td>
+<td align="right">-0.00049</td>
+<td align="right">0.00041</td>
+<td align="right">-1.18697</td>
+<td align="right">0.23532</td>
+</tr>
+<tr class="odd">
+<td align="left">black</td>
+<td align="right">-0.11671</td>
+<td align="right">0.02808</td>
+<td align="right">-4.15602</td>
+<td align="right">0.00003</td>
+</tr>
+<tr class="even">
+<td align="left">south</td>
+<td align="right">-0.10600</td>
+<td align="right">0.02701</td>
+<td align="right">-3.92422</td>
+<td align="right">0.00009</td>
+</tr>
+<tr class="odd">
+<td align="left">union</td>
+<td align="right">0.13224</td>
+<td align="right">0.02703</td>
+<td align="right">4.89327</td>
+<td align="right">0.00000</td>
+</tr>
+</tbody>
+</table>
+<p>The fixed effects model takes into account individual differences, translated into different intercepts of the regression line for different individuals. The model in this case assigns the subscript <code>i</code> to the constant term <span class="math inline">\(\beta_1\)</span>; the constant terms calculated in this way are called <strong>fixed effects</strong>.</p>
+<pre class="r"><code>nls10 &lt;- pdata.frame(nls_panel[nls_panel$id %in% 1:10,]) # set panel data
+
+
+wage.fixed &lt;- lm(lwage~exper+I(exper^2)+
+                  tenure+I(tenure^2)+union+factor(id),
+                  data=nls10)
+kable(tidy(wage.fixed), digits=3, 
+      caption=&quot;Fixed effects in a subsample&quot;)</code></pre>
+<table>
+<caption><span id="tab:fixed-effecr">Table 6: </span>Fixed effects in a subsample</caption>
+<thead>
+<tr class="header">
+<th align="left">term</th>
+<th align="right">estimate</th>
+<th align="right">std.error</th>
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">0.152</td>
+<td align="right">1.097</td>
+<td align="right">0.139</td>
+<td align="right">0.891</td>
+</tr>
+<tr class="even">
+<td align="left">exper</td>
+<td align="right">0.238</td>
+<td align="right">0.188</td>
+<td align="right">1.268</td>
+<td align="right">0.213</td>
+</tr>
+<tr class="odd">
+<td align="left">I(exper^2)</td>
+<td align="right">-0.008</td>
+<td align="right">0.008</td>
+<td align="right">-1.036</td>
+<td align="right">0.307</td>
+</tr>
+<tr class="even">
+<td align="left">tenure</td>
+<td align="right">-0.012</td>
+<td align="right">0.034</td>
+<td align="right">-0.362</td>
+<td align="right">0.720</td>
+</tr>
+<tr class="odd">
+<td align="left">I(tenure^2)</td>
+<td align="right">0.002</td>
+<td align="right">0.003</td>
+<td align="right">0.854</td>
+<td align="right">0.399</td>
+</tr>
+<tr class="even">
+<td align="left">union</td>
+<td align="right">0.114</td>
+<td align="right">0.151</td>
+<td align="right">0.753</td>
+<td align="right">0.457</td>
+</tr>
+<tr class="odd">
+<td align="left">factor(id)2</td>
+<td align="right">0.035</td>
+<td align="right">0.215</td>
+<td align="right">0.163</td>
+<td align="right">0.871</td>
+</tr>
+<tr class="even">
+<td align="left">factor(id)3</td>
+<td align="right">-0.215</td>
+<td align="right">0.367</td>
+<td align="right">-0.586</td>
+<td align="right">0.561</td>
+</tr>
+<tr class="odd">
+<td align="left">factor(id)4</td>
+<td align="right">0.034</td>
+<td align="right">0.367</td>
+<td align="right">0.092</td>
+<td align="right">0.927</td>
+</tr>
+<tr class="even">
+<td align="left">factor(id)5</td>
+<td align="right">0.787</td>
+<td align="right">0.253</td>
+<td align="right">3.117</td>
+<td align="right">0.004</td>
+</tr>
+<tr class="odd">
+<td align="left">factor(id)6</td>
+<td align="right">0.643</td>
+<td align="right">0.185</td>
+<td align="right">3.471</td>
+<td align="right">0.001</td>
+</tr>
+<tr class="even">
+<td align="left">factor(id)7</td>
+<td align="right">0.429</td>
+<td align="right">0.275</td>
+<td align="right">1.563</td>
+<td align="right">0.127</td>
+</tr>
+<tr class="odd">
+<td align="left">factor(id)8</td>
+<td align="right">0.386</td>
+<td align="right">0.229</td>
+<td align="right">1.685</td>
+<td align="right">0.101</td>
+</tr>
+<tr class="even">
+<td align="left">factor(id)9</td>
+<td align="right">0.266</td>
+<td align="right">0.220</td>
+<td align="right">1.210</td>
+<td align="right">0.234</td>
+</tr>
+<tr class="odd">
+<td align="left">factor(id)10</td>
+<td align="right">0.463</td>
+<td align="right">0.284</td>
+<td align="right">1.630</td>
+<td align="right">0.112</td>
+</tr>
+</tbody>
+</table>
+<p>The function <code>factor()</code> generates dummy variables for all categories of the variable, taking the first category as the reference. To include the reference in the output, one needs to exclude the constant from the regression model by including the term −1 in the regression formula. When the constant is not excluded, the coefficients of the dummy variables represent, as usual, the difference between the respective category and the benchmark one.</p>
+<p>However, to estimate a fixed effects in <code>R</code> we do not need to create the dummy variables, but use the option <code>model="within"</code> in the <code>plm()</code> function. The following code fragment uses the whole sample. 不减1 得到的是就和fixed effect 一样，就是和respective category 和benchmark 的差异</p>
+<pre class="r"><code>wage.within &lt;- plm(lwage~exper+I(exper^2)+
+                  tenure+I(tenure^2)+south+union,
+                  data=nlspd, 
+                  model=&quot;within&quot;)
+tbl &lt;- tidy(wage.within)
+kable(tbl, digits=3, caption=
+&quot;Fixed effects using &#39;within&#39; with full sample&quot;)</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-11">Table 7: </span>Fixed effects using ‘within’ with full sample</caption>
+<thead>
+<tr class="header">
+<th align="left">term</th>
+<th align="right">estimate</th>
+<th align="right">std.error</th>
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">exper</td>
+<td align="right">0.041</td>
+<td align="right">0.007</td>
+<td align="right">6.206</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="even">
+<td align="left">I(exper^2)</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">-1.497</td>
+<td align="right">0.135</td>
+</tr>
+<tr class="odd">
+<td align="left">tenure</td>
+<td align="right">0.014</td>
+<td align="right">0.003</td>
+<td align="right">4.243</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="even">
+<td align="left">I(tenure^2)</td>
+<td align="right">-0.001</td>
+<td align="right">0.000</td>
+<td align="right">-4.354</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="odd">
+<td align="left">south</td>
+<td align="right">-0.016</td>
+<td align="right">0.036</td>
+<td align="right">-0.452</td>
+<td align="right">0.652</td>
+</tr>
+<tr class="even">
+<td align="left">union</td>
+<td align="right">0.064</td>
+<td align="right">0.014</td>
+<td align="right">4.469</td>
+<td align="right">0.000</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://www.econometrics-with-r.org/index.html">another resource</a></p>
+</div>
+<div id="section" class="section level1">
+<h1></h1>
+<p>Testing if fixed effects are necessary is to compare the fixed effects model wage.within with the pooled model wage.pooled. The function <code>pFtest()</code> does this comparison, as in the following code lines.</p>
+<pre class="r"><code>kable(tidy(pFtest(wage.within, wage.pooled)), caption=
+        &quot;Fixed effects test: Ho:&#39;No fixed effects&#39;&quot;)</code></pre>
+<pre><code>## Multiple parameters; naming those columns df1, df2</code></pre>
+<table>
+<caption>(#tab:compare fixed vs pooled)Fixed effects test: Ho:‘No fixed effects’</caption>
+<thead>
+<tr class="header">
+<th align="right">df1</th>
+<th align="right">df2</th>
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+<th align="left">method</th>
+<th align="left">alternative</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">713</td>
+<td align="right">2858</td>
+<td align="right">15.18752</td>
+<td align="right">0</td>
+<td align="left">F test for individual effects</td>
+<td align="left">significant effects</td>
+</tr>
+</tbody>
+</table>
+<p>null hypothesis=no fixed effect</p>
+<div id="random-effect" class="section level2">
+<h2>random effect</h2>
+<p>The same function we used for fixed effects can be used for random effects, but setting the argument model= to ‘random’ and selecting the <code>random.method</code> as one out of four possibilities: “swar” (default), “amemiya”, “walhus”, or “nerlove”. The random effects test function is <code>plmtest()</code>, which takes as its main argument the pooling model (indeed it extracts the residuals from the pooling object).</p>
+<pre class="r"><code>wageReTest &lt;- plmtest(wage.pooled, effect=&quot;individual&quot;)
+kable(tidy(wageReTest), caption=
+        &quot;A random effects test for the wage equation&quot;)</code></pre>
+<table style="width:100%;">
+<caption><span id="tab:unnamed-chunk-12">Table 8: </span>A random effects test for the wage equation</caption>
+<colgroup>
+<col width="10%" />
+<col width="8%" />
+<col width="59%" />
+<col width="21%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+<th align="left">method</th>
+<th align="left">alternative</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">62.12314</td>
+<td align="right">0</td>
+<td align="left">Lagrange Multiplier Test - (Honda) for balanced panels</td>
+<td align="left">significant effects</td>
+</tr>
+</tbody>
+</table>
+<p>null hypothesis of zero variance in individual-specific errors is rejected; therefore, heterogeneity among individuals may be significant. 虚无假设是没有random effect</p>
+<p>Random effects estimators are reliable under the assumption that individual characteristics (heterogeneity) are exogenous, that is, they are independent with respect to the regressors in the random effects equation. The same Hausman test for endogeneity we have already used in another chapter can be used here as well, with the null hypothesis that individual random effects are exogenous. The test function <code>phtest()</code> compares the fixed effects and the random effects models; the next code lines estimate the random effects model and performs the Hausman endogeneity test. 随机效应需要个人变量是外生的（每个个人和regressor之间没有关系）</p>
+<pre class="r"><code>wage.random &lt;- plm(lwage~educ+exper+I(exper^2)+
+                  tenure+I(tenure^2)+black+south+union,
+                  data=nlspd, random.method=&quot;swar&quot;,
+                  model=&quot;random&quot;)
+kable(tidy(wage.random), digits=4, caption=
+      &quot;The random effects results for the wage equation&quot;)</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-13">Table 9: </span>The random effects results for the wage equation</caption>
+<thead>
+<tr class="header">
+<th align="left">term</th>
+<th align="right">estimate</th>
+<th align="right">std.error</th>
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">0.5339</td>
+<td align="right">0.0799</td>
+<td align="right">6.6839</td>
+<td align="right">0.0000</td>
+</tr>
+<tr class="even">
+<td align="left">educ</td>
+<td align="right">0.0733</td>
+<td align="right">0.0053</td>
+<td align="right">13.7417</td>
+<td align="right">0.0000</td>
+</tr>
+<tr class="odd">
+<td align="left">exper</td>
+<td align="right">0.0436</td>
+<td align="right">0.0064</td>
+<td align="right">6.8606</td>
+<td align="right">0.0000</td>
+</tr>
+<tr class="even">
+<td align="left">I(exper^2)</td>
+<td align="right">-0.0006</td>
+<td align="right">0.0003</td>
+<td align="right">-2.1361</td>
+<td align="right">0.0327</td>
+</tr>
+<tr class="odd">
+<td align="left">tenure</td>
+<td align="right">0.0142</td>
+<td align="right">0.0032</td>
+<td align="right">4.4699</td>
+<td align="right">0.0000</td>
+</tr>
+<tr class="even">
+<td align="left">I(tenure^2)</td>
+<td align="right">-0.0008</td>
+<td align="right">0.0002</td>
+<td align="right">-3.8790</td>
+<td align="right">0.0001</td>
+</tr>
+<tr class="odd">
+<td align="left">black</td>
+<td align="right">-0.1167</td>
+<td align="right">0.0302</td>
+<td align="right">-3.8643</td>
+<td align="right">0.0001</td>
+</tr>
+<tr class="even">
+<td align="left">south</td>
+<td align="right">-0.0818</td>
+<td align="right">0.0224</td>
+<td align="right">-3.6505</td>
+<td align="right">0.0003</td>
+</tr>
+<tr class="odd">
+<td align="left">union</td>
+<td align="right">0.0802</td>
+<td align="right">0.0132</td>
+<td align="right">6.0724</td>
+<td align="right">0.0000</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>kable(tidy(phtest(wage.within, wage.random)), caption=
+ &quot;Hausman endogeneity test for the random effects wage model&quot;)</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-13">Table 9: </span>Hausman endogeneity test for the random effects wage model</caption>
+<thead>
+<tr class="header">
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+<th align="right">parameter</th>
+<th align="left">method</th>
+<th align="left">alternative</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">20.72521</td>
+<td align="right">0.0020552</td>
+<td align="right">6</td>
+<td align="left">Hausman Test</td>
+<td align="left">one model is inconsistent</td>
+</tr>
+</tbody>
+</table>
+<p>shows a low p-value of the test, which indicates that the null hypothesis saying that the individual random effects are exogenous is rejected, which makes the random effects equation inconsistent. In this case the fixed effects model is the correct solution. (The number of parameters in Table 15.10 is given for the time-varying variables only.) 可以拒绝虚无假设：随机效应是外生的</p>
+<p>The fixed effects model, however, <strong>does not allow time-invariant variables such as educ or black.</strong> Since the problem of the random effects model is endogeneity, one can use instrumental variables methods when time-invariant regressors must be in the model. The Hausman-Taylor estimator uses instrumental variables in a random effects model; it assumes four categories of regressors: time-varying exogenous, time-varying endogenous, time-invariant exogenous, and time-invariant endogenous. The number of time-varying variables must be at least equal to the number of time-invariant ones. In our wage model, suppose exper , tenure and union are time-varying exogenous, south is time-varying endogenous, black is time-invariant exogenous, and educ is time-invariant endogenous. The same <code>plm()</code> function allows carrying out Hausman-Taylor estimation by setting model= “ht”.</p>
+<p>A test to see if the coefficients are significantly different between the pooling and fixed effects equations can be done in R using the function <code>pooltest</code> from package <code>plm</code>; to perform this test, the fixed effects model should be estimated with the function <code>pvcm</code> with the argument <code>model= "within"</code>, as the next code lines show.</p>
+<p>感觉还是很不清楚怎么用r分析fixed effect model: 小小的summary一下</p>
+</div>
+</div>
