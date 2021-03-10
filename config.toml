@@ -106,9 +106,9 @@ pygmentscodefencesguesssyntax = false
             url = "contact/"
 
             [[languages.en.menu.main]]
-            name = "Resources"
+            name = "Blog"
             weight = 5
-            url = "Resources/"
+            url = "posts/"
             
 
 

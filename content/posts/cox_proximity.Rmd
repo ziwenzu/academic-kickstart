@@ -1,0 +1,126 @@
+---
+title: "Calculating Electoral Proximity in R"
+author: "Tom Brailey"
+date: "2020-03-30"
+categories: ["R"]
+tags: ["R", "electoral proximity", "making votes count"]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+
+library(magrittr)
+library(ggplot2)
+burkina_faso <- rio::import("C:/Users/tbrai/Dropbox/Constitutions Project/Data/Election Data/Cleaned Data/cp_af_full.csv") %>%
+  dplyr::select(country_name, year, 
+                       leg_elect_dum, leg_elect_year, 
+                       pres_elect_year, pres_elect_year_fill) %>% 
+  dplyr::filter(country_name == "Burkina Faso")
+```
+
+# What is Electoral Proximity?
+
+Electoral proximity is the measure of fractionalization between a presidential and legislative election. That is, how temporally separated a state's legislative and presidential elections might be. If presidential and legislative elections occur on the same day, they are considered to be proximally maximal. If there is a considerable gap between elections, then there is considered to be less proximity between elections. Gary Cox termed this phrase in Making Votes Count (1997) and builds off of the work of Matthew Shugart, John Carey, Rein Taagepera, and others. Why is electoral proximity important? Cox suggests that it taps into executive-legislative behaviors; others note that greater proximity of presidential and legislative elections tends to reduce the number of effective parties in a state. In any case, being able to calculate a state's electoral proximity could open the door to some interesting studies.
+
+# How is Electoral Proximity Calculated? 
+
+Per Cox (1997), electoral proximity can be estimated as follows: 
+
+$$ PROXIMITY = 2 * \left| \frac{L_{t} - P_{t-1}}{P_{t+1} - P_{t-1}} - \frac{1}{2} \right|  $$
+
+In plain English: take the year of a given legislative election and subtract the year of the most recent presidential election. Divide this by the year of the upcoming presidential election minus the year of the most recent presidential election. Subtract one half from that value, take the absolute value, and multiply by two. 
+
+# What's the Issue? 
+
+I was assigned to work on a replication project that involved having to run a regression using electoral proximity as an independent variable. However, the dataset we were using had several more country-year observations (not showing-off, we were just measuring different things) and so we couldn't simply join the electoral proximity variable to our dataset. After spending a few hours trying to find a package that would make my life a whole bunch easier, I realized that I would have to hard-code a way of calculating electoral fractionalization. 
+
+# Strategy
+
+I wanted to test my coding skills on a country that exhibited three types of proximity: where $L_t$ = $P_t$, $L_t$ = $1-P_t$, and $L_t$ = $1+P_t$. That way I could determine whether my function $\textit{actually}$ worked on all potential electoral proximities. One country that exhibits such electoral variation is Burkina Faso. Let's check out the data. 
+
+```{r}
+head(burkina_faso)
+```
+
+So our unit of analysis is country-year. The variables we need for this function to work is a dummy for when a legislative election took place ($\textit{leg_elect_dum}$), the year of that election for each country-year observation ($\textit{leg_elect_year}$), a variable that takes the value of the year of a presidential election, and $NA$ otherwise ($\textit{pres_elect_year}$) and a "filled" version of the presidential election year ($\textit{pres_elect_year_fill}$). 
+
+# The Function
+
+Here is a step-by-step run-through of how I calculated electoral proximity in Burkina Faso. Note that I use dplyr:: partly because I love it and partly because it might be easier to follow compared with using base-R functions. 
+
+1. We have information on legislative election and previous/concurrent presidential election, now it's time to calculate the next presidential election ($P_{t+1}$).  
+```{r}
+burkina_faso <- burkina_faso %>% 
+  
+  #' Group by country and legislative election. 
+  
+  dplyr::group_by(country_name, leg_elect_year) %>%
+  
+  #' Use "first" and "na.omit" to find the next presidential
+  #' election in the data. Using these two commands will find 
+  #' the first non-NA value in a column. This new variable is 
+  #' called "next_election".
+  
+  dplyr::mutate(next_election = dplyr::first(na.omit(pres_elect_year))) %>% 
+  
+  #' Regroup by just country. We don't care about years at this point.
+  #' Then we fill out the "next_election" variable. Instead of filling 
+  #' down the data, we want to fill up (imagine we are dragging the future
+  #' election up to the current legislative election). 
+  
+  dplyr::group_by(country_name) %>% 
+  tidyr::fill(next_election, .direction = "up")
+```
+
+2. So now we have our data ready. There are a few columns that can probably get removed once we have calculated electoral proximity, but you never know when they might come in handy. 
+
+To elucidate: 
+
+$\textit{leg_elect_year}$ = $L_t$
+
+$\textit{pres_elect_year_fill}$ = $P_{t-1}$
+
+$\textit{next_election}$ = $P_{t+1}$
+
+```{r}
+burkina_faso <- burkina_faso %>% 
+
+  #' We can now, in one fell swoop, calculate Cox's electoral proximity. 
+  
+  dplyr::mutate(cox_prox = ifelse(leg_elect_dum == 1,  
+                                2 * abs(
+                                  (
+                                    leg_elect_year - pres_elect_year_fill) /
+                                          (next_election - pres_elect_year_fill) - (1/2)
+                                  ), NA),
+                cox_prox = ifelse(is.nan(cox_prox), 1, cox_prox)) %>% 
+  
+  #' Fill out the variable.
+  
+  tidyr::fill(cox_prox)
+```
+
+# Burkina Faso's Electoral Proximity
+
+Let's plot how electoral proximity changes over time in Burkina Faso.
+```{r}
+ggplot(burkina_faso, aes(x = year)) + 
+  geom_line(aes(y = cox_prox), size = 2, color = "purple", na.rm = TRUE) +
+  geom_vline(aes(xintercept = ifelse(leg_elect_dum == 1, year, NA)), linetype = "dotted", na.rm=TRUE) +
+  labs(title = paste0("Electoral Proximity in ", unique(burkina_faso$country_name)),
+       x = "Year", 
+       y = "Electoral Proximity (Cox, 1997)") +
+  theme_classic()
+```
+
+Interesting! Following independence, BK had concurrent elections which became progressively less concurrent until 2015, when they aligned once again. I'm going to plot a few more countries and see if I find any more intresting patterns. 
+
+In the meantime, feel free to check out the related code for this post [here](https://github.com/tjbrailey/Functions). Please leave any comments and feedback in the "Issues" section of GitHub. 
+
+Thanks for reading! 
+
+
+
+
+
+
