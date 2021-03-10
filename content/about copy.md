@@ -7,3 +7,4 @@ title: "Resources"
 
   
 
+ [Introduction-to-Econometrics-with-R.html](Introduction-to-Econometrics-with-R.html) 
