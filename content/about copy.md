@@ -7,4 +7,5 @@ title: "Resources"
 
   
 
- [Introduction-to-Econometrics-with-R.html](Introduction-to-Econometrics-with-R.html) 
+* [Introduction-to-Econometrics-with-R.html](https://www.dropbox.com/s/ci90h0pbgmfizw0/Learning-Microeconometrics-with-R.html?dl=0) 
+
