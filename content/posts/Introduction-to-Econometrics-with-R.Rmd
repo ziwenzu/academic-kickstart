@@ -55,8 +55,8 @@ source: [link](https://scpoecon.github.io/ScPoEconometrics/)
 A vector is a one-dimensional array. A matrix is a two-dimensional array. In R you can create arrays of arbitrary dimensionality N. Here is how:
 
 ```{r array}
-library(ScPoApps)
-packageVersion("ScPoApps")
+if (!require("devtools")) install.packages("devtools")
+devtools::install_github(repo = "ScPoEcon/ScPoApps")
 d = 1:16
 d3 = array(data = d,dim = c(4,2,2)) # d3 是四行两列，然后有两页
 d4 = array(data = d,dim = c(4,2,2,3))  # will recycle 1:16 
