@@ -20,5 +20,7 @@ title: "Research"
 ## Working in Progress
 
 * Instrumental variables in Political Science: Pitfalls and Solutions (with Yiqing Xu, Mackenzie Lockhart, Apoorva Lal)
-
 * Survey on Chinese Lgeal Professionals' Ideology (with Junyan Jiang)
+* Political Economy of Leaders' Attention (with Leo Yang)
+* Purchase (with Xuan Wang, Yiqing Xu)
+* China Legal Development (with Tianguang Meng)
