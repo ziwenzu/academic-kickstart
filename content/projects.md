@@ -13,9 +13,18 @@ title: "Research"
 
 ## Working in Progress
 
-* Instrumental variables in Political Science: Pitfalls and Solutions (with Yiqing Xu, Mackenzie Lockhart, Apoorva Lal)
+* How Much Should We Trust Instrumental Variable Estimates in Political Science? Practical Advice based on 57 Replicated Studies (with Yiqing Xu, Mackenzie Lockhart, Apoorva Lal)
+
+  — PolMeth 2021
+
 * Survey on Chinese Lgeal Professionals' Ideology (with Junyan Jiang)
+
 * Political Economy of Leaders' Attention (with Leo Yang)
-* Purchase (with Xuan Wang, Yiqing Xu)
+
+* Purchase (with Yiqing Xu, Xuan Wang)
+
 * China Legal Development (with Tianguang Meng)
-* RCT 
+
+* RCT (with Xiao Ma, Yiqing Xu, Taisu Zhang)
+
+  
